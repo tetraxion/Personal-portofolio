@@ -67,9 +67,9 @@ export default function ProjectDetail({ params }: Props) {
                     >
                         <FaGithub /> GitHub
                     </a>
-                ) : project.demo ? (
+                ) : project.link ? (
                     <a
-                        href={project.demo}
+                        href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-4 py-2 flex items-center gap-2 text-sm font-medium"

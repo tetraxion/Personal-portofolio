@@ -131,7 +131,7 @@ function SidebarContent({
                  {/* Peningkatan: Border gradien di sekeliling foto */}
                 <div className="p-1 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 hidden md:block">
                     <Image
-                        src="/image/foto_prib.JPG"
+                        src="/image/foto_prib.webp"
                         alt="Foto Pribadi"
                         width={80}
                         height={80}

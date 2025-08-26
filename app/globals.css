@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  :root {
+    /* Light mode (default) */
+    --background: 210 40% 98%;        /* slate-100 */
+    --foreground: 222 47% 11%;        /* slate-900 */
+
+    --card: 0 0% 100%;                /* white */
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 222 47% 11%;           /* slate-900 */
+    --primary-foreground: 210 40% 98%;/* slate-100 */
+
+    --secondary: 214 32% 91%;         /* slate-200 */
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 214 32% 91%;             /* slate-200 */
+    --muted-foreground: 215 20% 35%;  /* slate-600 */
+
+    --accent: 215 20% 65%;            /* slate-500 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;         /* red-500 */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 80%;            /* slate-300 */
+    --input: 214 32% 80%;
+    --ring: 222 47% 11%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Dark mode */
+    --background: 215 28% 17%;        /* slate-800 */
+    --foreground: 0 0% 98%;           /* slate-100 */
+
+    --card: 215 28% 20%;              /* slate-700 */
+    --card-foreground: 0 0% 98%;
+
+    --popover: 215 28% 20%;           /* slate-700 */
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;              /* slate-100 */
+    --primary-foreground: 215 28% 17%;/* slate-800 */
+
+    --secondary: 215 28% 25%;         /* slate-700 */
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 215 28% 25%;             /* slate-700 */
+    --muted-foreground: 215 20% 75%;  /* slate-300 */
+
+    --accent: 215 20% 65%;            /* slate-400/500 */
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;     /* red-700 */
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 215 28% 30%;            /* slate-600 */
+    --input: 215 28% 30%;
+    --ring: 215 28% 70%;              /* slate-400 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Link & summary */
+  a, summary {
+    @apply text-primary hover:text-accent transition-colors;
+  }
+
+  /* Button */
+  button {
+    @apply px-3 py-2 rounded-md 
+           bg-secondary text-secondary-foreground 
+           hover:bg-accent hover:text-accent-foreground 
+           transition-colors;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-card text-card-foreground border rounded-lg shadow-sm p-4;
+  }
+
+  @screen md {
+    a, button {
+      cursor: none !important;
+    }
+  }
+}

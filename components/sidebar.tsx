@@ -34,7 +34,7 @@ export const Sidebar = () => {
                     <Image
                         width={32}
                         height={32}
-                        src="/image/foto_prib.jpg"
+                        src="/image/foto_prib.webp"
                         alt="Foto Pribadi"
                         className="w-8 h-8 rounded-full object-cover"
                     />

@@ -34,6 +34,7 @@ export const projects = [
     <SiGetx key="getx" />, 
   ],
   link: '/projects/sparkling',
+  github: ''
 },
   {
     slug: 'floodViser',
@@ -49,7 +50,9 @@ export const projects = [
         
     ],
     link: '/projects/floodViser',
-    demo: 'https://play.google.com/store/apps/details?id=com.floodviser.app&hl=en-US',
+    playstore: 'https://play.google.com/store/apps/details?id=com.floodviser.app&hl=en-US',
+    github: '',
+    appstore: 'https://apps.apple.com/id/app/flood-viser/id6747161524'
   },
   {
     slug: 'sidoarjo-superapp',
@@ -65,6 +68,7 @@ export const projects = [
       <SiGetx key="getx" />,       
     ],
     link: '/projects/sidoarjo-superapp',
+    github:''
    
   },
     {
@@ -80,7 +84,7 @@ export const projects = [
       <SiGetx key="getx" />,    
     ],
     link: '/projects/spedycheck',
-  
+    github: ''
   },
   {
     slug: 'getcrew',

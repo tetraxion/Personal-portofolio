@@ -16,10 +16,41 @@ import {
   SiCss3,
   SiJavascript,
   SiPhp,
+  SiMqtt,
 } from "react-icons/si";
 
 
 export const projects = [
+  {
+  slug: 'Sparkling Kids App',
+  title: 'Sparkling Kids - Mobile Learning Hub',
+  description: 'A mobile learning hub application built with Flutter (using GetX) for children to discover and enroll in classes based on their talents and interests. This app is powered by a custom backend API built with Laravel and MySQL.',
+  image: '/projects/sparkling.webp',
+  tech: [
+    <SiFlutter key="flutter" />,
+    <SiDart key="dart" />,
+    <SiLaravel key="laravel" />,
+    <SiMysql key="mysql" />,
+    <SiGetx key="getx" />, 
+  ],
+  link: '/projects/Sparkling-Kids-App',
+},
+  {
+    slug: 'Dexs Pump-FloodViser',
+    title: 'Dexs Pump - FloodViser IoT Monitoring System',
+    description: 'An IoT-based flood monitoring system that utilizes MQTT protocol to collect real-time data from water level sensors. The mobile application, built with Flutter, displays flood information and pump status, while the backend is developed using Laravel and MySQL.  ',
+    image: '/projects/floodviser.webp',
+    tech: [
+    <SiFlutter key="flutter" />,
+    <SiDart key="dart" />,
+    <SiMqtt key="mqtt" />,
+    <SiLaravel key="laravel" />,
+    <SiMysql key="mysql" />,
+        
+    ],
+    link: 'https://play.google.com/store/apps/details?id=com.floodviser.app&hl=en-US',
+   
+  },
   {
     slug: 'sidoarjo-superapp',
     title: 'Sidoarjo SuperApp - Integrated Public Services',

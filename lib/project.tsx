@@ -16,6 +16,7 @@ import {
   SiCss3,
   SiJavascript,
   SiPhp,
+  SiBootstrap,
 } from "react-icons/si";
 
 
@@ -94,10 +95,28 @@ export const projects = [
     github: 'https://github.com/dikawp/flask-roboflow'
   },
   {
+    slug: 'MerieLocationApp',
+    title: 'Merie Location Website',
+    description: 'A wedding dress marketplace web application for buying and renting bridal gowns with product catalog, booking system, and customer management features.',
+    image: '/projects/marielocation.webp', 
+    tech: [
+  
+      <SiLaravel key="laravel" />,
+      <SiHtml5 key="html" />,
+      <SiCss3 key="css" />,
+      <SiJavascript key="js" />,
+      <SiBootstrap key="bootstrap" />,
+      <SiMysql key="mysql" />,
+
+    ],
+    link: '/projects/MerieLocationApp',
+    github: 'https://github.com/tetraxion/MarieLocation.git' 
+  },
+  {
     slug: 'personal-portfolio',
     title: 'Personal Portfolio Website',
     description: 'A personal portfolio website built entirely with Flutter for Web to showcase my projects, skills, and professional background in a consistent and modern interface.',
-    image: '/projects/portoFLutter.webp', 
+    image: '/projects/portofLutter.webp', 
     tech: [
       <SiFlutter key="flutter" />,
       <SiDart key="dart" />,

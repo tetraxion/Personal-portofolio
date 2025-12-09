@@ -17,10 +17,44 @@ import {
   SiJavascript,
   SiPhp,
   SiBootstrap,
+  SiMqtt,
 } from "react-icons/si";
 
 
 export const projects = [
+  {
+  slug: 'sparkling',
+  title: 'Sparkling Kids - Mobile Learning Hub',
+  description: 'A mobile learning hub application built with Flutter (using GetX) for children to discover and enroll in classes based on their talents and interests. This app is powered by a custom backend API built with Laravel and MySQL.',
+  image: '/projects/sparkling.webp',
+  tech: [
+    <SiFlutter key="flutter" />,
+    <SiDart key="dart" />,
+    <SiLaravel key="laravel" />,
+    <SiMysql key="mysql" />,
+    <SiGetx key="getx" />, 
+  ],
+  link: '/projects/sparkling',
+  github: ''
+},
+  {
+    slug: 'floodViser',
+    title: 'Dexs Pump - FloodViser IoT Monitoring System',
+    description: 'An IoT-based flood monitoring system that utilizes MQTT protocol to collect real-time data from water level sensors. The mobile application, built with Flutter, displays flood information and pump status, while the backend is developed using Laravel and MySQL.  ',
+    image: '/projects/floodviser.webp',
+    tech: [
+    <SiFlutter key="flutter" />,
+    <SiDart key="dart" />,
+    <SiMqtt key="mqtt" />,
+    <SiLaravel key="laravel" />,
+    <SiMysql key="mysql" />,
+        
+    ],
+    link: '/projects/floodViser',
+    playstore: 'https://play.google.com/store/apps/details?id=com.floodviser.app&hl=en-US',
+    github: '',
+    appstore: 'https://apps.apple.com/id/app/flood-viser/id6747161524'
+  },
   {
     slug: 'sidoarjo-superapp',
     title: 'Sidoarjo SuperApp - Integrated Public Services',
@@ -35,6 +69,7 @@ export const projects = [
       <SiGetx key="getx" />,       
     ],
     link: '/projects/sidoarjo-superapp',
+    github:''
    
   },
     {
@@ -50,7 +85,7 @@ export const projects = [
       <SiGetx key="getx" />,    
     ],
     link: '/projects/spedycheck',
-  
+    github: ''
   },
   {
     slug: 'getcrew',

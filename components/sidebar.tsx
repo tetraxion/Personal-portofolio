@@ -168,7 +168,9 @@ function SidebarContent({
             <nav className="flex-grow">
                 <ul className="space-y-2">
                     {menuItems.map((item) => {
-                        const isActive = pathname === item.path;
+                        const isActive = item.path === '/' 
+                            ? pathname === '/' 
+                            : pathname?.startsWith(item.path) ?? false;
                         return (
                             <li key={item.name}>
                                 <Link

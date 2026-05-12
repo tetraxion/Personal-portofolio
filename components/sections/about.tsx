@@ -114,10 +114,19 @@ export function AboutSection() {
     ];
 
     // Sort helper
+    const monthMap: Record<string, number> = {
+        'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+        'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11,
+        'Des': 11, // Indonesian abbreviation for December
+    };
+
     const getStartDate = (dateString: string) => {
         if (dateString.includes("Present")) return new Date();
-        const [startMonth, startYear] = dateString.split(' ').slice(0, 2);
-        return new Date(`${startMonth} 1, ${startYear}`);
+        const parts = dateString.split(' ');
+        const month = parts[0];
+        const year = parseInt(parts[1], 10);
+        const monthIndex = monthMap[month] ?? 0;
+        return new Date(year, monthIndex, 1);
     };
 
     const sortedExperiences = [...experiences].sort((a, b) => getStartDate(b.date).getTime() - getStartDate(a.date).getTime());

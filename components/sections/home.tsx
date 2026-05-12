@@ -1,30 +1,27 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaDatabase, FaMobileAlt, FaLaptopCode, FaServer
+    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaMobileAlt, FaLaptopCode, FaServer
 } from 'react-icons/fa';
 import {
-    SiHtml5, SiCss3, SiJavascript, SiTypescript, SiReact, SiBootstrap, SiTailwindcss,
+    SiHtml5, SiTypescript, SiReact, SiTailwindcss,
     SiMysql, SiPostgresql, SiFirebase, SiFigma, SiExpo, SiGit, SiNextdotjs, SiVite,
-    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiNpm, SiFlask, SiScrumalliance, SiJira
+    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiScrumalliance, SiJira
 } from "react-icons/si";
-import { MapPinHouse, User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal } from 'lucide-react';
+import { User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { projects } from "@/lib/project";
 
+const roles = ["Mobile Developer.", "Frontend Engineer.", "AI Engineer.", "Fullstack Web Engineer."];
+
 export const HomeSection = () => {
     const router = useRouter();
-
-    const roles = ["Mobile Developer.", "Frontend Engineer.", "AI Engineer.", "Fullstack Web Engineer."];
     const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
     useEffect(() => {
@@ -153,7 +150,7 @@ export const HomeSection = () => {
                 
                 <div className="text-2xl md:text-3xl lg:text-4xl text-slate-600 dark:text-slate-300 font-semibold h-12 flex items-center mb-6">
                     <span className="shrink-0">I build</span>
-                    <div className="ml-3 relative w-full min-w-[300px] md:min-w-[450px] overflow-hidden h-full flex items-center">
+                    <div className="ml-3 relative w-full min-w-0 sm:min-w-[300px] md:min-w-[450px] overflow-hidden h-full flex items-center">
                         <AnimatePresence mode="wait">
                             <motion.span
                                 key={currentRoleIndex}
@@ -189,10 +186,10 @@ export const HomeSection = () => {
                     </Button>
                     
                     <div className="flex items-center gap-3 ml-2 md:ml-4">
-                        <Link href="https://github.com/tetraxion" target="_blank" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-target">
+                        <Link href="https://github.com/tetraxion" target="_blank" rel="noopener noreferrer" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-target">
                             <FaGithub size={22} />
                         </Link>
-                        <Link href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-target">
+                        <Link href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" rel="noopener noreferrer" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-target">
                             <FaLinkedin size={22} />
                         </Link>
                     </div>

@@ -109,8 +109,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     //---------------------------------------------------------------
         // This code for onclick animation
-    
-        window.addEventListener("mousemove", moveHandler);
+
         const mouseDownHandler = ():void => {
           if (!dotRef.current) return;
           gsap.to(dotRef.current, { scale: 0.7, duration: 0.3 });
@@ -313,6 +312,8 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
       window.removeEventListener("mousemove", moveHandler);
       window.removeEventListener("mouseover", enterHandler);
       window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener("mousedown", mouseDownHandler);
+      window.removeEventListener("mouseup", mouseUpHandler);
 
       if (activeTarget) {
         cleanupTarget(activeTarget);

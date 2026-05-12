@@ -3,24 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { X, ExternalLink, Award } from 'lucide-react';
-import { certificates } from '@/lib/certificate';
+import { certificates, Certificate } from '@/lib/certificate';
 
-interface SelectedCertificate {
-  image: string;
-  link: string;
-  title: string;
-}
-
-interface Certificate {
-  id: number;
-  title: string;
-  publisher: string;
-  image: string;
-  link: string;
-  date?: string;
-}
-
-const typedCertificates: Certificate[] = certificates;
+type SelectedCertificate = Pick<Certificate, 'image' | 'link' | 'title'>;
 
 export const CertificateSection = () => {
   const [selectedCert, setSelectedCert] = useState<SelectedCertificate | null>(null);
@@ -48,7 +33,7 @@ export const CertificateSection = () => {
 
       {/* Certificate List */}
       <div className="flex flex-col gap-4">
-        {typedCertificates.map((cert, index) => (
+        {certificates.map((cert, index) => (
           <motion.div
             key={cert.id}
             initial={{ opacity: 0, y: 15 }}

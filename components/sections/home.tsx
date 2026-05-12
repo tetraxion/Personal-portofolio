@@ -77,6 +77,7 @@ export const HomeSection = () => {
         { name: "Agile", icon: SiScrumalliance, colors: "from-blue-400 to-indigo-600" },
         { name: "Scrum", icon: SiJira, colors: "from-purple-400 to-purple-600" },
     ];
+    
 
     const sections = [
         {

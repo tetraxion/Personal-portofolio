@@ -14,6 +14,7 @@ import Image from "next/image";
 
 export const Sidebar = () => {
     const pathname = usePathname();
+    console.log("Sidebar v2 rendered");
     const [isOpen, setIsOpen] = useState(false);
     const { theme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
@@ -179,7 +180,7 @@ function SidebarContent({
                                     onClick={onClose}
                                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-300 group ${
                                         isActive
-                                            ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold shadow-lg shadow-purple-500/30"
+                                            ? "bg-blue-600 text-white font-semibold"
                                             : "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300"
                                     }`}
                                 >

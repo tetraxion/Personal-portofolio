@@ -35,7 +35,6 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                     onClick={() => router.back()}
                     className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white ${buttonBase} ${buttonLight}`}
                 >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                     <span className="relative z-0 flex items-center gap-2">
                         <FaArrowLeft size={12} />
                         Back
@@ -157,7 +156,6 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                 <div className="flex flex-wrap gap-3">
                     {project.tech.map((icon, i) => (
                         <span key={i} className="relative overflow-hidden text-2xl p-3 rounded-xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white group/icon">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 dark:via-white/10 to-transparent opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
                             <span className="relative z-0">{icon}</span>
                         </span>
                     ))}
@@ -180,7 +178,6 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                             onClick={() => router.push(prevProject.link)}
                             className={`p-5 text-left flex items-center gap-4 group cursor-target ${buttonBase} ${buttonLight}`}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                             <div className="relative w-12 h-12 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700/60 shrink-0 z-0">
                                 <Image src={prevProject.image} alt={prevProject.title} fill className="object-cover" />
                             </div>
@@ -195,7 +192,6 @@ export function ProjectDetailClient({ slug }: { slug: string }) {
                             onClick={() => router.push(nextProject.link)}
                             className={`p-5 text-right flex items-center gap-4 group cursor-target ${prevProject ? '' : 'md:col-start-2'} ${buttonBase} ${buttonLight}`}
                         >
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                             <div className="relative flex-1 min-w-0 z-0">
                                 <p className="text-xs text-slate-400 mb-0.5">Next →</p>
                                 <p className="text-sm font-semibold text-slate-900 dark:text-white truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{nextProject.title}</p>

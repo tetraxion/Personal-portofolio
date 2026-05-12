@@ -31,7 +31,7 @@ export const ProjectSection = () => {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
-              <Sparkles size={20} className="text-indigo-500" />
+              <Sparkles size={20} className="text-blue-500" />
             </div>
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Projects</h1>
@@ -81,7 +81,6 @@ export const ProjectSection = () => {
             >
               <Link href={featuredProject.link} className="block cursor-target group">
                 <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                   <div className="relative flex flex-col md:flex-row z-0">
                     {/* Image */}
                     <div className="relative w-full md:w-1/2 h-56 md:h-72 overflow-hidden bg-slate-100 dark:bg-slate-800">
@@ -140,7 +139,6 @@ export const ProjectSection = () => {
               >
                 <Link href={project.link} className="block h-full cursor-target group">
                   <div className="relative flex flex-col h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                     {/* Image */}
                     <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-800 z-0">
                       <Image

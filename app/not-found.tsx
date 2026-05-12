@@ -8,10 +8,9 @@ export default function NotFound() {
   return (
     <MainContent>
       <div className="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
-        {/* Animated Icon Container */}
-        <div className="relative mb-8 group">
-          <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full scale-150 animate-pulse" />
-          <div className="relative w-24 h-24 bg-slate-100 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/60 backdrop-blur-sm flex items-center justify-center shadow-lg transform group-hover:scale-105 transition-transform duration-500">
+        {/* Icon Container */}
+        <div className="relative mb-8">
+          <div className="relative w-24 h-24 bg-slate-100 dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/60 flex items-center justify-center shadow-sm">
             <SearchX className="w-10 h-10 text-slate-400 dark:text-slate-500" />
           </div>
         </div>

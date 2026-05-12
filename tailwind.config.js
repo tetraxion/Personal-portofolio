@@ -65,42 +65,35 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        blob: {
-          "0%": { transform: "translate(0px, 0px) scale(1)" },
-          "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-          "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-          "100%": { transform: "translate(0px, 0px) scale(1)" },
-        },
-        text: {
-          "0%, 100%": {
-            "background-size": "200% 200%",
-            "background-position": "left center",
-          },
-          "50%": {
-            "background-size": "200% 200%",
-            "background-position": "right center",
-          },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        blob: "blob 7s infinite",
-        text: "text 5s ease infinite",
       },
     },
   },
   plugins: [
-    function ({ addUtilities }) {
-      const newUtilities = {
-        ".animation-delay-2000": {
-          "animation-delay": "2s",
+    function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "bg-grid": (value) => ({
+            backgroundImage: `url("${svgToDataUri(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}"><path d="M0 .5H31.5V32"/></svg>`
+            )}")`,
+          }),
+          "bg-dot": (value) => ({
+            backgroundImage: `url("${svgToDataUri(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="none"><circle cx="2" cy="2" r="1.5" fill="${value}"/></svg>`
+            )}")`,
+          }),
         },
-        ".animation-delay-4000": {
-          "animation-delay": "4s",
-        },
-      };
-      addUtilities(newUtilities);
+        { values: theme("backgroundColor"), type: "color" }
+      );
     },
   ],
 };
+
+// Helper function to encode SVG
+function svgToDataUri(svgString) {
+  return "data:image/svg+xml," + encodeURIComponent(svgString);
+}

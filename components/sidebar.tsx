@@ -128,15 +128,15 @@ function SidebarContent({
     return (
         <div className="flex flex-col h-full">
             <div className="my-5 flex flex-col items-center text-center">
-                 {/* Peningkatan: Border gradien di sekeliling foto */}
-                <div className="p-1 rounded-full bg-gradient-to-tr from-blue-500 via-purple-500 to-blue-500 bg-[length:200%_auto] animate-text hidden md:block">
+                 {/* Profil Image (Clean) */}
+                <div className="p-1 rounded-full border border-slate-200 dark:border-slate-800 hidden md:block">
                     <Image
                         src="/image/foto_prib.webp"
                         alt="Foto Pribadi"
                         width={80}
                         height={80}
                         priority={true}
-                        className="w-20 h-20 object-cover rounded-full border-2 border-white dark:border-gray-800"
+                        className="w-20 h-20 object-cover rounded-full border-2 border-white dark:border-slate-900"
                     />
                 </div>
                 <Link

@@ -41,8 +41,6 @@ export const CertificateSection = () => {
             transition={{ duration: 0.4, delay: index * 0.05 }}
             className="relative flex items-start gap-4 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
-            
             {/* Number */}
             <div className="relative flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 rounded-lg z-0">
               {index + 1}

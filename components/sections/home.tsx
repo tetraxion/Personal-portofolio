@@ -77,8 +77,8 @@ export const HomeSection = () => {
         {
             title: "Tools & Methodology",
             icon: <Terminal size={18} />,
-            color: "text-purple-500",
-            bg: "bg-purple-500/10",
+            color: "text-slate-500",
+            bg: "bg-slate-500/10",
             skills: [
                 { name: "Git", icon: SiGit },
                 { name: "Docker", icon: SiDocker },
@@ -95,14 +95,14 @@ export const HomeSection = () => {
             title: "Project Showcase",
             desc: "Explore my latest works combining creativity with practical solutions.",
             href: "/projects",
-            color: "text-indigo-500"
+            color: "text-blue-500"
         },
         {
             icon: User,
             title: "About Me",
             desc: "My background, skills, and passions.",
             href: "/about",
-            color: "text-pink-500"
+            color: "text-slate-500"
         },
         {
             icon: Award,
@@ -116,7 +116,7 @@ export const HomeSection = () => {
             title: "Contact",
             desc: "Let's collaborate on your next big idea.",
             href: "/contact",
-            color: "text-violet-500"
+            color: "text-emerald-500"
         },
     ];
 
@@ -143,7 +143,7 @@ export const HomeSection = () => {
                 {/* Typography */}
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mb-6 text-slate-900 dark:text-white">
                     Hi, I&apos;m <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 dark:from-blue-400 dark:via-indigo-400 dark:to-blue-400 animate-text bg-[length:200%_auto]">
+                    <span className="text-blue-600 dark:text-blue-400">
                         Dwi Lutfi Taufiq Ihsani.
                     </span>
                 </h1>
@@ -209,7 +209,7 @@ export const HomeSection = () => {
                         { value: "12+", label: "Projects Built", color: "text-blue-500" },
                         { value: "5+", label: "Work Experience", color: "text-emerald-500" },
                         { value: "25+", label: "Technologies", color: "text-orange-500" },
-                        { value: "3.82", label: "GPA (Cum Laude)", color: "text-purple-500" },
+                        { value: "3.82", label: "GPA (Cum Laude)", color: "text-slate-500" },
                     ].map((stat, idx) => (
                         <motion.div
                             key={stat.label}
@@ -219,7 +219,6 @@ export const HomeSection = () => {
                             viewport={{ once: true }}
                             className="relative p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 text-center group overflow-hidden"
                         >
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out" />
                             <p className={`relative text-3xl md:text-4xl font-extrabold ${stat.color} mb-1 group-hover:scale-110 transition-transform duration-300`}>
                                 {stat.value}
                             </p>
@@ -255,7 +254,6 @@ export const HomeSection = () => {
                             className="h-full"
                         >
                             <div className="relative h-full p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all overflow-hidden group/skill">
-                                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/30 dark:via-white/5 to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                 <div className="relative flex items-center gap-3 mb-6">
                                     <span className={`p-2 rounded-lg ${category.bg} ${category.color}`}>
                                         {category.icon}
@@ -314,9 +312,6 @@ export const HomeSection = () => {
                             >
                                 <Link href={sec.href} className="block h-full outline-none cursor-target group">
                                     <div className="relative overflow-hidden h-full p-8 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all flex flex-col justify-between">
-                                        
-                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none" />
-
                                         <div className="relative">
                                             <div className="flex items-center justify-between mb-6">
                                                 <div className={`p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 ${sec.color}`}>

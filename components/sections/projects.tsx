@@ -89,6 +89,7 @@ export const ProjectSection = () => {
                         src={featuredProject.image}
                         alt={featuredProject.title}
                         fill
+                        priority={true}
                         className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/30 dark:to-slate-900/40" />

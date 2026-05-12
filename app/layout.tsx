@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://personal-portofolio-pi-three.vercel.app/"),
   title: "Dwi Lutfi Taufiq Ihsani | Software Engineer Portfolio",
   description:
     "Personal portfolio of Dwi Lutfi Taufiq Ihsani — a versatile Software Engineer specializing in Fullstack Web Development, Mobile Engineering, and AI Integrations. Built with Next.js & Tailwind CSS.",

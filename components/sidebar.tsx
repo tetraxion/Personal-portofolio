@@ -135,6 +135,7 @@ function SidebarContent({
                         alt="Foto Pribadi"
                         width={80}
                         height={80}
+                        priority={true}
                         className="w-20 h-20 object-cover rounded-full border-2 border-white dark:border-gray-800"
                     />
                 </div>

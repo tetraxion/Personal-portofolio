@@ -47,7 +47,9 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />, 
     ],
     link: '/projects/sparkling',
-    github: ''
+    github: '',
+    playstore: 'https://play.google.com/store/apps/details?id=com.solae.sparkling.id&hl=en-US',
+    appstore: 'https://apps.apple.com/au/app/sparkling-kids/id6756943374'
   },
   {
     slug: 'floodViser',

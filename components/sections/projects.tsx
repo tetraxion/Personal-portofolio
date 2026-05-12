@@ -80,8 +80,9 @@ export const ProjectSection = () => {
               className="mb-6"
             >
               <Link href={featuredProject.link} className="block cursor-target group">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
-                  <div className="flex flex-col md:flex-row">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                  <div className="relative flex flex-col md:flex-row z-0">
                     {/* Image */}
                     <div className="relative w-full md:w-1/2 h-56 md:h-72 overflow-hidden bg-slate-100 dark:bg-slate-800">
                       <Image
@@ -137,9 +138,10 @@ export const ProjectSection = () => {
                 transition={{ duration: 0.35 }}
               >
                 <Link href={project.link} className="block h-full cursor-target group">
-                  <div className="flex flex-col h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
+                  <div className="relative flex flex-col h-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
                     {/* Image */}
-                    <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                    <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-800 z-0">
                       <Image
                         src={project.image}
                         alt={project.title}
@@ -161,7 +163,7 @@ export const ProjectSection = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-5 flex flex-col flex-grow">
+                    <div className="relative p-5 flex flex-col flex-grow z-0">
                       <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1.5">
                         {project.title}
                       </h3>

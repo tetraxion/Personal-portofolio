@@ -39,15 +39,17 @@ export const CertificateSection = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="flex items-start gap-4 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md transition-all duration-300 group"
+            className="relative flex items-start gap-4 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group"
           >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+            
             {/* Number */}
-            <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 rounded-lg">
+            <div className="relative flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 rounded-lg z-0">
               {index + 1}
             </div>
 
             {/* Thumbnail */}
-            <div className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700/60 overflow-hidden shadow-sm">
+            <div className="relative flex-shrink-0 w-14 h-14 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700/60 overflow-hidden shadow-sm z-0">
               <Image
                 src={cert.image}
                 alt={cert.title}
@@ -58,7 +60,7 @@ export const CertificateSection = () => {
             </div>
 
             {/* Content */}
-            <div className="flex-grow min-w-0">
+            <div className="relative flex-grow min-w-0 z-0">
               <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
                 {cert.title}
               </h3>

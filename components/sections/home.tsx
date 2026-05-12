@@ -143,7 +143,7 @@ export const HomeSection = () => {
                 {/* Typography */}
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mb-6 text-slate-900 dark:text-white">
                     Hi, I&apos;m <br className="hidden md:block" />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 dark:from-blue-400 dark:via-indigo-400 dark:to-blue-400 animate-text bg-[length:200%_auto]">
                         Dwi Lutfi Taufiq Ihsani.
                     </span>
                 </h1>
@@ -217,12 +217,13 @@ export const HomeSection = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: idx * 0.08 }}
                             viewport={{ once: true }}
-                            className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 text-center group"
+                            className="relative p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 text-center group overflow-hidden"
                         >
-                            <p className={`text-3xl md:text-4xl font-extrabold ${stat.color} mb-1 group-hover:scale-110 transition-transform duration-300`}>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out" />
+                            <p className={`relative text-3xl md:text-4xl font-extrabold ${stat.color} mb-1 group-hover:scale-110 transition-transform duration-300`}>
                                 {stat.value}
                             </p>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{stat.label}</p>
+                            <p className="relative text-sm text-slate-500 dark:text-slate-400 font-medium">{stat.label}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -253,8 +254,9 @@ export const HomeSection = () => {
                             viewport={{ once: true }}
                             className="h-full"
                         >
-                            <div className="h-full p-6 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-shadow">
-                                <div className="flex items-center gap-3 mb-6">
+                            <div className="relative h-full p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all overflow-hidden group/skill">
+                                <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/30 dark:via-white/5 to-transparent opacity-0 group-hover/skill:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                                <div className="relative flex items-center gap-3 mb-6">
                                     <span className={`p-2 rounded-lg ${category.bg} ${category.color}`}>
                                         {category.icon}
                                     </span>
@@ -311,11 +313,13 @@ export const HomeSection = () => {
                                 `}
                             >
                                 <Link href={sec.href} className="block h-full outline-none cursor-target group">
-                                    <div className="relative overflow-hidden h-full p-8 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all flex flex-col justify-between">
+                                    <div className="relative overflow-hidden h-full p-8 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all flex flex-col justify-between">
                                         
-                                        <div>
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none" />
+
+                                        <div className="relative">
                                             <div className="flex items-center justify-between mb-6">
-                                                <div className={`p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/60 ${sec.color}`}>
+                                                <div className={`p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 ${sec.color}`}>
                                                     <sec.icon size={24} />
                                                 </div>
                                                 <ArrowRight size={20} className="text-slate-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />

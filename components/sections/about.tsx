@@ -175,9 +175,10 @@ export function AboutSection() {
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.4, delay: idx * 0.08 }}
                             viewport={{ once: true }}
-                            className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 group"
+                            className="relative p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 overflow-hidden group"
                         >
-                            <div className={`w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                            <div className={`relative w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center mb-3 z-0`}>
                                 <span className={`text-lg font-bold ${stat.color}`}>#</span>
                             </div>
                             <p className={`text-2xl font-extrabold ${stat.color} mb-0.5`}>{stat.value}</p>
@@ -197,8 +198,9 @@ export function AboutSection() {
                     <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Education</h2>
                 </div>
                 {education.map((edu, i) => (
-                    <div key={i} className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300">
-                        <div className="flex items-start gap-4">
+                    <div key={i} className="relative p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                        <div className="relative flex items-start gap-4 z-0">
                             <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 shrink-0">
                                 <GraduationCap size={24} className="text-blue-500" />
                             </div>
@@ -226,8 +228,9 @@ export function AboutSection() {
                     {sortedExperiences.map((item, idx) => (
                         <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.08 }}>
                             <ExperienceIcon />
-                            <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300 group">
-                                <div className="flex items-start gap-4">
+                            <div className="relative p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                                <div className="relative flex items-start gap-4 z-0">
                                     <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700/60 p-1 bg-white dark:bg-slate-800 shadow-sm object-contain" />
                                     <div className="flex-grow min-w-0">
                                         <div className="flex justify-between items-start gap-2">
@@ -267,8 +270,9 @@ export function AboutSection() {
                     {sortedOrganizations.map((item, idx) => (
                         <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.08 }}>
                             <OrganizationIcon />
-                            <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300 group">
-                                <div className="flex items-start gap-4">
+                            <div className="relative p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                                <div className="relative flex items-start gap-4 z-0">
                                     <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700/60 p-1 bg-white dark:bg-slate-800 shadow-sm object-contain" />
                                     <div className="flex-grow min-w-0">
                                         <div className="flex justify-between items-start gap-2">
@@ -298,8 +302,9 @@ export function AboutSection() {
 
             {/* Quick Contact */}
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-12">
-                <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm">
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="relative p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/5 to-transparent -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out pointer-events-none z-10" />
+                    <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-4 z-0">
                         <a href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-target">
                             <Linkedin className="w-6 h-6 mb-2 text-slate-400 group-hover:text-blue-600 transition-colors" />
                             <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">LinkedIn</span>

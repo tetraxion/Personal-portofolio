@@ -68,7 +68,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full overflow-x-hidden transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="flex min-h-screen max-w-7xl mx-auto w-full">
+          {/* Subtle Animated Background */}
+          <div className="fixed inset-0 z-[-1] pointer-events-none bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div className="absolute top-0 left-1/4 w-[40rem] h-[40rem] bg-blue-400/10 dark:bg-blue-500/5 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] animate-blob"></div>
+            <div className="absolute top-0 right-1/4 w-[40rem] h-[40rem] bg-indigo-400/10 dark:bg-indigo-500/5 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+            <div className="absolute -bottom-32 left-1/3 w-[40rem] h-[40rem] bg-violet-400/10 dark:bg-violet-500/5 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+          </div>
+          
+          <div className="flex min-h-screen max-w-7xl mx-auto w-full relative z-0">
             <Sidebar />
             <main className="flex-1 w-full pt-16 md:pt-0 min-w-0">
               <ClientWrapper>

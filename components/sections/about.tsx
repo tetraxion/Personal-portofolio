@@ -150,6 +150,34 @@ export function AboutSection() {
                     <p>Through various internships, freelance roles, and government-level projects, I have cultivated a strong passion for architecting scalable, high-performance digital solutions. I am driven by clean code, intuitive UI/UX design, and creating impactful applications that solve real-world problems while elevating user satisfaction.</p>
                 </div>
             </motion.section>
+
+            {/* Quick Stats */}
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[
+                        { value: "3.82", label: "GPA Score", sub: "Cum Laude", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
+                        { value: "5+", label: "Work Experience", sub: "Companies", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
+                        { value: "12+", label: "Projects", sub: "Delivered", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-500/10" },
+                        { value: "3+", label: "Specializations", sub: "Web, Mobile, AI", color: "text-purple-500", bg: "bg-purple-50 dark:bg-purple-500/10" },
+                    ].map((stat, idx) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: idx * 0.08 }}
+                            viewport={{ once: true }}
+                            className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 group"
+                        >
+                            <div className={`w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>
+                                <span className={`text-lg font-bold ${stat.color}`}>#</span>
+                            </div>
+                            <p className={`text-2xl font-extrabold ${stat.color} mb-0.5`}>{stat.value}</p>
+                            <p className="text-sm font-medium text-slate-900 dark:text-white">{stat.label}</p>
+                            <p className="text-xs text-slate-400 dark:text-slate-500">{stat.sub}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.section>
             
             {/* Education Section */}
             <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16">

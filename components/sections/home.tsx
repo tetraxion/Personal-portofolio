@@ -132,7 +132,7 @@ export const HomeSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="mb-24 mt-4 md:mt-8 max-w-4xl"
+                className="mb-14 mt-4 md:mt-8 max-w-4xl"
             >
                 {/* Status Badge */}
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium mb-8 text-slate-700 dark:text-slate-300 shadow-sm">
@@ -196,6 +196,38 @@ export const HomeSection = () => {
                             <FaLinkedin size={22} />
                         </Link>
                     </div>
+                </div>
+            </motion.section>
+
+            {/* === Stats Section === */}
+            <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true, margin: "-50px" }}
+                className="mb-14"
+            >
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {[
+                        { value: "12+", label: "Projects Built", color: "text-blue-500" },
+                        { value: "5+", label: "Work Experience", color: "text-emerald-500" },
+                        { value: "25+", label: "Technologies", color: "text-orange-500" },
+                        { value: "3.82", label: "GPA (Cum Laude)", color: "text-purple-500" },
+                    ].map((stat, idx) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: idx * 0.08 }}
+                            viewport={{ once: true }}
+                            className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-300 text-center group"
+                        >
+                            <p className={`text-3xl md:text-4xl font-extrabold ${stat.color} mb-1 group-hover:scale-110 transition-transform duration-300`}>
+                                {stat.value}
+                            </p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{stat.label}</p>
+                        </motion.div>
+                    ))}
                 </div>
             </motion.section>
 

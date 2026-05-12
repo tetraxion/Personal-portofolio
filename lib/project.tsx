@@ -12,7 +12,7 @@ import {
   SiLaravel,
   SiMysql,
   SiPostgresql,
-  SiDocker,     
+  SiDocker,
   SiHtml5,
   SiCss3,
   SiJavascript,
@@ -34,9 +34,11 @@ export interface ProjectType {
   github?: string;
   playstore?: string;
   appstore?: string;
+  website?: string;
 }
 
 export const projects: ProjectType[] = [
+
   {
     slug: 'sparkling',
     title: 'Sparkling Kids - Mobile Learning Hub',
@@ -44,7 +46,7 @@ export const projects: ProjectType[] = [
     image: '/projects/sparkling.webp',
     category: 'Mobile',
     tech: [
-      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />, 
+      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />,
     ],
     link: '/projects/sparkling',
     github: '',
@@ -72,10 +74,10 @@ export const projects: ProjectType[] = [
     image: '/projects/super.webp',
     category: 'Mobile',
     tech: [
-      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiPostgresql key="postgresql" />, <SiDocker key="docker" />, <SiGetx key="getx" />,       
+      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiPostgresql key="postgresql" />, <SiDocker key="docker" />, <SiGetx key="getx" />,
     ],
     link: '/projects/sidoarjo-superapp',
-    github:''
+    github: ''
   },
   {
     slug: 'spedycheck',
@@ -84,7 +86,7 @@ export const projects: ProjectType[] = [
     image: '/projects/spedycheck.webp',
     category: 'Mobile',
     tech: [
-      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />, <SiSupabase key="supabase" />, <SiGetx key="getx" />,    
+      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />, <SiSupabase key="supabase" />, <SiGetx key="getx" />,
     ],
     link: '/projects/spedycheck',
     github: ''
@@ -96,7 +98,7 @@ export const projects: ProjectType[] = [
     image: '/projects/getcrew.webp',
     category: 'Mobile',
     tech: [
-      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />,    
+      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />,
     ],
     link: '/projects/getcrew',
   },
@@ -110,7 +112,20 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />,
     ],
     link: '/projects/bidan-delima',
-    github: 'https://github.com/tetraxion/bidan_delima' 
+    github: 'https://github.com/tetraxion/bidan_delima'
+  },
+  {
+    slug: 'anara-website',
+    title: 'ANARA - Budget Management Information System',
+    description: 'A web-based Budget Management Information System developed for the Deputy of Industry and Investment, Ministry of Tourism of the Republic of Indonesia. ANARA is designed to manage and monitor budgeting data, including DIPA, MAK, and related financial information. The system streamlines data input, maintenance, and reporting processes, ensuring accurate, up-to-date, and well-structured budget information for internal administrative and financial operations.',
+    image: '/projects/anara.png',
+    category: 'Web',
+    tech: [
+      <SiLaravel key="laravel" />, <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />,
+    ],
+    link: '/projects/anara-website',
+    github: '',
+    website: 'https://anara.dbii.fun/login',
   },
   {
     slug: 'Pandu-object-detection',
@@ -128,34 +143,34 @@ export const projects: ProjectType[] = [
     slug: 'MerieLocationApp',
     title: 'Merie Location Website',
     description: 'A wedding dress marketplace web application for buying and renting bridal gowns with product catalog, booking system, and customer management features.',
-    image: '/projects/marielocation.webp', 
+    image: '/projects/marielocation.webp',
     category: 'Web',
     tech: [
       <SiLaravel key="laravel" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />, <SiMysql key="mysql" />,
     ],
     link: '/projects/MerieLocationApp',
-    github: 'https://github.com/tetraxion/MarieLocation.git' 
+    github: 'https://github.com/tetraxion/MarieLocation.git'
   },
   {
     slug: 'personal-portfolio',
     title: 'Personal Portfolio Website',
     description: 'A personal portfolio website built entirely with Flutter for Web to showcase my projects, skills, and professional background in a consistent and modern interface.',
-    image: '/projects/portofLutter.webp', 
+    image: '/projects/portofLutter.webp',
     category: 'Web',
     tech: [
       <SiFlutter key="flutter" />, <SiDart key="dart" />,
     ],
     link: '/projects/personal-portfolio',
-    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio' 
+    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio'
   },
   {
     slug: 'kai-website-clone',
     title: 'KAI Website Clone - Fullstack Booking System',
     description: 'A full-stack clone of the official Kereta Api Indonesia (KAI) website, built with PHP and MySQL. This project aims to replicate the booking functionality, from the server-side logic and database management to the front-end display.',
-    image: '/projects/cloneKAI.webp', 
+    image: '/projects/cloneKAI.webp',
     category: 'Web',
     tech: [
-      <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,        
+      <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/kai-website-clone',
     github: 'https://github.com/tetraxion/KAI_PHP'
@@ -164,12 +179,12 @@ export const projects: ProjectType[] = [
     slug: 'nushoptara',
     title: 'NuShoptara.co - E-commerce for Indonesian Crafts',
     description: 'An e-commerce website dedicated to promoting and selling authentic Indonesian crafts. Built with fundamental web technologies to create a clean and accessible user experience.',
-    image: '/projects/nushoptara.webp', 
+    image: '/projects/nushoptara.webp',
     category: 'Web',
     tech: [
       <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/nushoptara',
-    github: 'https://github.com/tetraxion/Nushoptara_html' 
+    github: 'https://github.com/tetraxion/Nushoptara_html'
   },
 ];

@@ -67,9 +67,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full overflow-x-hidden transition-colors duration-300`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="flex min-h-screen md:mx-44">
+          <div className="flex min-h-screen max-w-7xl mx-auto w-full">
             <Sidebar />
-            <main className="flex-1 pt-16 md:pt-0">
+            <main className="flex-1 w-full pt-16 md:pt-0 min-w-0">
               <ClientWrapper>
                 {children}
               </ClientWrapper>

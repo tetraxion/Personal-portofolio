@@ -39,10 +39,23 @@ export function AboutSection() {
     // Data Pengalaman Kerja
     const experiences = [
         {
+            title: "Fullstack Web Developer",
+            company: "Kementerian Pariwisata dan Ekonomi Kreatif RI",
+            logo: "/projects/logo_kemenpar.png",
+            date: "Des 2025 - Present",
+            type: "Internship",
+            bullets: [
+                "Developed ANARA, a comprehensive Budget Management Information System.",
+                "Streamlined data input, maintenance, and reporting processes for DIPA and MAK.",
+                "Collaborated with the Deputy of Industry and Investment for requirement gathering.",
+                "Ensured accurate, up-to-date, and well-structured financial information."
+            ],
+        },
+        {
             title: "Mobile Developer",
             company: "PT. Pompa DEX Indoguna",
             logo: "/image/dex.webp",
-            date: "Jul 2025 - Present",
+            date: "Jul 2025 - Dec 2025",
             type: "Internship",
             bullets: ["Developed internal mobile apps with Flutter (Android & iOS).", "Implemented GetX architecture for efficient state management.", "Optimized cross-platform reusability (80%+), accelerating cycles.", "Applied MVC & Atomic Design, improving readability (+30%) & reducing bugs (–25%).", "Collaborated with IT team & stakeholders for operational alignment."],
         },
@@ -50,7 +63,7 @@ export function AboutSection() {
             title: "Freelance Mobile Developer",
             company: "Telkom Indonesia",
             logo: "/image/telkom.webp",
-            date: "Jun 2025 - Present",
+            date: "Jun 2025 - Dec 2025",
             type: "Freelance",
             bullets: ["Developing Super App for Sidoarjo Government with Flutter.", "Implemented GetX, reducing load times by 40%.", "Applied MVC & Atomic Design, improving readability (+30%).", "Ensured 80%+ cross-platform reusability.", "Collaborated with Telkom & government stakeholders."],
         },

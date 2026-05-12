@@ -16,7 +16,7 @@ interface Props {
 
 export default function ProjectDetail({ params }: Props) {
     const { slug } = React.use(params);
-    const project = projects.find((p) => p.slug === slug) as (typeof projects[0] & { playstore?: string; appstore?: string });
+    const project = projects.find((p) => p.slug === slug) as (typeof projects[0] & { playstore?: string; appstore?: string; website?: string });
     const router = useRouter();
 
     if (!project) return notFound();
@@ -111,15 +111,15 @@ export default function ProjectDetail({ params }: Props) {
                     </motion.div>
                 )}
 
-                {project.link && (
+                {project.website && (
                     <motion.div
                         className="rounded-lg bg-slate-300 dark:bg-slate-950 cursor-target shadow hover:shadow-md transition"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.3, delay: 0.4 }} // delay diubah
+                        transition={{ duration: 0.3, delay: 0.4 }}
                     >
                         <a
-                            href={project.link}
+                            href={project.website}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-4 py-2 flex items-center gap-2 text-sm font-medium"
@@ -129,15 +129,28 @@ export default function ProjectDetail({ params }: Props) {
                     </motion.div>
                 )}
 
-                {!project.github && !project.playstore && !project.appstore && (
+                {!project.github && !project.playstore && !project.appstore && !project.website && (
                     <motion.div
                         className="rounded-lg bg-slate-300 dark:bg-slate-950 cursor-target shadow hover:shadow-md transition"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.3, delay: 0.2 }}
                     >
-                        <span className="px-4 py-2 flex items-center gap-2 text-sm font-medium cursor-not-allowed">
+                        <span className="px-4 py-2 flex items-center gap-2 text-sm font-medium cursor-not-allowed text-slate-500">
                             <FaLock /> Private Project
+                        </span>
+                    </motion.div>
+                )}
+                
+                {!project.github && (project.website || project.playstore || project.appstore) && (
+                    <motion.div
+                        className="rounded-lg bg-slate-200 dark:bg-slate-900 shadow transition"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: 0.2 }}
+                    >
+                        <span className="px-4 py-2 flex items-center gap-2 text-sm font-medium text-slate-500 cursor-not-allowed">
+                            <FaLock /> Private Source
                         </span>
                     </motion.div>
                 )}

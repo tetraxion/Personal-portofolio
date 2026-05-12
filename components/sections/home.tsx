@@ -2,39 +2,18 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaDatabase 
+    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaDatabase, FaMobileAlt, FaLaptopCode, FaServer
 } from 'react-icons/fa';
 import {
-    SiHtml5,
-    SiCss3,
-    SiJavascript,
-    SiTypescript,
-    SiReact,
-    SiBootstrap,
-    SiTailwindcss,
-    SiMysql,
-    SiPostgresql,
-    SiFirebase,
-    SiFigma,
-    SiExpo,
-    SiGit,
-    SiNextdotjs,
-    SiVite,
-    SiFlutter,
-    SiGetx,
-    SiDart,
-    SiSupabase,
-    SiDocker,
-    SiNpm,
-    SiFlask,
-    SiScrumalliance,
-    SiJira,
-
+    SiHtml5, SiCss3, SiJavascript, SiTypescript, SiReact, SiBootstrap, SiTailwindcss,
+    SiMysql, SiPostgresql, SiFirebase, SiFigma, SiExpo, SiGit, SiNextdotjs, SiVite,
+    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiNpm, SiFlask, SiScrumalliance, SiJira
 } from "react-icons/si";
-import { MapPinHouse, User, Briefcase, Award, Mail, LayoutPanelLeft } from 'lucide-react';
+import { MapPinHouse, User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from "@/components/ui/button";
@@ -45,118 +24,179 @@ import { projects } from "@/lib/project";
 export const HomeSection = () => {
     const router = useRouter();
 
-    const skills = [
-        { name: "Flutter", icon: SiFlutter, colors: "from-blue-500 to-cyan-500" },
-        { name: "Dart", icon: SiDart, colors: "from-sky-400 to-sky-600" },
-        { name: "GetX", icon: SiGetx, colors: "from-green-400 to-green-600" }, 
-        { name: "Bloc", icon: SiFlutter, colors: "from-purple-400 to-purple-600" }, 
-        { name: "Firebase", icon: SiFirebase, colors: "from-yellow-400 to-orange-500" },
-        { name: "Supabase", icon: SiSupabase, colors: "from-emerald-400 to-emerald-600" },
-        { name: "Docker", icon: SiDocker, colors: "from-blue-400 to-blue-600" },
-        { name: "HTML", icon: SiHtml5, colors: "from-orange-500 to-red-500" },
-        { name: "CSS", icon: SiCss3, colors: "from-blue-400 to-blue-600" },
-        { name: "JavaScript", icon: SiJavascript, colors: "from-yellow-300 to-yellow-500" },
-        { name: "TypeScript", icon: SiTypescript, colors: "from-blue-300 to-blue-500" },
-        { name: "React", icon: SiReact, colors: "from-cyan-400 to-blue-500" },
-        { name: "Next.js", icon: SiNextdotjs, colors: "from-gray-200 to-gray-400" },
-        { name: "Laravel", icon: FaLaravel, colors: "from-red-400 to-red-600" },
-        { name: "Python", icon: FaPython, colors: "from-yellow-400 to-yellow-600" },
-        { name: "Flask", icon: SiFlask, colors: "from-blue-400 to-blue-600" },
-        { name: "Roboflow", icon: FaPython, colors: "from-green-400 to-green-600" }, // fallback Python
-        { name: "Bootstrap", icon: SiBootstrap, colors: "from-purple-400 to-purple-600" },
-        { name: "Tailwind CSS", icon: SiTailwindcss, colors: "from-cyan-300 to-cyan-500" },
-        { name: "Node.js", icon: FaNodeJs, colors: "from-green-300 to-green-500" },
-        { name: "NPM", icon: SiNpm, colors: "from-red-500 to-red-500" },
-        { name: "Git", icon: SiGit, colors: "from-orange-500 to-red-500" },
-        { name: "GitHub", icon: FaGithub, colors: "from-slate-500 to-slate-500" },
-        { name: "MySQL", icon: SiMysql, colors: "from-blue-500 to-blue-700" },
-        { name: "PostgreSQL", icon: SiPostgresql, colors: "from-indigo-400 to-indigo-600" },
-        { name: "Figma", icon: SiFigma, colors: "from-pink-400 to-purple-500" },
-        { name: "Expo", icon: SiExpo, colors: "from-gray-400 to-gray-600" },
-        { name: "Vite", icon: SiVite, colors: "from-pink-300 to-purple-500" },
-        { name: "Agile", icon: SiScrumalliance, colors: "from-blue-400 to-indigo-600" },
-        { name: "Scrum", icon: SiJira, colors: "from-purple-400 to-purple-600" },
+    const roles = ["Mobile Developer.", "Frontend Engineer.", "AI Engineer.", "Fullstack Web Engineer."];
+    const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [roles.length]);
+
+    const skillCategories = [
+        {
+            title: "Mobile Development",
+            icon: <FaMobileAlt size={18} />,
+            color: "text-blue-500",
+            bg: "bg-blue-500/10",
+            skills: [
+                { name: "Flutter", icon: SiFlutter },
+                { name: "Dart", icon: SiDart },
+                { name: "GetX", icon: SiGetx },
+                { name: "Bloc", icon: SiFlutter },
+                { name: "Expo", icon: SiExpo },
+            ]
+        },
+        {
+            title: "Frontend & Web",
+            icon: <FaLaptopCode size={18} />,
+            color: "text-orange-500",
+            bg: "bg-orange-500/10",
+            skills: [
+                { name: "React", icon: SiReact },
+                { name: "Next.js", icon: SiNextdotjs },
+                { name: "TypeScript", icon: SiTypescript },
+                { name: "Tailwind CSS", icon: SiTailwindcss },
+                { name: "Vite", icon: SiVite },
+                { name: "HTML/CSS", icon: SiHtml5 },
+            ]
+        },
+        {
+            title: "Backend & Database",
+            icon: <FaServer size={18} />,
+            color: "text-emerald-500",
+            bg: "bg-emerald-500/10",
+            skills: [
+                { name: "Node.js", icon: FaNodeJs },
+                { name: "Python", icon: FaPython },
+                { name: "Laravel", icon: FaLaravel },
+                { name: "Firebase", icon: SiFirebase },
+                { name: "Supabase", icon: SiSupabase },
+                { name: "PostgreSQL", icon: SiPostgresql },
+                { name: "MySQL", icon: SiMysql },
+            ]
+        },
+        {
+            title: "Tools & Methodology",
+            icon: <Terminal size={18} />,
+            color: "text-purple-500",
+            bg: "bg-purple-500/10",
+            skills: [
+                { name: "Git", icon: SiGit },
+                { name: "Docker", icon: SiDocker },
+                { name: "Figma", icon: SiFigma },
+                { name: "Scrum", icon: SiJira },
+                { name: "Agile", icon: SiScrumalliance },
+            ]
+        }
     ];
-    
 
     const sections = [
         {
             icon: Briefcase,
             title: "Project Showcase",
-            desc: "Showcasing projects that combine creativity with practical solutions.",
-            colors: "from-indigo-500 to-blue-500",
+            desc: "Explore my latest works combining creativity with practical solutions.",
             href: "/projects",
+            color: "text-indigo-500"
         },
         {
             icon: User,
             title: "About Me",
-            desc: "A quick look at my background, skills, and passions.",
-            colors: "from-pink-500 to-rose-500",
+            desc: "My background, skills, and passions.",
             href: "/about",
+            color: "text-pink-500"
         },
         {
             icon: Award,
             title: "Certificates",
-            desc: "Highlights of achievements from courses and events.",
-            colors: "from-amber-500 to-orange-500",
+            desc: "Highlights of achievements and learning.",
             href: "/certificate",
+            color: "text-amber-500"
         },
         {
             icon: Mail,
             title: "Contact",
-            desc: "Reach out for opportunities, ideas, or collaborations.",
-            colors: "from-violet-500 to-purple-500",
+            desc: "Let's collaborate on your next big idea.",
             href: "/contact",
+            color: "text-violet-500"
         },
     ];
 
     return (
-        <>
-            {/* === About Section === */}
-            <motion.section
-                initial={{ opacity: 0, filter: "blur(10px)" }}
-                animate={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="mb-12 md:mt-5"
-            >
-                <h1 className="text-2xl md:text-3xl">Hi, I&apos;m Dwi Lutfi Taufiq Ihsani</h1>
-                <div className="md:flex gap-4 my-3">
-                    <div className="flex mb-3 md:mb-0">
-                        <MapPinHouse size={24} />
-                        <p className="text-gray-400 ms-2">Based in Trenggalek, Indonesia</p>
-                    </div>
-                    <div className="flex">
-                        <FaCode size={24} />
-                        <p className="text-gray-400 ms-2">Mobile & Web Developer</p>
-                    </div>
-                </div>
-                <p className="leading-8">
-                I am a recent graduate from <span className="font-semibold">Telkom University Surabaya</span> (CumLaude, GPA 3.82/4.00) with a strong interest in <span className="font-semibold">Mobile Development</span>. 
-                Through academic, freelance, and internship experiences, I have developed mobile applications using 
-                <span className="font-semibold"> Flutter, Dart, GetX,</span> and <span className="font-semibold">Bloc</span>, 
-                applying clean code principles such as MVC and Atomic Design. 
-                I am also experienced in integrating <span className="font-semibold">MySQL, PostgreSQL, Firebase, Supabase,</span> 
-                and cloud services. I am eager to continue growing as a developer and contribute to building impactful, 
-                user-friendly mobile solutions.
-                </p>
-                <div className="flex items-center gap-2 mt-3">
-                <a href="/CV-DwiLutfi.pdf" download>
-                <Button 
-                    variant="outline" 
-                    className="cursor-pointer dark:bg-slate-700"
-                >
-                    Download CV
-                </Button>
-                </a>
+        <div className="relative w-full pb-10">
 
-                    <Link href="https://github.com/tetraxion">
-                        <FaGithub size={30} className="ms-2 hover:text-slate-400 cursor-target" />
-                    </Link>
-                    <Link href="https://www.linkedin.com/in/dwi-lutfi-988026277/">
-                        <FaLinkedin size={30} className="ms-2 hover:text-slate-400 cursor-target" />
-                    </Link>
+
+            {/* === Hero Section === */}
+            <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="mb-24 mt-4 md:mt-8 max-w-4xl"
+            >
+                {/* Status Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium mb-8 text-slate-700 dark:text-slate-300 shadow-sm">
+                    <span className="relative flex h-2.5 w-2.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                    Available for new opportunities
                 </div>
-                <hr className='my-10' />
+                
+                {/* Typography */}
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-[1.1] mb-6 text-slate-900 dark:text-white">
+                    Hi, I&apos;m <br className="hidden md:block" />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-400">
+                        Dwi Lutfi Taufiq Ihsani.
+                    </span>
+                </h1>
+                
+                <div className="text-2xl md:text-3xl lg:text-4xl text-slate-600 dark:text-slate-300 font-semibold h-12 flex items-center mb-6">
+                    <span className="shrink-0">I build</span>
+                    <div className="ml-3 relative w-full min-w-[300px] md:min-w-[450px] overflow-hidden h-full flex items-center">
+                        <AnimatePresence mode="wait">
+                            <motion.span
+                                key={currentRoleIndex}
+                                initial={{ y: 20, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: -20, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="absolute left-0 text-slate-900 dark:text-white whitespace-nowrap"
+                            >
+                                {roles[currentRoleIndex]}
+                            </motion.span>
+                        </AnimatePresence>
+                    </div>
+                </div>
+
+                <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 font-light leading-relaxed max-w-3xl mb-10">
+                    A dedicated Software Engineer and <strong className="font-semibold text-slate-900 dark:text-slate-200">Cum Laude</strong> graduate from <strong className="font-semibold text-slate-900 dark:text-slate-200">Telkom University Surabaya</strong>. 
+                    I specialize in bridging the gap between innovative design and robust engineering, architecting high-performance solutions across <strong className="font-medium text-slate-800 dark:text-slate-300">Fullstack Web</strong>, <strong className="font-medium text-slate-800 dark:text-slate-300">Mobile</strong>, and <strong className="font-medium text-slate-800 dark:text-slate-300">AI integrations</strong>. 
+                    Driven by a passion for clean code and scalable architecture, I transform complex challenges into elegant digital experiences.
+                </p>
+
+                {/* Actions */}
+                <div className="flex flex-wrap items-center gap-4">
+                    <a href="/CV-DwiLutfi.pdf" download className="cursor-target">
+                        <Button className="rounded-lg h-12 px-6 shadow-md hover:shadow-lg transition-all bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 border-0 text-base font-medium cursor-target">
+                            <Download size={18} className="mr-2" /> 
+                            Download CV
+                        </Button>
+                    </a>
+                    <Button variant="outline" className="rounded-lg h-12 px-6 border-slate-300 dark:border-slate-700 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-base font-medium text-slate-700 dark:text-slate-300 cursor-target" onClick={() => router.push('/projects')}>
+                        View Projects
+                        <ArrowRight size={18} className="ml-2" />
+                    </Button>
+                    
+                    <div className="flex items-center gap-3 ml-2 md:ml-4">
+                        <Link href="https://github.com/tetraxion" target="_blank" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white cursor-target">
+                            <FaGithub size={22} />
+                        </Link>
+                        <Link href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" className="p-3 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-target">
+                            <FaLinkedin size={22} />
+                        </Link>
+                    </div>
+                </div>
             </motion.section>
 
             {/* === Skills Section === */}
@@ -164,132 +204,130 @@ export const HomeSection = () => {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mb-14"
+                viewport={{ once: true, margin: "-100px" }}
+                className="mb-24"
             >
-                <div className="flex items-center mb-8">
-                    <FaCode size={24} />
-                    <h2 className="text-2xl md:text-2xl font-semibold ms-2">Skills</h2>
+                <div className="flex items-center mb-10">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 mr-4 shadow-sm">
+                        <FaCode size={20} className="text-slate-700 dark:text-slate-300" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Technical Skills</h2>
                 </div>
 
-                <div className="grid grid-cols-6 gap-4">
-                    {skills.map((skill, index) => {
-                        const Icon = skill.icon;
-                        return (
-                            <motion.div
-                                key={skill.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.05 }}
-                                viewport={{ once: true }}
-                                whileHover={{ scale: 1.05 }}
-                                className="group"
-                            >
-                                <Card className="bg-transparent shadow-none border-0 md:border md:shadow-sm md:hover:border-slate-600 transition-all">
-                                    <CardContent className="p-2 md:p-4 text-center">
-                                        <motion.div
-                                            whileHover={{
-                                                rotate: [0, -10, 10, -10, 0],
-                                                transition: { duration: 0.5 },
-                                            }}
-                                            className={`mx-auto bg-gradient-to-br ${skill.colors} inline-block p-2 rounded-full`}
-                                        >
-                                            <Icon size={24} />
-                                        </motion.div>
-                                        <p className="hidden md:block text-[11px] font-medium mt-1">
-                                            {skill.name}
-                                        </p>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        );
-                    })}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    {skillCategories.map((category, idx) => (
+                        <motion.div
+                            key={category.title}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: idx * 0.1 }}
+                            viewport={{ once: true }}
+                            className="h-full"
+                        >
+                            <div className="h-full p-6 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-shadow">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <span className={`p-2 rounded-lg ${category.bg} ${category.color}`}>
+                                        {category.icon}
+                                    </span>
+                                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{category.title}</h3>
+                                </div>
+                                
+                                <div className="flex flex-wrap gap-2.5">
+                                    {category.skills.map((skill) => {
+                                        const Icon = skill.icon;
+                                        return (
+                                            <div 
+                                                key={skill.name} 
+                                                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-500 transition-colors"
+                                            >
+                                                <Icon size={16} className={`${category.color} opacity-80`} />
+                                                {skill.name}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </motion.section>
 
-            <hr className='my-10' />
-
-            {/* === Featured Section === */}
+            {/* === Featured Sections === */}
             <motion.section
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mb-12"
+                viewport={{ once: true, margin: "-100px" }}
             >
-                <div className="flex items-center mb-8">
-                    <LayoutPanelLeft strokeWidth={2.5} />
-                    <h2 className="text-2xl md:text-3xl font-semibold ms-2">Featured Sections</h2>
+                <div className="flex items-center mb-10">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 mr-4 shadow-sm">
+                        <LayoutPanelLeft strokeWidth={2} size={20} className="text-slate-700 dark:text-slate-300" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Explore More</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-                    {sections.map((sec, index) => (
-                        <motion.div
-                            key={sec.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                            viewport={{ once: true }}
-                            whileHover={{ scale: 1.05 }}
-                            className={`
-                                ${index === 0 ? "md:col-span-4 md:row-span-2" : ""}
-                                ${index === 1 ? "md:col-span-2" : ""}
-                                ${index === 2 ? "md:col-span-2" : ""}
-                                ${index === 3 ? "md:col-span-6" : ""}
-                                h-full
-                            `}
-                        >
-                            <Link href={sec.href} className="block h-full cursor-target">
-                                <Card className="transition-all h-full flex flex-col">
-                                    <CardHeader className="flex flex-col items-start space-y-2 pb-1">
-                                        <motion.div
-                                            whileHover={{
-                                                rotate: [0, -10, 10, -10, 0],
-                                                transition: { duration: 0.5 },
-                                            }}
-                                            className={`p-2 bg-gradient-to-br ${sec.colors} inline-block rounded-full text-white`}
-                                        >
-                                            <sec.icon size={24} />
-                                        </motion.div>
-                                        <CardTitle>
-                                            {sec.title}
-                                        </CardTitle>
-                                    </CardHeader>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {sections.map((sec, index) => {
+                        const isLarge = index === 0; 
+                        return (
+                            <motion.div
+                                key={sec.title}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                                className={`
+                                    ${isLarge ? "md:col-span-2 lg:col-span-2" : "md:col-span-1 lg:col-span-1"}
+                                    h-full
+                                `}
+                            >
+                                <Link href={sec.href} className="block h-full outline-none cursor-target group">
+                                    <div className="relative overflow-hidden h-full p-8 rounded-2xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-transparent shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all flex flex-col justify-between">
+                                        
+                                        <div>
+                                            <div className="flex items-center justify-between mb-6">
+                                                <div className={`p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/60 ${sec.color}`}>
+                                                    <sec.icon size={24} />
+                                                </div>
+                                                <ArrowRight size={20} className="text-slate-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                                            </div>
+                                            
+                                            <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                                {sec.title}
+                                            </h3>
+                                            <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed">
+                                                {sec.desc}
+                                            </p>
+                                        </div>
 
-                                    <CardContent className="pt-0 flex flex-col h-full">
-                                        <p className="text-sm">
-                                            {sec.desc}
-                                        </p>
-
-                                        {sec.title === "Project Showcase" && (
-                                            <div className="hidden mt-6 md:grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                {projects.slice(0, 2).map((project) => (
-                                                    <div
-                                                        key={project.slug}
+                                        {isLarge && (
+                                            <div className="hidden sm:flex mt-8 gap-4 w-full h-32">
+                                                {projects.slice(0, 2).map((project, i) => (
+                                                    <div 
+                                                        key={project.slug} 
+                                                        className={`relative flex-1 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 cursor-target ${i===1 ? 'hidden md:block' : ''}`}
                                                         onClick={(e) => {
                                                             e.preventDefault();
                                                             router.push(`/projects/${project.slug}`);
                                                         }}
-                                                        className="cursor-target"
                                                     >
                                                         <Image
                                                             src={project.image}
                                                             alt={project.title}
-                                                            width={400}
-                                                            height={200}
-                                                            className="rounded-lg h-[160px] w-full object-cover border hover:scale-105 transition-transform"
+                                                            fill
+                                                            className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
                                                         />
                                                     </div>
                                                 ))}
                                             </div>
                                         )}
-                                    </CardContent>
-                                </Card>
-                            </Link>
-                        </motion.div>
-                    ))}
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </motion.section>
-        </>
+        </div>
     );
 };

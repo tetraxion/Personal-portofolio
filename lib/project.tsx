@@ -155,7 +155,7 @@ export const projects: ProjectType[] = [
     slug: 'personal-portfolio',
     title: 'Personal Portfolio Website',
     description: 'A personal portfolio website built entirely with Flutter for Web to showcase my projects, skills, and professional background in a consistent and modern interface.',
-    image: '/projects/portofLutter.webp',
+    image: '/projects/portoFlutter.webp',
     category: 'Web',
     tech: [
       <SiFlutter key="flutter" />, <SiDart key="dart" />,

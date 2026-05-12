@@ -16,26 +16,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dwi Lutfi | Personal Portfolio",
+  title: "Dwi Lutfi Taufiq Ihsani | Software Engineer Portfolio",
   description:
-    "Explore the personal portfolio of Dwi Lutfi, a mobile and web developer specializing in modern technologies including Flutter,Firebase, and Supabase.",
+    "Personal portfolio of Dwi Lutfi Taufiq Ihsani — a versatile Software Engineer specializing in Fullstack Web Development, Mobile Engineering, and AI Integrations. Built with Next.js & Tailwind CSS.",
   keywords: [
-    "Dwi Lutfi",
+    "Dwi Lutfi Taufiq Ihsani",
+    "Software Engineer",
     "Portfolio",
+    "Fullstack Developer",
     "Mobile Developer",
     "Flutter Developer",
     "Web Developer",
-    "Frontend Developer",
-    "Backend Developer",
+    "AI Engineer",
     "Next.js",
+    "Laravel",
+    "React",
     "Tailwind CSS",
-    "Firebase",
-    "JavaScript",
     "TypeScript",
   ],
-  authors: [{ name: "Dwi Lutfi" }],
-  creator: "Dwi Lutfi",
-  publisher: "Dwi Lutfi",
+  authors: [{ name: "Dwi Lutfi Taufiq Ihsani" }],
+  creator: "Dwi Lutfi Taufiq Ihsani",
+  publisher: "Dwi Lutfi Taufiq Ihsani",
   robots: {
     index: true,
     follow: true,
@@ -46,9 +47,9 @@ export const metadata: Metadata = {
     shortcut: "/image/icon.png",
   },
   openGraph: {
-    title: "Dwi Lutfi | Personal Portfolio",
+    title: "Dwi Lutfi Taufiq Ihsani | Software Engineer Portfolio",
     description:
-      "Showcasing Dwi Lutfi’s projects, experience, and skills as a mobile and web developer.",
+      "Explore the projects, experience, and skills of Dwi Lutfi Taufiq Ihsani — a Cum Laude graduate specializing in Fullstack Web, Mobile, and AI solutions.",
     url: "https://dwilutfi.vercel.app/",
     siteName: "Dwi Lutfi Portfolio",
     locale: "en_US",

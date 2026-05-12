@@ -2,25 +2,25 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Linkedin, Mail, Github, Instagram, Briefcase, Users } from 'lucide-react';
+import { Linkedin, Mail, Github, Instagram, Briefcase, Users, GraduationCap, User } from 'lucide-react';
 import Image from "next/image";
 
-// Komponen ikon untuk timeline Pengalaman
+// Experience timeline icon
 const ExperienceIcon = () => (
-    <div className="absolute -left-[11px] mt-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-8 ring-background">
-        <Briefcase className="h-4 w-4 text-white" />
+    <div className="absolute -left-[11px] mt-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 ring-4 ring-white dark:ring-slate-900 shadow-sm">
+        <Briefcase className="h-3.5 w-3.5 text-white" />
     </div>
 );
 
-// Komponen ikon untuk timeline Organisasi
+// Organization timeline icon
 const OrganizationIcon = () => (
-    <div className="absolute -left-[11px] mt-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-green-500 ring-8 ring-background">
-        <Users className="h-4 w-4 text-white" />
+    <div className="absolute -left-[11px] mt-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500 ring-4 ring-white dark:ring-slate-900 shadow-sm">
+        <Users className="h-3.5 w-3.5 text-white" />
     </div>
 );
 
 export function AboutSection() {
-    // Data Pendidikan
+    // Education Data
     const education = [
         {
             school: "Telkom University Surabaya",
@@ -36,7 +36,7 @@ export function AboutSection() {
         }
     ];
 
-    // Data Pengalaman Kerja
+    // Work Experience Data
     const experiences = [
         {
             title: "Fullstack Web Developer",
@@ -85,7 +85,7 @@ export function AboutSection() {
         },
     ];
 
-    // Data Organisasi & Kepanitiaan
+    // Organization & Committee Data
     const organizations = [
         {
             title: "Member of R&D Division",
@@ -113,147 +113,174 @@ export function AboutSection() {
         },
     ];
 
-    // Fungsi helper untuk mengurai tanggal awal dari string
+    // Sort helper
     const getStartDate = (dateString: string) => {
         if (dateString.includes("Present")) return new Date();
         const [startMonth, startYear] = dateString.split(' ').slice(0, 2);
         return new Date(`${startMonth} 1, ${startYear}`);
     };
 
-    // Mengurutkan data (terbaru di atas)
     const sortedExperiences = [...experiences].sort((a, b) => getStartDate(b.date).getTime() - getStartDate(a.date).getTime());
     const sortedOrganizations = [...organizations].sort((a, b) => getStartDate(b.date).getTime() - getStartDate(a.date).getTime());
+
+    const badgeColor = (type: string) => {
+        switch (type) {
+            case 'Internship': return 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-500/30';
+            case 'Freelance': return 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30';
+            case 'Organization': return 'bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-500/30';
+            case 'Committee': return 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200 dark:border-amber-500/30';
+            default: return 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700';
+        }
+    };
 
     return (
         <>
             {/* About Section */}
             <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-16 md:mt-5">
-                <h1 className="text-3xl font-bold">About Me</h1>
-                <hr className="my-4 border-dashed" />
-                <div className="space-y-3 text-muted-foreground leading-relaxed">
-                    <p>Hello! I&apos;m <span className="font-semibold text-foreground">Dwi Lutfi Taufiq Ihsani</span>, an Information Systems graduate from Telkom University Surabaya, graduating <span className="font-semibold text-foreground">Cum Laude</span> (GPA 3.82/4.00).</p>
-                    <p>I am a versatile Software Engineer specializing in <span className="font-semibold text-foreground">Fullstack Web Development, Mobile Engineering,</span> and <span className="font-semibold text-foreground">AI Integrations</span>. My expertise spans across modern web frameworks (Next.js, Laravel, React), cross-platform mobile development (Flutter, Dart), and robust backend architectures integrating <span className="font-semibold text-foreground">MySQL, PostgreSQL, Firebase, REST APIs</span>, and cloud services.</p>
+                <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                        <User size={20} className="text-pink-500" />
+                    </div>
+                    <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">About Me</h1>
+                </div>
+                <hr className="border-dashed border-slate-300 dark:border-slate-700 my-6" />
+                <div className="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p>Hello! I&apos;m <span className="font-semibold text-slate-900 dark:text-white">Dwi Lutfi Taufiq Ihsani</span>, an Information Systems graduate from Telkom University Surabaya, graduating <span className="font-semibold text-slate-900 dark:text-white">Cum Laude</span> (GPA 3.82/4.00).</p>
+                    <p>I am a versatile Software Engineer specializing in <span className="font-semibold text-slate-900 dark:text-white">Fullstack Web Development, Mobile Engineering,</span> and <span className="font-semibold text-slate-900 dark:text-white">AI Integrations</span>. My expertise spans across modern web frameworks (Next.js, Laravel, React), cross-platform mobile development (Flutter, Dart), and robust backend architectures integrating <span className="font-semibold text-slate-900 dark:text-white">MySQL, PostgreSQL, Firebase, REST APIs</span>, and cloud services.</p>
                     <p>Through various internships, freelance roles, and government-level projects, I have cultivated a strong passion for architecting scalable, high-performance digital solutions. I am driven by clean code, intuitive UI/UX design, and creating impactful applications that solve real-world problems while elevating user satisfaction.</p>
                 </div>
             </motion.section>
             
-            <hr className="my-12" />
-
             {/* Education Section */}
-            <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="mb-16">
-                <h1 className="text-3xl font-bold mb-8">Education</h1>
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16">
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                        <GraduationCap size={20} className="text-blue-500" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Education</h2>
+                </div>
                 {education.map((edu, i) => (
-                    <Card key={i} className="rounded-xl">
-                        <CardHeader><CardTitle>{edu.school}</CardTitle><CardDescription>{edu.degree} • {edu.date}</CardDescription></CardHeader>
-                        <CardContent><ul className="list-disc pl-5 space-y-1 text-sm text-muted-foreground">{edu.details.map((d, j) => <li key={j}>{d}</li>)}</ul></CardContent>
-                    </Card>
+                    <div key={i} className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300">
+                        <div className="flex items-start gap-4">
+                            <div className="p-3 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 shrink-0">
+                                <GraduationCap size={24} className="text-blue-500" />
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{edu.school}</h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{edu.degree} • {edu.date}</p>
+                                <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-600 dark:text-slate-400 mt-4">
+                                    {edu.details.map((d, j) => <li key={j}>{d}</li>)}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 ))}
             </motion.section>
 
-            <hr className="my-12" />
-
             {/* Experience Timeline Section */}
-            <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="mb-16">
-                <h1 className="text-3xl font-bold mb-8">Experience</h1>
-                <div className="relative border-l-2 border-border ml-3">
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16">
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                        <Briefcase size={20} className="text-indigo-500" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Experience</h2>
+                </div>
+                <div className="relative border-l-2 border-slate-200 dark:border-slate-700 ml-3">
                     {sortedExperiences.map((item, idx) => (
-                        <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
+                        <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.08 }}>
                             <ExperienceIcon />
-                            <Card className="rounded-xl hover:shadow-lg transition-shadow duration-300">
-                                <CardHeader className="pb-3">
-                                    <div className="flex items-start gap-4">
-                                        <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="mt-1 w-12 h-12 rounded-lg border p-1" />
-                                        <div className="flex-grow">
-                                            <div className="flex justify-between items-start">
-                                                <div>
-                                                    <CardTitle className="text-lg">{item.title}</CardTitle>
-                                                    <CardDescription className="mt-1">{item.company} • {item.date}</CardDescription>
-                                                </div>
-                                                <Badge variant="default" className="ml-auto whitespace-nowrap">{item.type}</Badge>
+                            <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300 group">
+                                <div className="flex items-start gap-4">
+                                    <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700/60 p-1 bg-white dark:bg-slate-800 shadow-sm object-contain" />
+                                    <div className="flex-grow min-w-0">
+                                        <div className="flex justify-between items-start gap-2">
+                                            <div className="min-w-0">
+                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{item.company} • {item.date}</p>
                                             </div>
+                                            <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeColor(item.type)}`}>
+                                                {item.type}
+                                            </span>
                                         </div>
+                                        <details className="group/details mt-4 text-sm">
+                                            <summary className="cursor-pointer w-fit text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
+                                                View Details
+                                            </summary>
+                                            <ul className="list-disc pl-5 mt-3 space-y-1.5 text-slate-600 dark:text-slate-400">
+                                                {item.bullets.map((bullet, i) => <li key={i}>{bullet}</li>)}
+                                            </ul>
+                                        </details>
                                     </div>
-                                </CardHeader>
-                                <CardContent className="ms-16 -mt-2">
-                                    <details className="group text-xs">
-                                        <summary className="cursor-pointer w-fit transition-colors font-medium text-blue-600">
-                                            View Details
-                                        </summary>
-                                        <ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-muted-foreground">
-                                            {item.bullets.map((bullet, i) => <li key={i}>{bullet}</li>)}
-                                        </ul>
-                                    </details>
-                                </CardContent>
-                            </Card>
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
             </motion.section>
-            
-            <hr className="my-12" />
 
             {/* Organization & Committee Timeline Section */}
-            <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mb-16">
-                <h1 className="text-3xl font-bold mb-8">Organization & Committee</h1>
-                <div className="relative border-l-2 border-border ml-3">
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-16">
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                        <Users size={20} className="text-emerald-500" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Organization & Committee</h2>
+                </div>
+                <div className="relative border-l-2 border-slate-200 dark:border-slate-700 ml-3">
                     {sortedOrganizations.map((item, idx) => (
-                        <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}>
+                        <motion.div key={idx} className="relative mb-10 pl-8" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.08 }}>
                             <OrganizationIcon />
-                            <Card className="rounded-xl hover:shadow-lg transition-shadow duration-300">
-                                <CardHeader className="pb-3">
-                                    <div className="flex items-start gap-4">
-                                        <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="mt-1 w-12 h-12 rounded-lg border p-1" />
-                                        <div className="flex-grow">
-                                            <div className="flex justify-between items-start">
-                                                <div>
-                                                    <CardTitle className="text-lg">{item.title}</CardTitle>
-                                                    <CardDescription className="mt-1">{item.company} • {item.date}</CardDescription>
-                                                </div>
-                                                <Badge variant="secondary" className="ml-auto whitespace-nowrap">{item.type}</Badge>
+                            <div className="p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm hover:shadow-md transition-all duration-300 group">
+                                <div className="flex items-start gap-4">
+                                    <Image src={item.logo} alt={`${item.company} logo`} width={48} height={48} className="w-12 h-12 rounded-xl border border-slate-100 dark:border-slate-700/60 p-1 bg-white dark:bg-slate-800 shadow-sm object-contain" />
+                                    <div className="flex-grow min-w-0">
+                                        <div className="flex justify-between items-start gap-2">
+                                            <div className="min-w-0">
+                                                <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{item.title}</h3>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{item.company} • {item.date}</p>
                                             </div>
+                                            <span className={`shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeColor(item.type)}`}>
+                                                {item.type}
+                                            </span>
                                         </div>
+                                        <details className="group/details mt-4 text-sm">
+                                            <summary className="cursor-pointer w-fit text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
+                                                View Details
+                                            </summary>
+                                            <ul className="list-disc pl-5 mt-3 space-y-1.5 text-slate-600 dark:text-slate-400">
+                                                {item.bullets.map((bullet, i) => <li key={i}>{bullet}</li>)}
+                                            </ul>
+                                        </details>
                                     </div>
-                                </CardHeader>
-                                <CardContent className="ms-16 -mt-2">
-                                    <details className="group text-xs">
-                                        <summary className="cursor-pointer w-fit transition-colors font-medium text-blue-600">
-                                            View Details
-                                        </summary>
-                                        <ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-muted-foreground">
-                                            {item.bullets.map((bullet, i) => <li key={i}>{bullet}</li>)}
-                                        </ul>
-                                    </details>
-                                </CardContent>
-                            </Card>
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
             </motion.section>
 
-            {/* Contact Section */}
-            <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="mb-12">
-                 <Card className="rounded-xl">
-                    <CardContent className="p-4">
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <a href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-muted transition-colors">
-                                <Linkedin className="w-6 h-6 mb-1 text-blue-700" />
-                                <span className="text-sm font-medium">LinkedIn</span>
-                            </a>
-                            <a href="mailto:lutfid955@gmail.com" className="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-muted transition-colors">
-                                <Mail className="w-6 h-6 mb-1 text-red-500" />
-                                <span className="text-sm font-medium">Email</span>
-                            </a>
-                            <a href="https://github.com/tetraxion" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-muted transition-colors">
-                                <Github className="w-6 h-6 mb-1" />
-                                <span className="text-sm font-medium">GitHub</span>
-                            </a>
-                            <a href="https://www.instagram.com/lutfid955/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-3 rounded-lg hover:bg-muted transition-colors">
-                                <Instagram className="w-6 h-6 mb-1 text-pink-500" />
-                                <span className="text-sm font-medium">Instagram</span>
-                            </a>
-                        </div>
-                    </CardContent>
-                </Card>
+            {/* Quick Contact */}
+            <motion.section initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="mb-12">
+                <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white dark:bg-transparent shadow-sm">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <a href="https://www.linkedin.com/in/dwi-lutfi-988026277/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-target">
+                            <Linkedin className="w-6 h-6 mb-2 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">LinkedIn</span>
+                        </a>
+                        <a href="mailto:lutfid955@gmail.com" className="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-target">
+                            <Mail className="w-6 h-6 mb-2 text-slate-400 group-hover:text-red-500 transition-colors" />
+                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Email</span>
+                        </a>
+                        <a href="https://github.com/tetraxion" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-target">
+                            <Github className="w-6 h-6 mb-2 text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors" />
+                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">GitHub</span>
+                        </a>
+                        <a href="https://www.instagram.com/lutfid955/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-target">
+                            <Instagram className="w-6 h-6 mb-2 text-slate-400 group-hover:text-pink-500 transition-colors" />
+                            <span className="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Instagram</span>
+                        </a>
+                    </div>
+                </div>
             </motion.section>
         </>
     );

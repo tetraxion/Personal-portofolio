@@ -130,10 +130,10 @@ export function AboutSection() {
             <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-16 md:mt-5">
                 <h1 className="text-3xl font-bold">About Me</h1>
                 <hr className="my-4 border-dashed" />
-                <div className="space-y-3 text-muted-foreground">
-                    <p>Hello! I&apos;m <span className="font-semibold text-foreground">Dwi Lutfi Taufiq Ihsani</span>, a graduate in Information Systems from Telkom University Surabaya, graduating <span className="font-semibold text-foreground">Cum Laude</span> (GPA 3.82/4.00).</p>
-                    <p>I specialize in scalable, user-friendly mobile applications using <span className="font-semibold text-foreground">Flutter, Dart, GetX,</span> and <span className="font-semibold text-foreground">Bloc</span>, with experience integrating <span className="font-semibold text-foreground">MySQL, PostgreSQL, Firebase, Supabase, REST APIs</span>, and cloud services.</p>
-                    <p>With freelance, internships, and organizational projects, I am passionate about impactful, maintainable mobile solutions that enhance performance, scalability, and user satisfaction.</p>
+                <div className="space-y-3 text-muted-foreground leading-relaxed">
+                    <p>Hello! I&apos;m <span className="font-semibold text-foreground">Dwi Lutfi Taufiq Ihsani</span>, an Information Systems graduate from Telkom University Surabaya, graduating <span className="font-semibold text-foreground">Cum Laude</span> (GPA 3.82/4.00).</p>
+                    <p>I am a versatile Software Engineer specializing in <span className="font-semibold text-foreground">Fullstack Web Development, Mobile Engineering,</span> and <span className="font-semibold text-foreground">AI Integrations</span>. My expertise spans across modern web frameworks (Next.js, Laravel, React), cross-platform mobile development (Flutter, Dart), and robust backend architectures integrating <span className="font-semibold text-foreground">MySQL, PostgreSQL, Firebase, REST APIs</span>, and cloud services.</p>
+                    <p>Through various internships, freelance roles, and government-level projects, I have cultivated a strong passion for architecting scalable, high-performance digital solutions. I am driven by clean code, intuitive UI/UX design, and creating impactful applications that solve real-world problems while elevating user satisfaction.</p>
                 </div>
             </motion.section>
             

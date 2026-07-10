@@ -40,6 +40,19 @@ export interface ProjectType {
 export const projects: ProjectType[] = [
 
   {
+    slug: 'anara-website',
+    title: 'ANARA - Budget Management Information System',
+    description: 'A web-based Budget Management Information System developed for the Deputy of Industry and Investment, Ministry of Tourism of the Republic of Indonesia. ANARA is designed to manage and monitor budgeting data, including DIPA, MAK, and related financial information. The system streamlines data input, maintenance, and reporting processes, ensuring accurate, up-to-date, and well-structured budget information for internal administrative and financial operations.',
+    image: '/projects/anara.png',
+    category: 'Web',
+    tech: [
+      <SiLaravel key="laravel" />, <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />,
+    ],
+    link: '/projects/anara-website',
+    github: '',
+    website: 'https://anara.dbii.fun/login',
+  },
+  {
     slug: 'sparkling',
     title: 'Sparkling Kids - Mobile Learning Hub',
     description: 'A mobile learning hub application built with Flutter (using GetX) for children to discover and enroll in classes based on their talents and interests. This app is powered by a custom backend API built with Laravel and MySQL.',
@@ -113,19 +126,6 @@ export const projects: ProjectType[] = [
     ],
     link: '/projects/bidan-delima',
     github: 'https://github.com/tetraxion/bidan_delima'
-  },
-  {
-    slug: 'anara-website',
-    title: 'ANARA - Budget Management Information System',
-    description: 'A web-based Budget Management Information System developed for the Deputy of Industry and Investment, Ministry of Tourism of the Republic of Indonesia. ANARA is designed to manage and monitor budgeting data, including DIPA, MAK, and related financial information. The system streamlines data input, maintenance, and reporting processes, ensuring accurate, up-to-date, and well-structured budget information for internal administrative and financial operations.',
-    image: '/projects/anara.png',
-    category: 'Web',
-    tech: [
-      <SiLaravel key="laravel" />, <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />,
-    ],
-    link: '/projects/anara-website',
-    github: '',
-    website: 'https://anara.dbii.fun/login',
   },
   {
     slug: 'Pandu-object-detection',

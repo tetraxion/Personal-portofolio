@@ -19,6 +19,9 @@ import {
   SiPhp,
   SiBootstrap,
   SiMqtt,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
 } from "react-icons/si";
 
 export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'IoT' | 'AI';
@@ -51,6 +54,19 @@ export const projects: ProjectType[] = [
     link: '/projects/anara-website',
     github: '',
     website: 'https://anara.dbii.fun/login',
+  },
+  {
+    slug: 'prime-property-platform',
+    title: 'Prime Property - Web Platform & Internal Agent Portal',
+    description: 'A high-performance property listing management system built with Next.js and Supabase. Features a mobile-responsive public platform and a secure internal dashboard protected by PostgreSQL Row Level Security (RLS). Includes advanced data tracking with real-time filtering, automatic audit logging via database triggers, and secure session management.',
+    image: '/projects/prime_property.webp',
+    category: 'Web',
+    tech: [
+      <SiNextdotjs key="nextjs" />, <SiTypescript key="typescript" />, <SiTailwindcss key="tailwind" />, <SiSupabase key="supabase" />, <SiPostgresql key="postgres" />,
+    ],
+    link: '/projects/prime-property-platform',
+    github: 'https://github.com/tetraxion/Prime_property.git',
+    website: 'https://prime-property-chi.vercel.app/',
   },
   {
     slug: 'sparkling',

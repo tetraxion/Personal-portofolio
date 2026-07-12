@@ -174,12 +174,12 @@ export const HomeSection = () => {
 
                 {/* Actions */}
                 <div className="flex flex-wrap items-center gap-4">
-                    <a href="/CV-DwiLutfi.pdf" download className="cursor-target">
-                        <Button className="rounded-lg h-12 px-6 shadow-md hover:shadow-lg transition-all bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 border-0 text-base font-medium cursor-target">
+                    <Button asChild className="rounded-lg h-12 px-6 shadow-md hover:shadow-lg transition-all bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 border-0 text-base font-medium cursor-target">
+                        <a href="/CV-DwiLutfi.pdf" download>
                             <Download size={18} className="mr-2" /> 
                             Download CV
-                        </Button>
-                    </a>
+                        </a>
+                    </Button>
                     <Button variant="outline" className="rounded-lg h-12 px-6 border-slate-300 dark:border-slate-700 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-base font-medium text-slate-700 dark:text-slate-300 cursor-target" onClick={() => router.push('/projects')}>
                         View Projects
                         <ArrowRight size={18} className="ml-2" />

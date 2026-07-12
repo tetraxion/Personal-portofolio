@@ -9,7 +9,7 @@ import { ArrowUpRight, Sparkles, Pin, Layers } from 'lucide-react';
 
 export const ProjectSection = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All');
-  const categories: ProjectCategory[] = ['All', 'Mobile', 'Web', 'IoT', 'AI'];
+  const categories: ProjectCategory[] = ['All', 'Mobile', 'Web', 'Backend', 'IoT', 'AI'];
 
   const filteredProjects = projects.filter(project => 
     activeCategory === 'All' ? true : project.category === activeCategory

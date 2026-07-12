@@ -22,9 +22,12 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
+  SiGo,
+  SiRedis,
+  SiSwagger,
 } from "react-icons/si";
 
-export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'IoT' | 'AI';
+export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'Backend' | 'IoT' | 'AI';
 
 export interface ProjectType {
   slug: string;
@@ -41,7 +44,6 @@ export interface ProjectType {
 }
 
 export const projects: ProjectType[] = [
-
   {
     slug: 'anara-website',
     title: 'ANARA - Budget Management Information System',
@@ -67,6 +69,18 @@ export const projects: ProjectType[] = [
     link: '/projects/prime-property-platform',
     github: 'https://github.com/tetraxion/Prime_property.git',
     website: 'https://prime-property-chi.vercel.app/',
+  },
+  {
+    slug: 'task-tracker-api',
+    title: 'Task Tracker API - Backend (Golang)',
+    description: 'A robust RESTful API built with Go (Golang) and the Gin Gonic framework. Features a clean layered architecture, dual-storage strategy (toggled in-memory and PostgreSQL with pgxpool), automated database migrations, unit tests, and Docker Compose configurations. Fully documented with Postman collections and OpenAPI specifications.',
+    image: '/projects/backend_tasksTracker.png',
+    category: 'Backend',
+    tech: [
+      <SiGo key="go" />, <SiPostgresql key="postgres" />, <SiDocker key="docker" />,
+    ],
+    link: '/projects/task-tracker-api',
+    github: 'https://github.com/tetraxion/backend_test_dwi_lutfi.git',
   },
   {
     slug: 'sparkling',

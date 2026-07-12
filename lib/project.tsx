@@ -25,6 +25,7 @@ import {
   SiGo,
   SiRedis,
   SiSwagger,
+  SiReact,
 } from "react-icons/si";
 
 export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'Backend' | 'IoT' | 'AI';
@@ -69,6 +70,19 @@ export const projects: ProjectType[] = [
     link: '/projects/prime-property-platform',
     github: 'https://github.com/tetraxion/Prime_property.git',
     website: 'https://prime-property-chi.vercel.app/',
+  },
+  {
+    slug: 'portfolio-theme-neobrutalism',
+    title: 'Neo-Brutalism Portfolio Theme',
+    description: 'A creative, bold, and high-contrast developer portfolio template built with Next.js, React, and Tailwind CSS. Employs the distinct Neo-Brutalism design style featuring thick black borders, vivid flat colors, and playful hover animations.',
+    image: '/projects/Porto_NeoBrutalism.png',
+    category: 'Web',
+    tech: [
+      <SiNextdotjs key="nextjs" />, <SiTypescript key="typescript" />, <SiTailwindcss key="tailwind" />, <SiJavascript key="javascript" />,
+    ],
+    link: '/projects/portfolio-theme-neobrutalism',
+    github: 'https://github.com/tetraxion/Portofolio_theme_NeoBrutalism',
+    website: 'https://portofolio-theme-neo-brutalism.vercel.app/',
   },
   {
     slug: 'task-tracker-api',

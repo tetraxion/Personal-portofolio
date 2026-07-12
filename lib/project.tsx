@@ -915,49 +915,7 @@ flutter pub run flutter_launcher_icons`
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />, <SiSupabase key="supabase" />, <SiGetx key="getx" />,
     ],
     link: '/projects/spedycheck',
-    github: '',
-    details: {
-      techStack: [
-        { layer: 'Frontend SDK', tool: 'Flutter (SDK ^3.x)' },
-        { layer: 'Language', tool: 'Dart' },
-        { layer: 'State / Routing', tool: 'GetX' },
-        { layer: 'Auth Provider', tool: 'Firebase Auth' },
-        { layer: 'Database', tool: 'Supabase DB' }
-      ],
-      structure: `spedycheck/
-├── lib/
-│   ├── app/
-│   │   ├── modules/          # Screening questionnaires, articles library views
-│   │   └── routes/           # Routing registers
-│   └── main.dart             # App initialization entrypoint`,
-      routes: [
-        {
-          category: 'GetX Screen Routes',
-          headers: ['Path', 'Feature view', 'Description'],
-          rows: [
-            ['/splash', 'SplashView', 'Opening layout animation screen'],
-            ['/login', 'LoginView', 'Standard email/password credential validation form'],
-            ['/home', 'HomeView', 'Screening lists selection catalog (motor, speech, cognitive)'],
-            ['/article', 'ArticleListView', 'Child health development articles list feed'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'sky-blue', hex: '#0284C7', usage: 'Primary header actions background' },
-        { token: 'accent-orange', hex: '#F97316', usage: 'CTA highlights and progress indicators' }
-      ],
-      instructions: [
-        {
-          title: 'Prerequisites',
-          description: 'Flutter SDK ^3.x.'
-        },
-        {
-          title: 'Setup & Build',
-          code: `flutter pub get
-flutter run`
-        }
-      ]
-    }
+    github: ''
   },
   {
     slug: 'getcrew',
@@ -969,47 +927,6 @@ flutter run`
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />,
     ],
     link: '/projects/getcrew',
-    details: {
-      techStack: [
-        { layer: 'Frontend SDK', tool: 'Flutter' },
-        { layer: 'Language', tool: 'Dart' },
-        { layer: 'State / Routing', tool: 'GetX' },
-        { layer: 'Backend REST API', tool: 'Laravel' },
-        { layer: 'Database', tool: 'MySQL' }
-      ],
-      structure: `getcrew/
-├── lib/
-│   ├── app/
-│   │   ├── modules/          # Professional search listing, reservation calendars views
-│   │   └── routes/           # Custom router
-│   └── main.dart             # App entrypoint`,
-      routes: [
-        {
-          category: 'GetX Screen Routes',
-          headers: ['Path', 'View Interface', 'Use Case'],
-          rows: [
-            ['/login', 'LoginView', 'Credentials authentication login'],
-            ['/home', 'HomeListView', 'Search bar and grids of certified professional talents'],
-            ['/booking', 'BookingView', 'Select date, sign agreement contract, verify booking'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'crew-slate', hex: '#0F172A', usage: 'Primary brand background accents' },
-        { token: 'crew-teal', hex: '#0D9488', usage: 'CTA actions indicators, links' }
-      ],
-      instructions: [
-        {
-          title: 'Prerequisites',
-          description: 'Flutter SDK.'
-        },
-        {
-          title: 'Setup',
-          code: `flutter pub get
-flutter run`
-        }
-      ]
-    }
   },
   {
     slug: 'bidan-delima',
@@ -1021,42 +938,7 @@ flutter run`
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />,
     ],
     link: '/projects/bidan-delima',
-    github: 'https://github.com/tetraxion/bidan_delima',
-    details: {
-      techStack: [
-        { layer: 'Frontend SDK', tool: 'Flutter' },
-        { layer: 'Language', tool: 'Dart' },
-        { layer: 'Auth Provider', tool: 'Firebase Auth' },
-        { layer: 'Database', tool: 'Cloud Firestore DB' }
-      ],
-      structure: `bidan_delima/
-├── lib/
-│   ├── screens/              # Patient scheduling and feedback layouts
-│   ├── services/             # Firebase integration drivers
-│   └── main.dart             # App initialization entrypoint`,
-      routes: [
-        {
-          category: 'Application Screens',
-          headers: ['Screen Class', 'Description'],
-          rows: [
-            ['LoginScreen', 'Secure credential entry for certified midwives'],
-            ['DashboardScreen', 'Chronological index grid of scheduled daily patient visits'],
-            ['ScheduleFormScreen', 'Add new reservation records directly to Firestore database'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'delima-rose', hex: '#E11D48', usage: 'Primary brand logo color, highlights' },
-        { token: 'slate-light', hex: '#F1F5F9', usage: 'Form panels background colors' }
-      ],
-      instructions: [
-        {
-          title: 'Setup',
-          code: `flutter pub get
-flutter run`
-        }
-      ]
-    }
+    github: 'https://github.com/tetraxion/bidan_delima'
   },
   {
     slug: 'Pandu-object-detection',
@@ -1142,44 +1024,7 @@ pip install -r requirements.txt`
       <SiLaravel key="laravel" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />, <SiMysql key="mysql" />,
     ],
     link: '/projects/MerieLocationApp',
-    github: 'https://github.com/tetraxion/MarieLocation.git',
-    details: {
-      techStack: [
-        { layer: 'Framework', tool: 'Laravel (PHP)' },
-        { layer: 'Styling', tool: 'Bootstrap CSS' },
-        { layer: 'Database', tool: 'MySQL' },
-        { layer: 'Asset compiler', tool: 'Vite' }
-      ],
-      structure: `MarieLocation/
-├── app/
-│   └── Http/Controllers/   # Product listing, booking records handlers
-├── resources/views/        # Blade layouts template files
-└── routes/web.php          # Frontend sitemap router`,
-      routes: [
-        {
-          category: 'Web Page Routes',
-          headers: ['Path', 'Description'],
-          rows: [
-            ['/', 'Visual homepage showcasing bridal gown listings'],
-            ['/booking', 'Rental scheduling and reservation forms checkout'],
-            ['/admin', 'Superadmin product inventory and booking registry table controls'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'rose-gold', hex: '#E11D48', usage: 'Primary header actions highlights' },
-        { token: 'cream-pearl', hex: '#FAF5FF', usage: 'Product showcase card backgrounds' }
-      ],
-      instructions: [
-        {
-          title: 'Setup',
-          code: `composer install
-npm install
-php artisan migrate --seed
-php artisan serve`
-        }
-      ]
-    }
+    github: 'https://github.com/tetraxion/MarieLocation.git'
   },
   {
     slug: 'personal-portfolio',
@@ -1191,39 +1036,7 @@ php artisan serve`
       <SiFlutter key="flutter" />, <SiDart key="dart" />,
     ],
     link: '/projects/personal-portfolio',
-    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio',
-    details: {
-      techStack: [
-        { layer: 'Framework SDK', tool: 'Flutter for Web' },
-        { layer: 'Language', tool: 'Dart' }
-      ],
-      structure: `Web_Flutter_Portofolio/
-├── lib/
-│   ├── pages/         # Profile overview, projects grid views
-│   └── main.dart      # Flutter Web routing loader`,
-      routes: [
-        {
-          category: 'App routes',
-          headers: ['Path / Screen', 'Description'],
-          rows: [
-            ['/home', 'Profile introduction area, tech skills bars'],
-            ['/projects', 'Interactive showcase of historical developer projects cards'],
-            ['/contact', 'Contact form portal'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'flutter-blue', hex: '#2563EB', usage: 'Header links, buttons highlights' },
-        { token: 'slate-background', hex: '#475569', usage: 'Standard typography color' }
-      ],
-      instructions: [
-        {
-          title: 'Setup & Build',
-          code: `flutter pub get
-flutter run -d chrome`
-        }
-      ]
-    }
+    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio'
   },
   {
     slug: 'kai-website-clone',
@@ -1235,43 +1048,7 @@ flutter run -d chrome`
       <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/kai-website-clone',
-    github: 'https://github.com/tetraxion/KAI_PHP',
-    details: {
-      techStack: [
-        { layer: 'Backend Engine', tool: 'Raw PHP' },
-        { layer: 'Database', tool: 'MySQL' },
-        { layer: 'Frontend Styling', tool: 'Vanilla HTML5 / CSS3 / ES6 JS' }
-      ],
-      structure: `KAI_PHP/
-├── config.php             # Database connection setups
-├── index.php              # Ticket search engine form
-├── booking.php            # Passenger details capture page
-├── payment.php            # Mock bank configuration billing selector
-└── admin.php              # Train schedule management dashboard`,
-      routes: [
-        {
-          category: 'Application Pages',
-          headers: ['File Path', 'Scope & Purpose'],
-          rows: [
-            ['/index.php', 'Search train timetables, choose departure dates'],
-            ['/booking.php', 'Register passenger names, select train carriage seats'],
-            ['/payment.php', 'Interactive checkout simulation mock'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'kai-orange', hex: '#F97316', usage: 'Primary header accents, checkout action buttons' },
-        { token: 'kai-blue', hex: '#1D4ED8', usage: 'Corporate identity backgrounds' }
-      ],
-      instructions: [
-        {
-          title: 'Setup',
-          description: 'Host local folder using Apache (XAMPP/MAMP) and import database schema.',
-          code: `# Configure mysql parameters in config.php
-# Access index.php via browser localhost`
-        }
-      ]
-    }
+    github: 'https://github.com/tetraxion/KAI_PHP'
   },
   {
     slug: 'nushoptara',
@@ -1283,40 +1060,6 @@ flutter run -d chrome`
       <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/nushoptara',
-    github: 'https://github.com/tetraxion/Nushoptara_html',
-    details: {
-      techStack: [
-        { layer: 'Base Code', tool: 'HTML5 Semantic Elements' },
-        { layer: 'Styling', tool: 'Custom Vanilla CSS3 (Flexible Layouts)' },
-        { layer: 'Interactions', tool: 'Vanilla JavaScript' }
-      ],
-      structure: `Nushoptara_html/
-├── index.html             # Homepage product list grid
-├── product.html           # Detailed craft item descriptions and sizes
-├── contact.html           # Client inquiry email trigger page
-└── style.css              # Custom responsive typography configurations`,
-      routes: [
-        {
-          category: 'Sitemap Pages',
-          headers: ['Path', 'Description'],
-          rows: [
-            ['/index.html', 'Home catalog listing traditional textiles, carvings, and pottery'],
-            ['/product.html', 'Detailed zoom, product reviews, and shopping cart hooks'],
-            ['/contact.html', 'Client reservation message dispatch panel'],
-          ]
-        }
-      ],
-      colors: [
-        { token: 'craft-brown', hex: '#78350F', usage: 'Footer accents, timber details indicators' },
-        { token: 'craft-amber', hex: '#D97706', usage: 'Buy buttons backgrounds, prices indicators' }
-      ],
-      instructions: [
-        {
-          title: 'Setup & Launch',
-          description: 'No runtime compilation needed. Simply run using a browser:',
-          code: `open index.html`
-        }
-      ]
-    }
+    github: 'https://github.com/tetraxion/Nushoptara_html'
   },
 ];

@@ -26,9 +26,34 @@ import {
   SiRedis,
   SiSwagger,
   SiReact,
+  SiVuedotjs,
+  SiVite,
+  SiAxios,
+  SiPrimevue,
+  SiVitest,
+  SiEslint,
+  SiPrettier,
 } from "react-icons/si";
 
 export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'Backend' | 'IoT' | 'AI';
+
+export interface ProjectDetailsType {
+  techStack?: { layer: string; tool: string }[];
+  structure?: string;
+  routes?: {
+    category: string;
+    headers: string[];
+    rows: string[][];
+  }[];
+  roles?: { role: string; code: string; capabilities: string }[];
+  colors?: { token: string; hex: string; usage: string }[];
+  instructions?: {
+    title: string;
+    description?: string;
+    code?: string;
+    steps?: { name: string; cmd: string }[];
+  }[];
+}
 
 export interface ProjectType {
   slug: string;
@@ -42,9 +67,151 @@ export interface ProjectType {
   playstore?: string;
   appstore?: string;
   website?: string;
+  details?: ProjectDetailsType;
 }
 
 export const projects: ProjectType[] = [
+  {
+    slug: 'velostock',
+    title: 'VeloStock — Frontend',
+    description: 'A web-based inventory management application built with Vue 3 + Vite. VeloStock facilitates inventory stock tracking, activity audits, and multi-role access control for small to medium-sized businesses.',
+    image: '/projects/velostock.png',
+    category: 'Web',
+    tech: [
+      <SiVuedotjs key="vue" />,
+      <SiVite key="vite" />,
+      <SiTypescript key="typescript" />,
+      <SiTailwindcss key="tailwind" />,
+      <SiAxios key="axios" />,
+      <SiPrimevue key="primevue" />,
+      <SiVitest key="vitest" />,
+      <SiDocker key="docker" />,
+    ],
+    link: '/projects/velostock',
+    github: 'https://github.com/tetraxion/Front_Velostock',
+    website: 'https://front-velostock-be83.vercel.app/',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Vue 3 (Composition API)' },
+        { layer: 'Build Tool', tool: 'Vite 8' },
+        { layer: 'Language', tool: 'TypeScript' },
+        { layer: 'Styling', tool: 'Tailwind CSS v4' },
+        { layer: 'State Management', tool: 'Pinia + pinia-plugin-persistedstate' },
+        { layer: 'Routing', tool: 'Vue Router v5' },
+        { layer: 'HTTP Client', tool: 'Axios' },
+        { layer: 'UI Components', tool: 'PrimeVue 4 + PrimeIcons 7' },
+        { layer: 'Linter', tool: 'ESLint + OxLint' },
+        { layer: 'Formatter', tool: 'Prettier' },
+        { layer: 'Unit Test', tool: 'Vitest' },
+        { layer: 'E2E Test', tool: 'Playwright' },
+      ],
+      structure: `src/
+├── api/              # Axios instance & endpoint functions (auth, inventory)
+├── assets/           # CSS global, gambar (logo, banner)
+├── components/
+│   ├── common/       # Komponen reusable (AppButton, AppInput, AppToast, dll.)
+│   ├── dashboard/    # Komponen area dashboard (Sidebar, TopBar, StatsCard, dll.)
+│   └── public/       # Komponen halaman publik (Navbar, Footer, RevealWrapper, dll.)
+├── composables/      # Custom hooks (useDebounce, useFormatter, useReveal, useToast)
+├── layouts/          # Layout wrapper (DefaultLayout, DashboardLayout)
+├── router/           # Konfigurasi rute + navigation guards
+├── stores/           # Pinia stores (auth, inventory)
+├── types/            # TypeScript interfaces & types
+└── views/
+    ├── auth/         # LoginPage
+    ├── dashboard/    # InventoryListing, ItemDetail, ItemForm, AuditLog, UserManagement
+    └── public/       # LandingPage, FeaturesPage, AboutPage, PricingPage, ContactPage`,
+      routes: [
+        {
+          category: 'Public Routes',
+          headers: ['Path', 'Name', 'Description'],
+          rows: [
+            ['/', 'landing', 'Main landing page'],
+            ['/features', 'features', 'Interactive feature showcase'],
+            ['/about', 'about', 'About VeloStock'],
+            ['/pricing', 'pricing', 'Pricing plans'],
+            ['/contact', 'contact', 'Contact form'],
+            ['/portal/login', 'login', 'Login page (Guest only)'],
+          ]
+        },
+        {
+          category: 'Dashboard Routes (Requires Auth)',
+          headers: ['Path', 'Name', 'Allowed Roles'],
+          rows: [
+            ['/dashboard/inventory', 'inventory', 'All roles'],
+            ['/dashboard/inventory/new', 'inventory-new', 'Admin Only'],
+            ['/dashboard/inventory/:id', 'inventory-detail', 'All roles'],
+            ['/dashboard/inventory/:id/edit', 'inventory-edit', 'Admin Only'],
+            ['/dashboard/staff', 'staff', 'Admin Only'],
+            ['/dashboard/audit-log', 'audit-log', 'Admin Only'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Admin Utama', code: 'admin_utama', capabilities: 'Full Access — CRUD inventory, staff management, audit log access' },
+        { role: 'Staff Gudang', code: 'staff_gudang', capabilities: 'Inventory viewing & item details, no edit/delete capabilities, no audit log access' }
+      ],
+      colors: [
+        { token: 'forest-green', hex: '#0A4224', usage: 'Hero backgrounds, main heading texts' },
+        { token: 'vibrant-jade', hex: '#1E8449', usage: 'Primary CTA buttons, interactive accents' },
+        { token: 'lime-green', hex: '#2ECC71', usage: 'Highlights, badges, pulse animations' },
+        { token: 'slate-mint', hex: '#F4F9F5', usage: 'Alternating section backgrounds' },
+        { token: 'obsidian-charcoal', hex: '#2C3E50', usage: 'Default body text color' },
+        { token: 'muted-gray', hex: '#637381', usage: 'Secondary texts, placeholders' },
+        { token: 'warning-amber', hex: '#F39C12', usage: 'Low stock alerts & badges' },
+        { token: 'danger-crimson', hex: '#E74C3C', usage: 'Out of stock alerts, error states' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Node.js version `^22.18.0` or `>=24.12.0` and npm package manager.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone repository
+git clone https://github.com/tetraxion/Front_Velostock.git
+
+# Install dependencies
+npm install
+
+# Setup environment variables
+cp .env.example .env`
+        },
+        {
+          title: 'Development & Build Commands',
+          steps: [
+            { name: 'Run Dev Server', cmd: 'npm run dev' },
+            { name: 'Build Production', cmd: 'npm run build' },
+            { name: 'Preview Build', cmd: 'npm run preview' },
+            { name: 'Type Check', cmd: 'npm run type-check' },
+            { name: 'Lint & Auto-fix', cmd: 'npm run lint' },
+            { name: 'Format Code', cmd: 'npm run format' }
+          ]
+        },
+        {
+          title: 'Testing Suite',
+          code: `# Run Unit Tests (Vitest)
+npm run test:unit
+
+# Install Playwright browser engines (first-time only)
+npx playwright install
+
+# Run E2E Tests (Playwright)
+npm run test:e2e
+
+# Run E2E in debug mode
+npm run test:e2e -- --debug`
+        },
+        {
+          title: 'Docker Deployment',
+          code: `# Run container locally
+docker-compose up --build
+
+# Note: Nginx is configured inside docker/nginx.conf to handle routing fallback to index.html for Single Page Applications (SPA).`
+        }
+      ]
+    }
+  },
   {
     slug: 'anara-website',
     title: 'ANARA - Budget Management Information System',
@@ -57,6 +224,137 @@ export const projects: ProjectType[] = [
     link: '/projects/anara-website',
     github: '',
     website: 'https://anara.dbii.fun/login',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Laravel 12.x' },
+        { layer: 'Language', tool: 'PHP 8.2+' },
+        { layer: 'Styling', tool: 'Tailwind CSS 3.x' },
+        { layer: 'JS Engine', tool: 'Alpine.js 3.x' },
+        { layer: 'PDF Renderer', tool: 'DOMPDF' },
+        { layer: 'Excel Handler', tool: 'PhpSpreadsheet' },
+        { layer: 'Icons', tool: 'Font Awesome 6' },
+        { layer: 'Charts', tool: 'Chart.js' },
+        { layer: 'Auth', tool: 'Laravel Breeze' },
+        { layer: 'Build Tool', tool: 'Vite' },
+        { layer: 'Database', tool: 'MySQL / MariaDB' },
+        { layer: 'Caching', tool: 'Redis / Memcached' }
+      ],
+      structure: `ANARA/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── ChatbotController.php   # Chatbot API logic
+│   │   │   ├── DashboardController.php
+│   │   │   ├── SpjController.php       # SPJ CRUD & auto calculate
+│   │   │   ├── SBMController.php       # SBM Rates Management
+│   │   │   └── UserController.php      # User profiles & settings
+│   │   ├── Middleware/
+│   │   └── Requests/
+│   ├── Models/
+│   │   ├── Spj.php
+│   │   ├── SpjDetail.php
+│   │   ├── SbmPerjadin.php
+│   │   └── User.php
+│   └── Helpers/
+│       ├── NumberHelper.php
+│       └── TerbilangHelper.php
+├── resources/
+│   ├── views/
+│   │   ├── components/
+│   │   │   ├── chatbot.blade.php       # Chatbot UI panel
+│   │   │   └── sidebar.blade.php
+│   │   ├── dashboard.blade.php
+│   │   ├── spj/
+│   │   ├── sbm/
+│   │   └── users/
+│   ├── css/
+│   └── js/
+│       └── chatbot.js                   # Chatbot client-side script
+├── routes/
+│   ├── web.php                          # Web UI routes
+│   └── auth.php                         # Breeze auth routes
+└── database/
+    ├── migrations/                      # DB migrations
+    └── seeders/                         # Master data (provinces, SBM rates)`,
+      routes: [
+        {
+          category: 'Web Interface Routes',
+          headers: ['Path', 'Controller Method', 'Description'],
+          rows: [
+            ['/dashboard', 'DashboardController@index', 'Admin, Superadmin & User Dashboard'],
+            ['/spj', 'SpjController@index', 'List SPJ entries'],
+            ['/spj/create', 'SpjController@create', 'Wizard Form to create a new SPJ'],
+            ['/spj/{id}/edit', 'SpjController@edit', 'Edit specific SPJ (Admin & Creator)'],
+            ['/sbm', 'SBMController@index', 'Manage Standard Cost Database (Admin/Superadmin)'],
+            ['/users', 'UserController@index', 'Manage PNS & staff profiles (Superadmin)'],
+          ]
+        },
+        {
+          category: 'Chatbot & Internal API Routes',
+          headers: ['Path', 'Method', 'Security / Use Case'],
+          rows: [
+            ['/api/chatbot/greeting', 'GET', 'Fetch natural chatbot greetings (self-hosted)'],
+            ['/api/chatbot/message', 'POST', 'Process NLP pattern matching query securely on server'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Superadmin', code: 'superadmin', capabilities: 'Full Access — CRUD SPJ, manage users, modify agency parameters, full SBM rates database override, audit trails' },
+        { role: 'Admin', code: 'admin', capabilities: 'Manage SPJ, manage standard user accounts, update regional parameters' },
+        { role: 'User', code: 'user', capabilities: 'Create and edit their own SPJ, print Official PDFs, view personal dashboard stats' }
+      ],
+      colors: [
+        { token: 'forest-green', hex: '#155C38', usage: 'Primary brand color, sidebar headings, buttons' },
+        { token: 'golden-yellow', hex: '#EDAD44', usage: 'Secondary accents, active states, highlights' },
+        { token: 'dark-green', hex: '#1A7047', usage: 'CTA hovers, selected item states' },
+        { token: 'light-gray', hex: '#F8FAFC', usage: 'App background color' },
+        { token: 'slate-charcoal', hex: '#1E293B', usage: 'Default body text and headers' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'PHP >= 8.2, Composer, Node.js & NPM, MySQL, Apache/Nginx web server.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone repository
+git clone https://github.com/mahardikaoktvn/anara.git
+cd ANARA
+
+# Install dependencies
+composer install
+npm install
+
+# Setup environment variables
+cp .env.example .env
+php artisan key:generate`
+        },
+        {
+          title: 'Database Configuration',
+          description: 'Configure your DB credentials inside .env, then run:',
+          code: `php artisan migrate --seed`
+        },
+        {
+          title: 'Development & Build Commands',
+          steps: [
+            { name: 'Start PHP server', cmd: 'php artisan serve' },
+            { name: 'Vite Dev Server', cmd: 'npm run dev' },
+            { name: 'Build Production', cmd: 'npm run build' }
+          ]
+        },
+        {
+          title: 'Testing & Formatting Suite',
+          code: `# Run all PHPUnit tests
+php artisan test
+
+# Format code (PHP CS Fixer)
+composer format
+
+# Run JS Linter
+npm run lint`
+        }
+      ]
+    }
   },
   {
     slug: 'prime-property-platform',
@@ -70,6 +368,116 @@ export const projects: ProjectType[] = [
     link: '/projects/prime-property-platform',
     github: 'https://github.com/tetraxion/Prime_property.git',
     website: 'https://prime-property-chi.vercel.app/',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Next.js 14.x (App Router)' },
+        { layer: 'Language', tool: 'TypeScript 5.x' },
+        { layer: 'Styling', tool: 'Tailwind CSS 3.x' },
+        { layer: 'UI Library', tool: 'shadcn/ui' },
+        { layer: 'Auth', tool: 'Supabase Auth + httpOnly cookie' },
+        { layer: 'Database', tool: 'Supabase (PostgreSQL)' },
+        { layer: 'Emailer', tool: 'Resend API' },
+        { layer: 'Deployment', tool: 'Vercel' }
+      ],
+      structure: `prime-property/
+├── app/
+│   ├── (public)/                 # Public pages layout group
+│   │   ├── page.tsx              # Landing Page
+│   │   ├── about/page.tsx        # About Us
+│   │   └── contact/page.tsx      # Contact Us
+│   ├── agent/
+│   │   └── login/page.tsx        # Agent authentication portal
+│   ├── dashboard/
+│   │   ├── layout.tsx            # Dashboard shell + authentication check
+│   │   ├── listings/
+│   │   │   ├── page.tsx          # Real-time tabular inventory listing
+│   │   │   ├── new/page.tsx      # Add a new listing form
+│   │   │   └── [id]/
+│   │   │       ├── page.tsx      # Property detailed profile
+│   │   │       └── edit/page.tsx # Edit property details form
+│   │   ├── users/page.tsx        # Superadmin agent user management
+│   │   └── audit-log/page.tsx    # System change log history
+│   └── api/                      # Backend route handlers (Auth, properties, contact)
+├── components/
+│   ├── ui/                       # shadcn/ui shared primitives (BaseButton, BaseCard)
+│   ├── public/                   # Public components (header, footer, FloatingWhatsApp)
+│   └── dashboard/                # Internal dashboard widgets
+├── lib/
+│   ├── supabase/                 # Database clients (client, server, middleware)
+│   ├── validations/              # Zod schema definitions
+│   └── utils.ts
+└── supabase/
+    ├── migrations/               # PostgreSQL schema migrations & RLS policies
+    └── seed.sql                  # 50+ pre-filled properties dummy dataset`,
+      routes: [
+        {
+          category: 'Public Routes',
+          headers: ['Path', 'Layout', 'Access Level'],
+          rows: [
+            ['/', 'PublicLayout', 'Public - Guest only'],
+            ['/about', 'PublicLayout', 'Public - Guest only'],
+            ['/contact', 'PublicLayout', 'Public - Guest only'],
+          ]
+        },
+        {
+          category: 'Internal Agent Portal (Requires Auth)',
+          headers: ['Path', 'Layout', 'Access Control Level'],
+          rows: [
+            ['/agent/login', 'PublicLayout', 'Public - Auth Guest only'],
+            ['/dashboard', 'DashboardLayout', 'Internal (Redirects to /dashboard/listings)'],
+            ['/dashboard/listings', 'DashboardLayout', 'All Agents (Read-Only) / Superadmin (CRUD)'],
+            ['/dashboard/listings/new', 'DashboardLayout', 'Superadmin Only'],
+            ['/dashboard/listings/:id', 'DashboardLayout', 'All Agents (Read-Only) / Superadmin (CRUD)'],
+            ['/dashboard/listings/:id/edit', 'DashboardLayout', 'Superadmin Only'],
+            ['/dashboard/users', 'DashboardLayout', 'Superadmin Only'],
+            ['/dashboard/audit-log', 'DashboardLayout', 'Superadmin Only'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Superadmin', code: 'superadmin', capabilities: 'Complete administrative access. Full CRUD on properties, manage agent credentials (reset passwords, disable/enable profiles), view detailed audit logs.' },
+        { role: 'Admin (Agent)', code: 'admin', capabilities: 'Read-only access to property listings. Can search, filter, and inspect property details. Prevented from mutating data (403 Forbidden).' }
+      ],
+      colors: [
+        { token: 'primary-black', hex: '#1A1A1A', usage: 'Header backgrounds, primary heading text' },
+        { token: 'accent-gold', hex: '#C9A961', usage: 'Primary CTAs, highlights, badges, borders' },
+        { token: 'accent-red', hex: '#B33A3A', usage: 'Sold out statuses, dangerous actions, error feedback' },
+        { token: 'neutral-white', hex: '#FFFFFF', usage: 'Main content panels, cards backgrounds' },
+        { token: 'soft-gray', hex: '#F5F5F5', usage: 'Sidebar lists, alternative sections backgrounds' },
+        { token: 'whatsapp-green', hex: '#25D366', usage: 'WhatsApp floating button highlight' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Node.js version `18.x` or `20.x` and npm package manager.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone repository
+git clone https://github.com/tetraxion/Prime_property.git
+cd prime-property
+
+# Install dependencies
+npm install
+
+# Setup env variables
+cp .env.example .env.local`
+        },
+        {
+          title: 'Database Setup',
+          description: 'Configure a local Supabase CLI docker stack or connect to a remote cloud project, then apply migrations and seed data:',
+          code: `supabase db reset --remote`
+        },
+        {
+          title: 'Development & Build Commands',
+          steps: [
+            { name: 'Start development server', cmd: 'npm run dev' },
+            { name: 'Build project', cmd: 'npm run build' },
+            { name: 'Linter check', cmd: 'npm run lint' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'portfolio-theme-neobrutalism',
@@ -83,6 +491,66 @@ export const projects: ProjectType[] = [
     link: '/projects/portfolio-theme-neobrutalism',
     github: 'https://github.com/tetraxion/Portofolio_theme_NeoBrutalism',
     website: 'https://portofolio-theme-neo-brutalism.vercel.app/',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Next.js 14.x' },
+        { layer: 'Language', tool: 'TypeScript 5.x' },
+        { layer: 'Styling', tool: 'Tailwind CSS 3.x' },
+        { layer: 'Animations', tool: 'Framer Motion' },
+        { layer: 'Icons', tool: 'Lucide React' }
+      ],
+      structure: `neobrutalism-porto/
+├── app/
+│   ├── layout.tsx         # Root layout configuring Geist font
+│   ├── page.tsx           # Main landing profile page
+│   ├── projects/
+│   │   └── page.tsx       # Bold grid of mock projects
+│   └── contact/
+│       └── page.tsx       # Contact form with flat neo shadow style
+├── components/
+│   └── ui/
+│       ├── button.tsx     # Custom Neobrutalism 4px border buttons
+│       └── card.tsx       # Shadow-offset panels
+├── lib/
+│   └── utils.ts
+└── tailwind.config.ts     # Neo-brutalist theme color overrides`,
+      routes: [
+        {
+          category: 'Application Routing paths',
+          headers: ['Path', 'Layout Wrapper', 'Visual Highlight'],
+          rows: [
+            ['/', 'RootLayout', 'Hero layout with high-contrast text and interactive grid'],
+            ['/projects', 'RootLayout', 'Featured work tiles with pop-out hovering cards'],
+            ['/contact', 'RootLayout', 'Secure text input forms utilizing neo offset styling'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'neo-yellow', hex: '#FFE600', usage: 'Primary screen background accents' },
+        { token: 'neo-blue', hex: '#0066FF', usage: 'Hover background panels, focus rings' },
+        { token: 'neo-pink', hex: '#FF007A', usage: 'Secondary visual highlights, buttons' },
+        { token: 'pure-black', hex: '#000000', usage: 'Thick 4px border stroke, text headings' },
+        { token: 'pure-white', hex: '#FFFFFF', usage: 'Cards panel base background' }
+      ],
+      instructions: [
+        {
+          title: 'Setup & Installation',
+          code: `# Clone repository
+git clone https://github.com/tetraxion/Portofolio_theme_NeoBrutalism.git
+cd Portofolio_theme_NeoBrutalism
+
+# Install dependencies
+npm install`
+        },
+        {
+          title: 'Development & Build Commands',
+          steps: [
+            { name: 'Start development server', cmd: 'npm run dev' },
+            { name: 'Build project', cmd: 'npm run build' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'task-tracker-api',
@@ -95,6 +563,93 @@ export const projects: ProjectType[] = [
     ],
     link: '/projects/task-tracker-api',
     github: 'https://github.com/tetraxion/backend_test_dwi_lutfi.git',
+    details: {
+      techStack: [
+        { layer: 'Language', tool: 'Go (Golang 1.21+)' },
+        { layer: 'HTTP Framework', tool: 'Gin Gonic 1.9.1' },
+        { layer: 'CORS Middleware', tool: 'gin-contrib/cors 1.5.0' },
+        { layer: 'DB Connection Pool', tool: 'pgx/v5 (5.6.0)' },
+        { layer: 'UUID Generator', tool: 'google/uuid 1.6.0' },
+        { layer: 'Database', tool: 'PostgreSQL 16' },
+        { layer: 'Containerization', tool: 'Docker + Docker Compose' }
+      ],
+      structure: `backend/
+├── model/                            # Domain layer
+│   └── task.go                       # Struct models, requests, response definitions
+├── repository/                       # Data layer
+│   ├── task_repository.go            # Thread-safe in-memory mock repository
+│   ├── postgres_task_repository.go   # PostgreSQL client query handler
+│   └── task_repository_test.go
+├── handler/                          # Presentation layer
+│   ├── task_handler.go               # HTTP routes endpoint controller
+│   └── task_handler_test.go          # Unit tests for HTTP controllers using mocks
+├── db/                               # Infrastructure layer
+│   └── migrate.go                    # Schema pool initiator & migration scripts
+├── docs/
+│   └── openapi.yaml                  # Swagger 3.0 API specifications docs
+└── main.go                           # App entrypoint & dependency injection wiring`,
+      routes: [
+        {
+          category: 'REST Endpoints (Base URL: /api/v1)',
+          headers: ['Method', 'Endpoint', 'Description', 'Expected Code'],
+          rows: [
+            ['GET', '/tasks', 'Retrieve list of all tasks (newest first)', '200 OK'],
+            ['GET', '/tasks/:id', 'Retrieve detailed attributes of a task', '200 OK, 404 Not Found'],
+            ['POST', '/tasks', 'Create a new task (validates title/description)', '201 Created, 400 Bad Request'],
+            ['PATCH', '/tasks/:id/status', 'Update task completion state (backlog/in_progress/done)', '200 OK, 400, 404'],
+            ['DELETE', '/tasks/:id', 'Remove task permanently from database', '200 OK, 404 Not Found'],
+            ['GET', '/health', 'System health status validation', '200 OK'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'API Client', code: 'stateless', capabilities: 'Stateless access to CRUD tasks. Parallel requests handled securely via pgx connection pool and mutex read-write locks.' }
+      ],
+      colors: [
+        { token: 'go-cyan', hex: '#00ADD8', usage: 'Go programming brand color' },
+        { token: 'postgres-blue', hex: '#4169E1', usage: 'Database engine visual tags' },
+        { token: 'docker-blue', hex: '#2496ED', usage: 'Docker configurations indicators' },
+        { token: 'success-emerald', hex: '#10B981', usage: 'Server health check green indicator' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Go 1.21+ (for local runs) and Docker Desktop (for Compose setup).'
+        },
+        {
+          title: 'Option A: Docker Compose Setup (Recommended)',
+          description: 'Runs PostgreSQL and the Go backend automatically in parallel.',
+          code: `# Run stack
+docker compose up --build
+
+# Stop stack
+docker compose down`
+        },
+        {
+          title: 'Option B: Run locally (In-Memory)',
+          description: 'Runs backend without requiring PostgreSQL database configurations.',
+          code: `go mod tidy
+go run main.go`
+        },
+        {
+          title: 'Option C: Run locally with PostgreSQL Docker',
+          code: `# 1. Start Postgres container
+docker run -d --name task-pg -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=tasktracker -p 5433:5432 postgres:16-alpine
+
+# 2. Run backend in Postgres mode
+USE_POSTGRES=true DB_PORT=5433 go run main.go`
+        },
+        {
+          title: 'Testing Suite commands',
+          code: `# Run all tests
+go test ./...
+
+# Run verbose with coverage report
+go test ./... -coverprofile=coverage.out
+go tool cover -html=coverage.out`
+        }
+      ]
+    }
   },
   {
     slug: 'sparkling',
@@ -108,7 +663,83 @@ export const projects: ProjectType[] = [
     link: '/projects/sparkling',
     github: '',
     playstore: 'https://play.google.com/store/apps/details?id=com.solae.sparkling.id&hl=en-US',
-    appstore: 'https://apps.apple.com/au/app/sparkling-kids/id6756943374'
+    appstore: 'https://apps.apple.com/au/app/sparkling-kids/id6756943374',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter (SDK ^3.8.1)' },
+        { layer: 'Language', tool: 'Dart' },
+        { layer: 'State / Routing', tool: 'GetX ^4.7.2' },
+        { layer: 'HTTP Client', tool: 'Dio ^5.9.0' },
+        { layer: 'Animations', tool: 'Rive ^0.13.0 & Simple Animations' },
+        { layer: 'Storage', tool: 'GetStorage ^2.1.1' },
+        { layer: 'Push Notification', tool: 'Firebase Messaging ^16.0.4' },
+        { layer: 'Auth provider', tool: 'Firebase Auth & Google & Apple Sign-In' },
+        { layer: 'Database', tool: 'MySQL' },
+        { layer: 'Backend Framework', tool: 'Laravel (REST API)' }
+      ],
+      structure: `sparkling/
+├── lib/
+│   ├── app/
+│   │   ├── modules/                      # GetX view-controller features
+│   │   │   ├── parent/                   # Parent registration & kids stats
+│   │   │   ├── child/                    # Child class discovery grids
+│   │   │   ├── login/                    # Credential auth forms
+│   │   │   └── register/                 # Register screens
+│   │   └── routes/
+│   │       ├── app_pages.dart            # GetX views mapping
+│   │       └── app_routes.dart           # Static screen path definitions
+│   ├── common/
+│   │   ├── api/                          # Base HTTP API Client (Dio wrapper)
+│   │   ├── services/                     # Session cache services
+│   │   └── widget/                       # Standard cards, layout shells
+│   └── main.dart                         # Flutter initialization entrypoint`,
+      routes: [
+        {
+          category: 'GetX Screen Routes',
+          headers: ['Path', 'Target Audience', 'Description'],
+          rows: [
+            ['/splash', 'All', 'Opening loading animations screen'],
+            ['/login', 'All', 'Authentication credentials login screen'],
+            ['/main-nav', 'Child', 'Child primary visual dashboard to choose classes'],
+            ['/main-nav-parent', 'Parent', 'Parent portal to verify classes, check payments'],
+            ['/spark-report', 'Parent', 'Kids performance reports (IQ, EQ, PQ, SQ charts)'],
+            ['/subscribe', 'Parent', 'Subscription plans pricing configurations'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Parent', code: 'parent_portal', capabilities: 'Enroll kids in classes, view kids reports charts, manage billing payment profiles, edit kids profiles.' },
+        { role: 'Child', code: 'child_dashboard', capabilities: 'Discover class lists, complete class tasks, interact with mascot guides.' }
+      ],
+      colors: [
+        { token: 'lumi-blue (IQ)', hex: '#3B82F6', usage: 'IQ development metrics cards' },
+        { token: 'emo-pink (EQ)', hex: '#EC4899', usage: 'EQ development metrics cards' },
+        { token: 'pico-green (PQ)', hex: '#10B981', usage: 'PQ development metrics cards' },
+        { token: 'sora-yellow (SQ)', hex: '#F59E0B', usage: 'SQ development metrics cards' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Flutter SDK ^3.8.1 installed on system path.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone and tidy dependencies
+flutter pub get
+
+# Generate splash screen configurations
+flutter pub run flutter_launcher_icons`
+        },
+        {
+          title: 'Build Commands',
+          steps: [
+            { name: 'Start development on emulator', cmd: 'flutter run' },
+            { name: 'Build Android APK', cmd: 'flutter build apk' },
+            { name: 'Build iOS bundle', cmd: 'flutter build ios' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'floodViser',
@@ -121,8 +752,76 @@ export const projects: ProjectType[] = [
     ],
     link: '/projects/floodViser',
     playstore: 'https://play.google.com/store/apps/details?id=com.floodviser.app&hl=en-US',
-    github: '',
-    appstore: 'https://apps.apple.com/id/app/flood-viser/id6747161524'
+    appstore: 'https://apps.apple.com/id/app/flood-viser/id6747161524',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter (SDK ^3.7.0)' },
+        { layer: 'State Provider', tool: 'Flutter Riverpod ^3.0.0' },
+        { layer: 'Notification', tool: 'Firebase Messaging & Local Notifications' },
+        { layer: 'Auth Provider', tool: 'Firebase Auth' },
+        { layer: 'HTTP Client', tool: 'http Package ^1.3.0' },
+        { layer: 'PDF Handler', tool: 'pdfx ^2.9.2' },
+        { layer: 'Signature Capture', tool: 'signature ^6.3.0' },
+        { layer: 'Backend REST API', tool: 'Laravel + MySQL' },
+        { layer: 'IoT Protocol', tool: 'MQTT Client' }
+      ],
+      structure: `floodviser/
+├── lib/
+│   ├── api/              # Telemetry payload integration handlers
+│   ├── components/       # Custom scroll bars, headers widgets
+│   ├── dashboard/        # Real-time water levels graphs & dials screen
+│   ├── model/            # Data structure definitions (sensor inputs)
+│   ├── profile/          # Alert user thresholds configurations
+│   ├── pumps/            # IoT water pumps toggle buttons view
+│   ├── riverpod/         # Riverpod providers managing socket connections
+│   ├── services/         # Background listener services
+│   ├── style/            # Palette layout files
+│   └── widget/           # Animated waves, gauges UI`,
+      routes: [
+        {
+          category: 'Application Layout paths',
+          headers: ['Path', 'Manager Class', 'Description'],
+          rows: [
+            ['/login', 'AuthNotifier', 'Secure login form with Firebase credentials'],
+            ['/dashboard', 'TelemetryNotifier', 'Live sensor telemetry graphs and meteorological updates'],
+            ['/pumps', 'PumpNotifier', 'Direct controls to toggle remote IoT drainage water pumps'],
+            ['/profile', 'ProfileNotifier', 'Contact channels and alert threshold configurations'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Field Operator', code: 'operator', capabilities: 'Monitor live water telemetry levels, trigger remote water pumps, adjust alarm thresholds.' },
+        { role: 'System Admin', code: 'admin', capabilities: 'Manage user profiles, add new IoT water sensor assets, inspect system connections log logs.' }
+      ],
+      colors: [
+        { token: 'danger-red', hex: '#EF4444', usage: 'Critical flood alerts warning indicator' },
+        { token: 'warning-amber', hex: '#F59E0B', usage: 'Moderate alert warning indicator' },
+        { token: 'safe-blue', hex: '#3B82F6', usage: 'Normal sensor level indications' },
+        { token: 'pump-green', hex: '#10B981', usage: 'Active status indicator for remote pumps' },
+        { token: 'card-charcoal', hex: '#1E293B', usage: 'Dashboard base card background panels' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Flutter SDK ^3.7.0 installed locally.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone and clean project dependencies
+flutter pub get
+
+# Generate app icons configuration
+flutter pub run flutter_launcher_icons`
+        },
+        {
+          title: 'Execution Commands',
+          steps: [
+            { name: 'Run dev on emulator', cmd: 'flutter run' },
+            { name: 'Compile Android release APK', cmd: 'flutter build apk --release' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'sidoarjo-superapp',
@@ -134,7 +833,77 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiPostgresql key="postgresql" />, <SiDocker key="docker" />, <SiGetx key="getx" />,
     ],
     link: '/projects/sidoarjo-superapp',
-    github: ''
+    github: '',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter (SDK ^3.7.2)' },
+        { layer: 'State / Routes', tool: 'GetX ^4.7.2' },
+        { layer: 'HTTP Network', tool: 'Dio ^5.8.0+1' },
+        { layer: 'Fonts Family', tool: 'Plus Jakarta Sans' },
+        { layer: 'Secure Storage', tool: 'GetStorage & Cookie Jar' },
+        { layer: 'Map / GPS Tracker', tool: 'Geolocator & Geocoding' },
+        { layer: 'Camera Capture', tool: 'Camera SDK' },
+        { layer: 'Shimmer Loader', tool: 'Skeletonizer' },
+        { layer: 'QR Engine', tool: 'qr_flutter' }
+      ],
+      structure: `super_app/
+├── lib/
+│   ├── app/
+│   │   ├── modules/                      # Modular features views
+│   │   │   ├── home/                     # Citizen services navigation hub
+│   │   │   ├── complaint/                # Photo and GPS upload complaints form
+│   │   │   ├── marketplace/              # Local MSMEs store list
+│   │   │   └── profile/                  # Citizen digital ID card with QR
+│   │   └── routes/
+│   │       ├── app_pages.dart            # GetX views registration list
+│   │       └── app_routes.dart           # Static screen path definitions
+│   ├── components/                       # Shared custom app bars, popups
+│   ├── services/                         # Geolocator mapping, local session storage
+│   └── main.dart                         # App initialization entrypoint`,
+      routes: [
+        {
+          category: 'GetX Screen Routes',
+          headers: ['Path', 'Module Feature', 'Scope & Purpose'],
+          rows: [
+            ['/home', 'HomeModule', 'Citizen dashboard lists public service grids'],
+            ['/complaint', 'ComplaintModule', 'Report issues: snap photo proof and retrieve auto GPS coordinates'],
+            ['/profile', 'ProfileModule', 'Displays citizen name, photo, and official citizen identification QR code'],
+            ['/marketplace', 'MarketplaceModule', 'Local MSMEs portal to browse catalog and contact sellers'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Citizen', code: 'verified_citizen', capabilities: 'Access civil registry documents, submit complaints with location markers, generate identity QR.' }
+      ],
+      colors: [
+        { token: 'pemkab-blue', hex: '#1D4ED8', usage: 'Primary brand identity header colors' },
+        { token: 'accent-gold', hex: '#EAB308', usage: 'Secondary crest details, button outlines' },
+        { token: 'success-green', hex: '#22C55E', usage: 'Resolved complaint ticket badges' },
+        { token: 'warning-orange', hex: '#F97316', usage: 'In-progress status labels' },
+        { token: 'neutral-gray', hex: '#F3F4F6', usage: 'App background color' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Flutter SDK ^3.7.2 installed on system.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone and clean project dependencies
+flutter pub get
+
+# Generate app launcher icon configs
+flutter pub run flutter_launcher_icons`
+        },
+        {
+          title: 'Execution Commands',
+          steps: [
+            { name: 'Run dev on emulator', cmd: 'flutter run' },
+            { name: 'Build Android APK', cmd: 'flutter build apk' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'spedycheck',
@@ -146,7 +915,49 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />, <SiSupabase key="supabase" />, <SiGetx key="getx" />,
     ],
     link: '/projects/spedycheck',
-    github: ''
+    github: '',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter (SDK ^3.x)' },
+        { layer: 'Language', tool: 'Dart' },
+        { layer: 'State / Routing', tool: 'GetX' },
+        { layer: 'Auth Provider', tool: 'Firebase Auth' },
+        { layer: 'Database', tool: 'Supabase DB' }
+      ],
+      structure: `spedycheck/
+├── lib/
+│   ├── app/
+│   │   ├── modules/          # Screening questionnaires, articles library views
+│   │   └── routes/           # Routing registers
+│   └── main.dart             # App initialization entrypoint`,
+      routes: [
+        {
+          category: 'GetX Screen Routes',
+          headers: ['Path', 'Feature view', 'Description'],
+          rows: [
+            ['/splash', 'SplashView', 'Opening layout animation screen'],
+            ['/login', 'LoginView', 'Standard email/password credential validation form'],
+            ['/home', 'HomeView', 'Screening lists selection catalog (motor, speech, cognitive)'],
+            ['/article', 'ArticleListView', 'Child health development articles list feed'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'sky-blue', hex: '#0284C7', usage: 'Primary header actions background' },
+        { token: 'accent-orange', hex: '#F97316', usage: 'CTA highlights and progress indicators' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Flutter SDK ^3.x.'
+        },
+        {
+          title: 'Setup & Build',
+          code: `flutter pub get
+flutter run`
+        }
+      ]
+    }
   },
   {
     slug: 'getcrew',
@@ -158,6 +969,47 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiLaravel key="laravel" />, <SiMysql key="mysql" />, <SiGetx key="getx" />,
     ],
     link: '/projects/getcrew',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter' },
+        { layer: 'Language', tool: 'Dart' },
+        { layer: 'State / Routing', tool: 'GetX' },
+        { layer: 'Backend REST API', tool: 'Laravel' },
+        { layer: 'Database', tool: 'MySQL' }
+      ],
+      structure: `getcrew/
+├── lib/
+│   ├── app/
+│   │   ├── modules/          # Professional search listing, reservation calendars views
+│   │   └── routes/           # Custom router
+│   └── main.dart             # App entrypoint`,
+      routes: [
+        {
+          category: 'GetX Screen Routes',
+          headers: ['Path', 'View Interface', 'Use Case'],
+          rows: [
+            ['/login', 'LoginView', 'Credentials authentication login'],
+            ['/home', 'HomeListView', 'Search bar and grids of certified professional talents'],
+            ['/booking', 'BookingView', 'Select date, sign agreement contract, verify booking'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'crew-slate', hex: '#0F172A', usage: 'Primary brand background accents' },
+        { token: 'crew-teal', hex: '#0D9488', usage: 'CTA actions indicators, links' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Flutter SDK.'
+        },
+        {
+          title: 'Setup',
+          code: `flutter pub get
+flutter run`
+        }
+      ]
+    }
   },
   {
     slug: 'bidan-delima',
@@ -169,7 +1021,42 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiFirebase key="firebase" />,
     ],
     link: '/projects/bidan-delima',
-    github: 'https://github.com/tetraxion/bidan_delima'
+    github: 'https://github.com/tetraxion/bidan_delima',
+    details: {
+      techStack: [
+        { layer: 'Frontend SDK', tool: 'Flutter' },
+        { layer: 'Language', tool: 'Dart' },
+        { layer: 'Auth Provider', tool: 'Firebase Auth' },
+        { layer: 'Database', tool: 'Cloud Firestore DB' }
+      ],
+      structure: `bidan_delima/
+├── lib/
+│   ├── screens/              # Patient scheduling and feedback layouts
+│   ├── services/             # Firebase integration drivers
+│   └── main.dart             # App initialization entrypoint`,
+      routes: [
+        {
+          category: 'Application Screens',
+          headers: ['Screen Class', 'Description'],
+          rows: [
+            ['LoginScreen', 'Secure credential entry for certified midwives'],
+            ['DashboardScreen', 'Chronological index grid of scheduled daily patient visits'],
+            ['ScheduleFormScreen', 'Add new reservation records directly to Firestore database'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'delima-rose', hex: '#E11D48', usage: 'Primary brand logo color, highlights' },
+        { token: 'slate-light', hex: '#F1F5F9', usage: 'Form panels background colors' }
+      ],
+      instructions: [
+        {
+          title: 'Setup',
+          code: `flutter pub get
+flutter run`
+        }
+      ]
+    }
   },
   {
     slug: 'Pandu-object-detection',
@@ -181,7 +1068,69 @@ export const projects: ProjectType[] = [
       <SiPython key="python" />, <SiFlask key="flask" />, <SiRoboflow key="roboflow" />,
     ],
     link: '/projects/Pandu-object-detection',
-    github: 'https://github.com/dikawp/flask-roboflow'
+    github: 'https://github.com/dikawp/flask-roboflow',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Flask (Python)' },
+        { layer: 'Neural Network Model', tool: 'Ultralytics YOLOv8 (yolov8n.pt)' },
+        { layer: 'Image Handling', tool: 'OpenCV & Pillow' },
+        { layer: 'Dataset Provider', tool: 'Roboflow API' },
+        { layer: 'Deployment container', tool: 'Docker' }
+      ],
+      structure: `flask-roboflow/
+├── models/
+│   ├── yolov8n_toilet-disable/     # Bounding box weights for toilet grab bars
+│   └── yolov8n_prop-disable/       # Bounding box weights for accessibility ramps
+├── static/
+│   ├── uploads/                    # User original uploaded photos
+│   └── results/                    # YOLOv8 annotated predictions outputs
+├── templates/
+│   └── index.html                  # HTML visual predict interface dashboard
+├── app.py                          # Flask routing endpoints and scoring logic
+└── requirements.txt                # Python package listing requirements`,
+      routes: [
+        {
+          category: 'Flask Router Routes',
+          headers: ['Path', 'HTTP Method', 'Description'],
+          rows: [
+            ['/', 'GET', 'Renders the visual HTML predictive web page interface'],
+            ['/predict', 'POST', 'Processes image uploads: passes payload to YOLOv8 model, calculates accessibility score'],
+            ['/clear_history', 'POST', 'Clears predicted and uploaded image files from static folders'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'yolo-yellow', hex: '#FFFF00', usage: 'YOLOv8 bounding box predictions annotation border' },
+        { token: 'score-green', hex: '#22C55E', usage: 'Visual indicator for accessibility score >= 70%' },
+        { token: 'score-red', hex: '#EF4444', usage: 'Visual indicator for accessibility score < 70%' },
+        { token: 'flask-gray', hex: '#4B5563', usage: 'Primary layout borders' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Python 3.7+ installed and active pip package manager.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Clone repository
+git clone https://github.com/dikawp/flask-roboflow.git
+cd flask-roboflow
+
+# Create and activate virtual environment
+python -m venv venv
+venv\\Scripts\\activate
+
+# Install dependency models packages
+pip install -r requirements.txt`
+        },
+        {
+          title: 'Execution Command',
+          steps: [
+            { name: 'Run development server', cmd: 'flask run --debug' }
+          ]
+        }
+      ]
+    }
   },
   {
     slug: 'MerieLocationApp',
@@ -193,7 +1142,44 @@ export const projects: ProjectType[] = [
       <SiLaravel key="laravel" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />, <SiMysql key="mysql" />,
     ],
     link: '/projects/MerieLocationApp',
-    github: 'https://github.com/tetraxion/MarieLocation.git'
+    github: 'https://github.com/tetraxion/MarieLocation.git',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Laravel (PHP)' },
+        { layer: 'Styling', tool: 'Bootstrap CSS' },
+        { layer: 'Database', tool: 'MySQL' },
+        { layer: 'Asset compiler', tool: 'Vite' }
+      ],
+      structure: `MarieLocation/
+├── app/
+│   └── Http/Controllers/   # Product listing, booking records handlers
+├── resources/views/        # Blade layouts template files
+└── routes/web.php          # Frontend sitemap router`,
+      routes: [
+        {
+          category: 'Web Page Routes',
+          headers: ['Path', 'Description'],
+          rows: [
+            ['/', 'Visual homepage showcasing bridal gown listings'],
+            ['/booking', 'Rental scheduling and reservation forms checkout'],
+            ['/admin', 'Superadmin product inventory and booking registry table controls'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'rose-gold', hex: '#E11D48', usage: 'Primary header actions highlights' },
+        { token: 'cream-pearl', hex: '#FAF5FF', usage: 'Product showcase card backgrounds' }
+      ],
+      instructions: [
+        {
+          title: 'Setup',
+          code: `composer install
+npm install
+php artisan migrate --seed
+php artisan serve`
+        }
+      ]
+    }
   },
   {
     slug: 'personal-portfolio',
@@ -205,7 +1191,39 @@ export const projects: ProjectType[] = [
       <SiFlutter key="flutter" />, <SiDart key="dart" />,
     ],
     link: '/projects/personal-portfolio',
-    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio'
+    github: 'https://github.com/tetraxion/Web_Flutter_Portofolio',
+    details: {
+      techStack: [
+        { layer: 'Framework SDK', tool: 'Flutter for Web' },
+        { layer: 'Language', tool: 'Dart' }
+      ],
+      structure: `Web_Flutter_Portofolio/
+├── lib/
+│   ├── pages/         # Profile overview, projects grid views
+│   └── main.dart      # Flutter Web routing loader`,
+      routes: [
+        {
+          category: 'App routes',
+          headers: ['Path / Screen', 'Description'],
+          rows: [
+            ['/home', 'Profile introduction area, tech skills bars'],
+            ['/projects', 'Interactive showcase of historical developer projects cards'],
+            ['/contact', 'Contact form portal'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'flutter-blue', hex: '#2563EB', usage: 'Header links, buttons highlights' },
+        { token: 'slate-background', hex: '#475569', usage: 'Standard typography color' }
+      ],
+      instructions: [
+        {
+          title: 'Setup & Build',
+          code: `flutter pub get
+flutter run -d chrome`
+        }
+      ]
+    }
   },
   {
     slug: 'kai-website-clone',
@@ -217,7 +1235,43 @@ export const projects: ProjectType[] = [
       <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/kai-website-clone',
-    github: 'https://github.com/tetraxion/KAI_PHP'
+    github: 'https://github.com/tetraxion/KAI_PHP',
+    details: {
+      techStack: [
+        { layer: 'Backend Engine', tool: 'Raw PHP' },
+        { layer: 'Database', tool: 'MySQL' },
+        { layer: 'Frontend Styling', tool: 'Vanilla HTML5 / CSS3 / ES6 JS' }
+      ],
+      structure: `KAI_PHP/
+├── config.php             # Database connection setups
+├── index.php              # Ticket search engine form
+├── booking.php            # Passenger details capture page
+├── payment.php            # Mock bank configuration billing selector
+└── admin.php              # Train schedule management dashboard`,
+      routes: [
+        {
+          category: 'Application Pages',
+          headers: ['File Path', 'Scope & Purpose'],
+          rows: [
+            ['/index.php', 'Search train timetables, choose departure dates'],
+            ['/booking.php', 'Register passenger names, select train carriage seats'],
+            ['/payment.php', 'Interactive checkout simulation mock'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'kai-orange', hex: '#F97316', usage: 'Primary header accents, checkout action buttons' },
+        { token: 'kai-blue', hex: '#1D4ED8', usage: 'Corporate identity backgrounds' }
+      ],
+      instructions: [
+        {
+          title: 'Setup',
+          description: 'Host local folder using Apache (XAMPP/MAMP) and import database schema.',
+          code: `# Configure mysql parameters in config.php
+# Access index.php via browser localhost`
+        }
+      ]
+    }
   },
   {
     slug: 'nushoptara',
@@ -229,6 +1283,40 @@ export const projects: ProjectType[] = [
       <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />,
     ],
     link: '/projects/nushoptara',
-    github: 'https://github.com/tetraxion/Nushoptara_html'
+    github: 'https://github.com/tetraxion/Nushoptara_html',
+    details: {
+      techStack: [
+        { layer: 'Base Code', tool: 'HTML5 Semantic Elements' },
+        { layer: 'Styling', tool: 'Custom Vanilla CSS3 (Flexible Layouts)' },
+        { layer: 'Interactions', tool: 'Vanilla JavaScript' }
+      ],
+      structure: `Nushoptara_html/
+├── index.html             # Homepage product list grid
+├── product.html           # Detailed craft item descriptions and sizes
+├── contact.html           # Client inquiry email trigger page
+└── style.css              # Custom responsive typography configurations`,
+      routes: [
+        {
+          category: 'Sitemap Pages',
+          headers: ['Path', 'Description'],
+          rows: [
+            ['/index.html', 'Home catalog listing traditional textiles, carvings, and pottery'],
+            ['/product.html', 'Detailed zoom, product reviews, and shopping cart hooks'],
+            ['/contact.html', 'Client reservation message dispatch panel'],
+          ]
+        }
+      ],
+      colors: [
+        { token: 'craft-brown', hex: '#78350F', usage: 'Footer accents, timber details indicators' },
+        { token: 'craft-amber', hex: '#D97706', usage: 'Buy buttons backgrounds, prices indicators' }
+      ],
+      instructions: [
+        {
+          title: 'Setup & Launch',
+          description: 'No runtime compilation needed. Simply run using a browser:',
+          code: `open index.html`
+        }
+      ]
+    }
   },
 ];

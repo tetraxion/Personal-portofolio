@@ -906,6 +906,18 @@ flutter pub run flutter_launcher_icons`
     }
   },
   {
+    slug: 'cineexplore-tmdb',
+    title: 'CineExplore — TMDB Client Mobile App',
+    description: 'A mobile movie discovery application powered by The Movie Database (TMDB) API. Built with Flutter & Dart, the application provides a modern and responsive user interface to browse trending, popular, top-rated, and upcoming movies and TV shows, complete with watchlists, cast listings, and trailers.',
+    image: '/projects/tmdb.png',
+    category: 'Mobile',
+    tech: [
+      <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiGetx key="getx" />,
+    ],
+    link: '/projects/cineexplore-tmdb',
+    github: 'https://github.com/tetraxion/tmdb',
+  },
+  {
     slug: 'spedycheck',
     title: 'SpedyCheck - Child Development Screening App',
     description: 'A mobile application focused on screening child development. It allows parents to perform self-screenings and obtain relevant information through news and articles.',

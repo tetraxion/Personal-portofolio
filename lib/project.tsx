@@ -75,7 +75,7 @@ export const projects: ProjectType[] = [
     slug: 'velostock',
     title: 'VeloStock — Frontend',
     description: 'A web-based inventory management application built with Vue 3 + Vite. VeloStock facilitates inventory stock tracking, activity audits, and multi-role access control for small to medium-sized businesses.',
-    image: '/projects/velostock.png',
+    image: '/projects/velostock.webp',
     category: 'Web',
     tech: [
       <SiVuedotjs key="vue" />,
@@ -216,7 +216,7 @@ docker-compose up --build
     slug: 'anara-website',
     title: 'ANARA - Budget Management Information System',
     description: 'A web-based Budget Management Information System developed for the Deputy of Industry and Investment, Ministry of Tourism of the Republic of Indonesia. ANARA is designed to manage and monitor budgeting data, including DIPA, MAK, and related financial information. The system streamlines data input, maintenance, and reporting processes, ensuring accurate, up-to-date, and well-structured budget information for internal administrative and financial operations.',
-    image: '/projects/anara.png',
+    image: '/projects/anara.webp',
     category: 'Web',
     tech: [
       <SiLaravel key="laravel" />, <SiPhp key="php" />, <SiMysql key="mysql" />, <SiHtml5 key="html" />, <SiCss3 key="css" />, <SiJavascript key="js" />, <SiBootstrap key="bootstrap" />,
@@ -483,7 +483,7 @@ cp .env.example .env.local`
     slug: 'portfolio-theme-neobrutalism',
     title: 'Neo-Brutalism Portfolio Theme',
     description: 'A creative, bold, and high-contrast developer portfolio template built with Next.js, React, and Tailwind CSS. Employs the distinct Neo-Brutalism design style featuring thick black borders, vivid flat colors, and playful hover animations.',
-    image: '/projects/Porto_NeoBrutalism.png',
+    image: '/projects/Porto_NeoBrutalism.webp',
     category: 'Web',
     tech: [
       <SiNextdotjs key="nextjs" />, <SiTypescript key="typescript" />, <SiTailwindcss key="tailwind" />, <SiJavascript key="javascript" />,
@@ -556,7 +556,7 @@ npm install`
     slug: 'task-tracker-api',
     title: 'Task Tracker API - Backend (Golang)',
     description: 'A robust RESTful API built with Go (Golang) and the Gin Gonic framework. Features a clean layered architecture, dual-storage strategy (toggled in-memory and PostgreSQL with pgxpool), automated database migrations, unit tests, and Docker Compose configurations. Fully documented with Postman collections and OpenAPI specifications.',
-    image: '/projects/backend_tasksTracker.png',
+    image: '/projects/backend_tasksTracker.webp',
     category: 'Backend',
     tech: [
       <SiGo key="go" />, <SiPostgresql key="postgres" />, <SiDocker key="docker" />,
@@ -909,7 +909,7 @@ flutter pub run flutter_launcher_icons`
     slug: 'cineexplore-tmdb',
     title: 'CineExplore — TMDB Client Mobile App',
     description: 'A mobile movie discovery application powered by The Movie Database (TMDB) API. Built with Flutter & Dart, the application provides a modern and responsive user interface to browse trending, popular, top-rated, and upcoming movies and TV shows, complete with watchlists, cast listings, and trailers.',
-    image: '/projects/tmdb.png',
+    image: '/projects/tmdb.webp',
     category: 'Mobile',
     tech: [
       <SiFlutter key="flutter" />, <SiDart key="dart" />, <SiGetx key="getx" />,

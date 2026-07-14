@@ -213,6 +213,126 @@ docker-compose up --build
     }
   },
   {
+    slug: 'velostock-backend',
+    title: 'VeloStock — Backend (Golang)',
+    description: 'A robust RESTful API built with Go (Golang) and native HTTP routing (Go 1.22+). Features clean architecture, database migrations, security controls (JWT authentication, bcrypt hashing, rate limiting/login attempt lockouts), structured logging, and Docker Compose orchestration.',
+    image: '/projects/back_velostock.webp',
+    category: 'Backend',
+    tech: [
+      <SiGo key="go" />,
+      <SiPostgresql key="postgres" />,
+      <SiDocker key="docker" />,
+    ],
+    link: '/projects/velostock-backend',
+    github: 'https://github.com/tetraxion/Back_Velostock',
+    details: {
+      techStack: [
+        { layer: 'Language', tool: 'Go (Golang 1.26)' },
+        { layer: 'Router / HTTP', tool: 'Native net/http (Go 1.22+ routing)' },
+        { layer: 'Database Client', tool: 'Standard SQL library + lib/pq driver' },
+        { layer: 'Authentication', tool: 'JWT (golang-jwt/jwt/v5)' },
+        { layer: 'Hashing', tool: 'Bcrypt (golang.org/x/crypto/bcrypt)' },
+        { layer: 'ID Generator', tool: 'UUID (google/uuid)' },
+        { layer: 'Logging', tool: 'Structured Logging (log/slog)' },
+        { layer: 'Database', tool: 'PostgreSQL 16' },
+        { layer: 'Containerization', tool: 'Docker + Docker Compose' }
+      ],
+      structure: `backend/
+├── cmd/
+│   └── server/
+│       └── main.go                  # App entrypoint & dependency injection wiring
+├── internal/
+│   ├── delivery/
+│   │   └── http/
+│   │       ├── handler/             # HTTP Route Handlers (Auth, Item, User, Audit Log)
+│   │       ├── middleware/          # JWT Auth, Role Guard, Recovery middleware
+│   │       └── router.go            # Mux router initialization & endpoint mapping
+│   ├── domain/                      # Domain Layer (Models, interfaces)
+│   ├── repository/
+│   │   └── postgres/                # Postgres repository implementations
+│   └── usecase/                     # Usecase / Business logic layer (Auth, Item, User, Audit Log)
+├── migrations/                      # PostgreSQL DDL migrations scripts (User, Items, Audit, Login)
+├── pkg/
+│   ├── config/                      # Environment configuration loading
+│   ├── response/                    # Standardized HTTP JSON API response helper
+│   └── token/                       # JWT token management wrapper
+├── Dockerfile                       # Go builder & runner multistage container configuration
+└── docker-compose.yml               # Backend service + PostgreSQL alpine service container orchestration`,
+      routes: [
+        {
+          category: 'Public Endpoints',
+          headers: ['Method', 'Endpoint', 'Description', 'Response'],
+          rows: [
+            ['GET', '/api/health', 'System health status validation', '200 OK'],
+            ['POST', '/api/auth/login', 'Authenticates user and returns JWT token & cookie', '200 OK / 400 Bad Request / 401 Unauthorized'],
+            ['POST', '/api/contact', 'Mock contact submission form', '200 OK'],
+          ]
+        },
+        {
+          category: 'Authenticated Endpoints (All Roles)',
+          headers: ['Method', 'Endpoint', 'Description', 'Authorization'],
+          rows: [
+            ['POST', '/api/auth/logout', 'Revokes active JWT session', 'Bearer Token'],
+            ['GET', '/api/items', 'List inventory items (supports filters)', 'Bearer Token'],
+            ['GET', '/api/items/{id}', 'Get details of a specific item', 'Bearer Token'],
+            ['GET', '/api/inventory', 'Alias for /api/items', 'Bearer Token'],
+            ['GET', '/api/inventory/{id}', 'Alias for /api/items/{id}', 'Bearer Token'],
+            ['GET', '/api/inventory/categories', 'List unique items categories', 'Bearer Token'],
+          ]
+        },
+        {
+          category: 'Admin-Only Endpoints (admin_utama)',
+          headers: ['Method', 'Endpoint', 'Description', 'Authorization'],
+          rows: [
+            ['POST', '/api/items', 'Create new inventory item', 'Bearer Token + Admin Guard'],
+            ['PUT', '/api/items/{id}', 'Update existing inventory item details', 'Bearer Token + Admin Guard'],
+            ['DELETE', '/api/items/{id}', 'Delete inventory item permanently', 'Bearer Token + Admin Guard'],
+            ['POST', '/api/users', 'Register new staff/admin user profile', 'Bearer Token + Admin Guard'],
+            ['GET', '/api/audit-logs', 'List system activities history audit logs', 'Bearer Token + Admin Guard'],
+            ['POST', '/api/inventory', 'Alias for POST /api/items', 'Bearer Token + Admin Guard'],
+            ['PUT', '/api/inventory/{id}', 'Alias for PUT /api/items/{id}', 'Bearer Token + Admin Guard'],
+            ['DELETE', '/api/inventory/{id}', 'Alias for DELETE /api/items/{id}', 'Bearer Token + Admin Guard'],
+            ['GET', '/api/staff', 'List all staff credentials', 'Bearer Token + Admin Guard'],
+            ['POST', '/api/staff', 'Alias for registering staff', 'Bearer Token + Admin Guard'],
+            ['PUT', '/api/staff/{id}', 'Update specific staff profiles', 'Bearer Token + Admin Guard'],
+            ['DELETE', '/api/staff/{id}', 'Delete staff user accounts', 'Bearer Token + Admin Guard'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Admin Utama', code: 'admin_utama', capabilities: 'Complete system access: full CRUD on inventory, staff/user profile management, inspect security audit log' },
+        { role: 'Staff Gudang', code: 'staff_gudang', capabilities: 'Limited access: view inventory items, check item details, view category stats. Cannot manipulate data.' }
+      ],
+      colors: [
+        { token: 'go-cyan', hex: '#00ADD8', usage: 'Go runtime language badge accent' },
+        { token: 'postgres-blue', hex: '#336791', usage: 'PostgreSQL database container tag' },
+        { token: 'docker-blue', hex: '#2496ED', usage: 'Docker Compose orchestration container' },
+        { token: 'jwt-gold', hex: '#D63AFF', usage: 'Security payload JWT token verification indicator' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Go version `^1.22+` (for running bare metal) or Docker Desktop.'
+        },
+        {
+          title: 'Docker Compose Orchestration (Recommended)',
+          description: 'Builds API service and starts a healthy PostgreSQL database Alpine container in parallel.',
+          code: `# Build and spin up containers\ndocker compose up --build\n\n# Shutdown the container stack and persist volume data\ndocker compose down`
+        },
+        {
+          title: 'Manual Development Run',
+          description: 'Run the database using Docker first or provide a custom connection string in .env file.',
+          code: `# Setup configuration\ncp .env.example .env\n\n# Run migrations (ensure DB is running and DB_URL is set in .env)\n# The database will automatically initialize schemas from migrations folder when running via Docker.\n# To start the server:\ngo run cmd/server/main.go`
+        },
+        {
+          title: 'Database Seed & Credentials',
+          description: 'Upon initial container creation, if the user_profiles table is empty, a default admin credential will be automatically seeded:',
+          code: `Email: admin@velostock.com\nPassword: password123`
+        }
+      ]
+    }
+  },
+  {
     slug: 'anara-website',
     title: 'ANARA - Budget Management Information System',
     description: 'A web-based Budget Management Information System developed for the Deputy of Industry and Investment, Ministry of Tourism of the Republic of Indonesia. ANARA is designed to manage and monitor budgeting data, including DIPA, MAK, and related financial information. The system streamlines data input, maintenance, and reporting processes, ensuring accurate, up-to-date, and well-structured budget information for internal administrative and financial operations.',

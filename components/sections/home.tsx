@@ -6,10 +6,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
     FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaMobileAlt, FaLaptopCode, FaServer
 } from 'react-icons/fa';
+import { BiBlock } from 'react-icons/bi';
 import {
     SiHtml5, SiTypescript, SiReact, SiTailwindcss,
     SiMysql, SiPostgresql, SiFirebase, SiFigma, SiExpo, SiGit, SiNextdotjs, SiVite,
-    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiScrumalliance, SiJira
+    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiScrumalliance, SiJira, SiGo, SiVuedotjs
 } from "react-icons/si";
 import { User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal } from 'lucide-react';
 
@@ -41,7 +42,7 @@ export const HomeSection = () => {
                 { name: "Flutter", icon: SiFlutter },
                 { name: "Dart", icon: SiDart },
                 { name: "GetX", icon: SiGetx },
-                { name: "Bloc", icon: SiFlutter },
+                { name: "Bloc", icon: BiBlock },
                 { name: "Expo", icon: SiExpo },
             ]
         },
@@ -52,6 +53,7 @@ export const HomeSection = () => {
             bg: "bg-orange-500/10",
             skills: [
                 { name: "React", icon: SiReact },
+                { name: "Vue", icon: SiVuedotjs },
                 { name: "Next.js", icon: SiNextdotjs },
                 { name: "TypeScript", icon: SiTypescript },
                 { name: "Tailwind CSS", icon: SiTailwindcss },
@@ -66,6 +68,7 @@ export const HomeSection = () => {
             bg: "bg-emerald-500/10",
             skills: [
                 { name: "Node.js", icon: FaNodeJs },
+                { name: "Golang", icon: SiGo },
                 { name: "Python", icon: FaPython },
                 { name: "Laravel", icon: FaLaravel },
                 { name: "Firebase", icon: SiFirebase },

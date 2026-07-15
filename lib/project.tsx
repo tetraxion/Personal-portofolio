@@ -1038,6 +1038,116 @@ flutter pub run flutter_launcher_icons`
     github: 'https://github.com/tetraxion/tmdb',
   },
   {
+    slug: 'cyberguard-awareness',
+    title: 'CyberGuard Awareness — Website Security Auditing & Vulnerability Scanner',
+    description: 'A web-based security auditing platform that orchestrates passive fingerprinting, active network fuzzing, and vulnerability scanning. Powered by Laravel 11 and a multi-threaded Python scanner engine, the platform processes scans asynchronously via Redis/Horizon queues and provides interactive dashboards, real-time logging, and executive PDF reports with tailored remediation code snippets.',
+    image: '/projects/cyberguard.webp',
+    category: 'Web',
+    tech: [
+      <SiLaravel key="laravel" />,
+      <SiPhp key="php" />,
+      <SiPython key="python" />,
+      <SiPostgresql key="postgresql" />,
+      <SiRedis key="redis" />,
+      <SiDocker key="docker" />,
+      <SiHtml5 key="html" />,
+      <SiCss3 key="css" />,
+      <SiJavascript key="js" />,
+    ],
+    link: '/projects/cyberguard-awareness',
+    github: 'https://github.com/tetraxion/CyberGuard-Awarenes',
+    details: {
+      techStack: [
+        { layer: 'Dashboard Framework', tool: 'Laravel 11 (PHP 8.3)' },
+        { layer: 'Scanner Engine', tool: 'Python 3.11 (Scapy, Beautiful Soup, Aiohttp)' },
+        { layer: 'Asynchronous Queue', tool: 'Laravel Horizon & Redis' },
+        { layer: 'Database / Storage', tool: 'PostgreSQL 16' },
+        { layer: 'PDF Renderer', tool: 'Barryvdh DomPDF' },
+        { layer: 'Containerization', tool: 'Docker & Docker Compose' }
+      ],
+      structure: `CyberGuard-Awareness/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── DashboardController.php   # Dashboard analytics and charts data
+│   │   └── ScanController.php        # Triggers scan jobs and handles PDF download
+│   ├── Jobs/
+│   │   └── SecurityAuditJob.php      # Spawns Python scanner and saves findings
+│   └── Models/
+│       ├── Website.php
+│       ├── Scan.php
+│       └── Vulnerability.php
+├── docker/
+│   └── app/
+│       └── Dockerfile                # PHP-FPM / Nginx / Supervisor Alpine environment
+├── resources/views/
+│   ├── dashboard.blade.php           # Security health score dashboard UI
+│   └── scan/
+│       ├── show.blade.php            # Active scanner log and vulnerable endpoints
+│       └── report-pdf.blade.php      # PDF layout with executive summary
+├── scanner/
+│   ├── modules/                      # Target checks (Blind SQLi, SSRF, JWT, Forensics)
+│   └── scanner.py                    # Multi-threaded python engine entrypoint
+└── docker-compose.yml                # Multi-service local cluster compose configuration`,
+      routes: [
+        {
+          category: 'Web Routing Endpoints',
+          headers: ['Method', 'Path', 'Controller Action', 'Purpose'],
+          rows: [
+            ['GET', '/', 'DashboardController@index', 'Displays security posture and stats overview'],
+            ['POST', '/scan', 'ScanController@store', 'Creates a scan target and dispatches worker job'],
+            ['GET', '/scan/history', 'ScanController@history', 'Lists past scans history with pagination'],
+            ['GET', '/scan/{scan}', 'ScanController@show', 'Shows real-time scan output details & findings'],
+            ['GET', '/scan/{scan}/status', 'ScanController@status', 'Poll endpoint returning JSON status metadata'],
+            ['GET', '/scan/{scan}/report', 'ScanController@report', 'Generates and downloads PDF audit report'],
+            ['DELETE', '/scan/{scan}', 'ScanController@destroy', 'Deletes scan records and associated findings']
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Administrator', code: 'admin', capabilities: 'Monitor scanner health queue, trigger manual targets scan, download audit reports.' }
+      ],
+      colors: [
+        { token: 'bg-primary', hex: '#0A0B0F', usage: 'Deep dark main dashboard background' },
+        { token: 'accent-primary', hex: '#6366F1', usage: 'Primary action buttons, brand glow outlines' },
+        { token: 'severity-critical', hex: '#EF4444', usage: 'Critical SQLi / JWT none-alg vulnerability highlight' },
+        { token: 'severity-high', hex: '#F97316', usage: 'High risk XSS or open redirect vulnerabilities highlight' },
+        { token: 'severity-medium', hex: '#EAB308', usage: 'Medium risk missing CSP / clickjacking headers highlight' },
+        { token: 'success', hex: '#10B981', usage: 'Clean website security health score indicator' }
+      ],
+      instructions: [
+        {
+          title: 'Docker Development Launch',
+          code: `# Build and spin up all containers in background
+docker compose up --build -d
+
+# Run database migrations within the app container
+docker compose exec app php artisan migrate`
+        },
+        {
+          title: 'Local Non-Docker Setup',
+          code: `# Install composer packages
+composer install
+
+# Install node dependencies and compile assets
+npm install && npm run build
+
+# Run database migrations & seeders
+php artisan migrate
+
+# Start artisan server and queue listener
+php artisan serve
+php artisan queue:work`
+        },
+        {
+          title: 'Verify Project',
+          steps: [
+            { name: 'Run PHPUnit test suite', cmd: 'php -d extension=pdo_sqlite -d extension=sqlite3 .\\vendor\\bin\\phpunit' }
+          ]
+        }
+      ]
+    }
+  },
+  {
     slug: 'spedycheck',
     title: 'SpedyCheck - Child Development Screening App',
     description: 'A mobile application focused on screening child development. It allows parents to perform self-screenings and obtain relevant information through news and articles.',

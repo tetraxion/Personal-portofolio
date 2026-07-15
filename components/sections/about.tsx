@@ -4,6 +4,15 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Linkedin, Mail, Github, Instagram, Briefcase, Users, GraduationCap, User } from 'lucide-react';
 import Image from "next/image";
+import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
+import { projects } from "@/lib/project";
+
+const GitHubCalendar = dynamic(
+    () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
+    { ssr: false }
+);
 
 // Experience timeline icon
 const ExperienceIcon = () => (
@@ -20,6 +29,15 @@ const OrganizationIcon = () => (
 );
 
 export function AboutSection() {
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const colorScheme = mounted && resolvedTheme === 'dark' ? 'dark' : 'light';
+
     // Education Data
     const education = [
         {
@@ -42,7 +60,7 @@ export function AboutSection() {
             title: "Fullstack Web Developer",
             company: "Kementerian Pariwisata dan Ekonomi Kreatif RI",
             logo: "/projects/logo_kemenpar.png",
-            date: "Des 2025 - Present",
+            date: "Des 2025 - Juni 2026",
             type: "Internship",
             bullets: [
                 "Developed ANARA, a comprehensive Budget Management Information System.",
@@ -165,8 +183,8 @@ export function AboutSection() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
                         { value: "3.82", label: "GPA Score", sub: "Cum Laude", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
-                        { value: "5+", label: "Work Experience", sub: "Companies", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-                        { value: "12+", label: "Projects", sub: "Delivered", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-500/10" },
+                        { value: `${experiences.length}+`, label: "Work Experience", sub: "Companies", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
+                        { value: `${projects.length}+`, label: "Projects", sub: "Delivered", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-500/10" },
                         { value: "3+", label: "Specializations", sub: "Web, Mobile, AI", color: "text-slate-500", bg: "bg-slate-50 dark:bg-slate-500/10" },
                     ].map((stat, idx) => (
                         <motion.div
@@ -185,6 +203,39 @@ export function AboutSection() {
                             <p className="text-xs text-slate-400 dark:text-slate-500">{stat.sub}</p>
                         </motion.div>
                     ))}
+                </div>
+            </motion.section>
+
+            {/* GitHub Contributions Section */}
+            <motion.section 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true }} 
+                transition={{ duration: 0.5 }} 
+                className="mb-16"
+            >
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                        <Github size={20} className="text-slate-700 dark:text-slate-300" />
+                    </div>
+                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">GitHub Contributions</h2>
+                </div>
+                <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                    <div className="overflow-x-auto w-full flex justify-center py-2">
+                        <div className="min-w-[700px] md:min-w-0 md:w-full flex justify-center select-none text-slate-800 dark:text-slate-200">
+                            <GitHubCalendar 
+                                username="tetraxion"
+                                blockSize={11}
+                                blockMargin={4}
+                                fontSize={12}
+                                colorScheme={colorScheme}
+                                theme={{
+                                    light: ['#f1f5f9', '#bbf7d0', '#4ade80', '#22c55e', '#15803d'],
+                                    dark: ['#1e293b', '#064e3b', '#047857', '#10b981', '#34d399']
+                                }}
+                            />
+                        </div>
+                    </div>
                 </div>
             </motion.section>
             

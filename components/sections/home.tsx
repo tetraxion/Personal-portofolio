@@ -123,6 +123,8 @@ export const HomeSection = () => {
         },
     ];
 
+    const totalSkillsCount = skillCategories.reduce((acc, cat) => acc + cat.skills.length, 0);
+
     return (
         <div className="relative w-full pb-10">
 
@@ -209,9 +211,9 @@ export const HomeSection = () => {
             >
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { value: "12+", label: "Projects Built", color: "text-blue-500" },
+                        { value: `${projects.length}+`, label: "Projects Built", color: "text-blue-500" },
                         { value: "5+", label: "Work Experience", color: "text-emerald-500" },
-                        { value: "25+", label: "Technologies", color: "text-orange-500" },
+                        { value: `${totalSkillsCount}+`, label: "Technologies", color: "text-orange-500" },
                         { value: "3.82", label: "GPA (Cum Laude)", color: "text-slate-500" },
                     ].map((stat, idx) => (
                         <motion.div

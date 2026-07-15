@@ -1055,7 +1055,7 @@ flutter pub run flutter_launcher_icons`
       <SiJavascript key="js" />,
     ],
     link: '/projects/cyberguard-awareness',
-    github: 'https://github.com/tetraxion/CyberGuard-Awarenes',
+    github: '',
     details: {
       techStack: [
         { layer: 'Dashboard Framework', tool: 'Laravel 11 (PHP 8.3)' },

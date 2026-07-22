@@ -343,7 +343,7 @@ docker-compose up --build
     ],
     link: '/projects/anara-website',
     github: '',
-    website: 'https://anara.dbii.fun/login',
+    website: '',
     details: {
       techStack: [
         { layer: 'Framework', tool: 'Laravel 12.x' },

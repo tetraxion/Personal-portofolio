@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
 import { useState, useEffect } from 'react';
 import { projects } from "@/lib/project";
+import { certificates } from "@/lib/certificate";
 
 const GitHubCalendar = dynamic(
     () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
@@ -185,7 +186,7 @@ export function AboutSection() {
                         { value: "3.82", label: "GPA Score", sub: "Cum Laude", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10" },
                         { value: `${experiences.length}+`, label: "Work Experience", sub: "Companies", color: "text-emerald-500", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
                         { value: `${projects.length}+`, label: "Projects", sub: "Delivered", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-500/10" },
-                        { value: "3+", label: "Specializations", sub: "Web, Mobile, AI", color: "text-slate-500", bg: "bg-slate-50 dark:bg-slate-500/10" },
+                        { value: `${certificates.length}+`, label: "Certificates", sub: "Earned", color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-500/10" },
                     ].map((stat, idx) => (
                         <motion.div
                             key={stat.label}

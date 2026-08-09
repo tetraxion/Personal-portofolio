@@ -2,13 +2,38 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import { X, ExternalLink, Award } from 'lucide-react';
+import { X, ExternalLink, Award, Search } from 'lucide-react';
 import { certificates, Certificate } from '@/lib/certificate';
 
 type SelectedCertificate = Pick<Certificate, 'image' | 'link' | 'title'>;
 
 export const CertificateSection = () => {
   const [selectedCert, setSelectedCert] = useState<SelectedCertificate | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activePublisher, setActivePublisher] = useState('All');
+
+  const publishers = ['All', 'Dicoding', 'Great Learning', 'SAP', 'Others'];
+
+  const filteredCerts = certificates.filter(cert => {
+    const matchesSearch = cert.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          cert.publisher.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (activePublisher === 'All') return matchesSearch;
+    if (activePublisher === 'Dicoding') {
+      return matchesSearch && cert.publisher.includes('Dicoding');
+    }
+    if (activePublisher === 'Great Learning') {
+      return matchesSearch && cert.publisher === 'Great Learning';
+    }
+    if (activePublisher === 'SAP') {
+      return matchesSearch && cert.publisher === 'SAP';
+    }
+    // Others (Govt, Telkom Univ, etc.)
+    return matchesSearch && 
+           !cert.publisher.includes('Dicoding') && 
+           cert.publisher !== 'Great Learning' && 
+           cert.publisher !== 'SAP';
+  });
 
   return (
     <motion.section
@@ -31,63 +56,122 @@ export const CertificateSection = () => {
       </p>
       <hr className="border-dashed border-slate-300 dark:border-slate-700 mb-8" />
 
-      {/* Certificate List */}
-      <div className="flex flex-col gap-4">
-        {certificates.map((cert, index) => (
-          <motion.div
-            key={cert.id}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            className="relative flex items-start gap-4 p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group"
-          >
-            {/* Number */}
-            <div className="relative flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800 rounded-lg z-0">
-              {index + 1}
-            </div>
+      {/* Search and Filters */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        {/* Search Bar */}
+        <div className="relative flex-grow">
+          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Search certificates by title or publisher..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-sm"
+          />
+        </div>
 
-            {/* Thumbnail */}
-            <div className="relative flex-shrink-0 w-14 h-14 flex items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700/60 overflow-hidden shadow-sm z-0">
-              <Image
-                src={cert.image}
-                alt={cert.title}
-                width={48}
-                height={48}
-                className="object-cover"
-              />
-            </div>
+        {/* Publisher Filter pills */}
+        <div className="flex flex-wrap gap-2 items-center">
+          {publishers.map((pub) => (
+            <button
+              key={pub}
+              onClick={() => setActivePublisher(pub)}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all duration-300 cursor-target ${
+                activePublisher === pub
+                  ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md"
+                  : "bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white"
+              }`}
+            >
+              {pub}
+            </button>
+          ))}
+        </div>
+      </div>
 
-            {/* Content */}
-            <div className="relative flex-grow min-w-0 z-0">
-              <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
-                {cert.title}
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">{cert.publisher}</p>
-              {cert.date && (
-                <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Issued {cert.date}</p>
-              )}
+      {/* Certificate Grid */}
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <AnimatePresence mode="popLayout">
+          {filteredCerts.map((cert, index) => (
+            <motion.div
+              layout
+              key={cert.id}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              className="relative flex flex-col justify-between p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
+            >
+              <div>
+                {/* Header info (Badge and Date) */}
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-lg">
+                    #{index + 1}
+                  </span>
+                  {cert.date && (
+                    <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50/60 dark:bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-500/20">
+                      {cert.date}
+                    </span>
+                  )}
+                </div>
 
-              {/* Action Buttons */}
-              <div className="mt-3 flex items-center gap-4">
+                {/* Thumbnail and Title */}
+                <div className="flex items-start gap-4">
+                  <div className="relative flex-shrink-0 w-16 h-16 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <Image
+                      src={cert.image}
+                      alt={cert.title}
+                      fill
+                      sizes="64px"
+                      className="object-contain p-1"
+                    />
+                  </div>
+                  <div className="flex-grow min-w-0">
+                    <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2" title={cert.title}>
+                      {cert.title}
+                    </h3>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1 truncate">
+                      {cert.publisher}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
                 <button
                   onClick={() => setSelectedCert(cert)}
-                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-target"
+                  className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-target flex items-center gap-1.5"
                 >
-                  View Certificate
+                  View Credentials
                 </button>
-                <a
-                  href={cert.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors inline-flex items-center gap-1"
-                >
-                  Verify <ExternalLink size={14} />
-                </a>
+                {cert.link !== '#' && (
+                  <a
+                    href={cert.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-target"
+                  >
+                    Verify <ExternalLink size={14} />
+                  </a>
+                )}
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Empty State */}
+      {filteredCerts.length === 0 && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center py-16 bg-white/40 dark:bg-slate-900/20 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl"
+        >
+          <Award size={48} className="mx-auto text-slate-400 mb-4 opacity-50" />
+          <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300">No Certificates Found</h3>
+          <p className="text-sm text-slate-400 dark:text-slate-500 mt-1">Try resetting the filters or modifying your search query.</p>
+        </motion.div>
+      )}
 
       {/* Modal */}
       <AnimatePresence>
@@ -120,16 +204,18 @@ export const CertificateSection = () => {
               <div className="relative w-full h-[65vh] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-slate-50 dark:bg-slate-800">
                 <Image src={selectedCert.image} alt={selectedCert.title} fill className="object-contain" />
               </div>
-              <div className="mt-5 flex justify-end">
-                <a
-                  href={selectedCert.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium transition-colors shadow-sm hover:shadow-md"
-                >
-                  <ExternalLink size={16} /> Verify Credential
-                </a>
-              </div>
+              {selectedCert.link !== '#' && (
+                <div className="mt-5 flex justify-end">
+                  <a
+                    href={selectedCert.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium transition-colors shadow-sm hover:shadow-md"
+                  >
+                    <ExternalLink size={16} /> Verify Credential
+                  </a>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}

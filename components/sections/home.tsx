@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { projects } from "@/lib/project";
+import { certificates } from "@/lib/certificate";
 
 const roles = ["Mobile Developer.", "Frontend Engineer.", "AI Engineer.", "Fullstack Web Engineer."];
 
@@ -214,7 +215,7 @@ export const HomeSection = () => {
                         { value: `${projects.length}+`, label: "Projects Built", color: "text-blue-500" },
                         { value: "5+", label: "Work Experience", color: "text-emerald-500" },
                         { value: `${totalSkillsCount}+`, label: "Technologies", color: "text-orange-500" },
-                        { value: "3.82", label: "GPA (Cum Laude)", color: "text-slate-500" },
+                        { value: `${certificates.length}+`, label: "Certificates", color: "text-amber-500" },
                     ].map((stat, idx) => (
                         <motion.div
                             key={stat.label}

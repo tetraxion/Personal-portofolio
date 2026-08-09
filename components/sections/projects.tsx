@@ -1,14 +1,16 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects, ProjectCategory } from "@/lib/project";
 import { FaGithub } from 'react-icons/fa';
-import { ArrowUpRight, Sparkles, Pin, Layers } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Pin, Layers, Star, GitFork, ExternalLink, BookOpen, Loader2 } from 'lucide-react';
 
 export const ProjectSection = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('All');
+  const [repoStatsMap, setRepoStatsMap] = useState<Record<string, { stars: number; forks: number }>>({});
+
   const categories: ProjectCategory[] = ['All', 'Mobile', 'Web', 'Backend', 'IoT', 'AI'];
 
   const filteredProjects = projects.filter(project => 
@@ -18,6 +20,41 @@ export const ProjectSection = () => {
   // First project is featured/pinned
   const featuredProject = filteredProjects[0];
   const restProjects = filteredProjects.slice(1);
+
+  // Helper: Extract repository name from GitHub URL
+  const getRepoName = (githubUrl?: string) => {
+    if (!githubUrl) return '';
+    const cleanUrl = githubUrl.replace(/\.git$/, '');
+    const parts = cleanUrl.split('/');
+    return parts[parts.length - 1]?.toLowerCase() || '';
+  };
+
+  // Helper: Get stars and forks stats for a curated project
+  const getProjectStats = (githubUrl?: string) => {
+    const name = getRepoName(githubUrl);
+    return repoStatsMap[name] || null;
+  };
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/tetraxion/repos?per_page=100')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          // Build a lookup map of stars & forks by lowercase repository name
+          const statsMap: Record<string, { stars: number; forks: number }> = {};
+          data.forEach(repo => {
+            statsMap[repo.name.toLowerCase()] = {
+              stars: repo.stargazers_count,
+              forks: repo.forks_count
+            };
+          });
+          setRepoStatsMap(statsMap);
+        }
+      })
+      .catch(err => {
+        console.error('Error fetching GitHub repos:', err);
+      });
+  }, []);
 
   return (
     <>
@@ -69,47 +106,40 @@ export const ProjectSection = () => {
         </div>
 
         {/* Featured Project */}
-        <AnimatePresence mode="wait">
-          {featuredProject && (
-            <motion.div
-              key={`featured-${featuredProject.slug}`}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              className="mb-6"
-            >
-              <Link href={featuredProject.link} className="block cursor-target group">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
-                  <div className="relative flex flex-col md:flex-row z-0">
-                    {/* Image */}
-                    <div className="relative w-full md:w-1/2 h-56 md:h-72 overflow-hidden bg-slate-100 dark:bg-slate-800">
-                      <Image
-                        src={featuredProject.image}
-                        alt={featuredProject.title}
-                        fill
-                        priority={true}
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/30 dark:to-slate-900/40" />
-                      {/* Pinned Badge */}
-                      <div className="absolute top-4 left-4">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/30">
-                          <Pin size={12} /> Featured
-                        </span>
-                      </div>
-                    </div>
-                    {/* Content */}
-                    <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
-                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 w-fit mb-4">
-                        {featuredProject.category}
+        {featuredProject && (
+          <div className="mb-6">
+            <Link href={featuredProject.link} className="block cursor-target group">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl transition-all duration-500">
+                <div className="relative flex flex-col md:flex-row z-0">
+                  {/* Image */}
+                  <div className="relative w-full md:w-1/2 h-56 md:h-72 overflow-hidden bg-slate-100 dark:bg-slate-800">
+                    <Image
+                      src={featuredProject.image}
+                      alt={featuredProject.title}
+                      fill
+                      priority={true}
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/30 dark:to-slate-900/40" />
+                    {/* Pinned Badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-blue-600 text-white shadow-lg shadow-blue-500/30">
+                        <Pin size={12} /> Featured
                       </span>
-                      <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
-                        {featuredProject.title}
-                      </h2>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3 mb-5">
-                        {featuredProject.description}
-                      </p>
+                    </div>
+                  </div>
+                  {/* Content */}
+                  <div className="flex-1 p-6 md:p-8 flex flex-col justify-center">
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 w-fit mb-4">
+                      {featuredProject.category}
+                    </span>
+                    <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-3">
+                      {featuredProject.title}
+                    </h2>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3 mb-5">
+                      {featuredProject.description}
+                    </p>
+                    <div className="flex items-center justify-between mt-auto">
                       <div className="flex items-center gap-2.5 text-lg text-slate-500 dark:text-slate-400">
                         {featuredProject.tech.map((icon, i) => (
                           <span key={i} className="hover:text-slate-900 dark:hover:text-white transition-colors">
@@ -117,13 +147,27 @@ export const ProjectSection = () => {
                           </span>
                         ))}
                       </div>
+                      
+                      {/* Live Repo Stats */}
+                      {getProjectStats(featuredProject.github) && (
+                        <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                          <span className="flex items-center gap-1">
+                            <Star size={14} className="text-amber-500" />
+                            {getProjectStats(featuredProject.github)?.stars}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <GitFork size={14} className="text-blue-500" />
+                            {getProjectStats(featuredProject.github)?.forks}
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+            </Link>
+          </div>
+        )}
 
         {/* Project Grid */}
         <motion.div layout className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
@@ -169,12 +213,28 @@ export const ProjectSection = () => {
                       <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4">
                         {project.description}
                       </p>
-                      <div className="flex items-center gap-2.5 mt-auto text-lg text-slate-500 dark:text-slate-400">
-                        {project.tech.map((icon, i) => (
-                          <span key={i} className="hover:text-slate-900 dark:hover:text-white transition-colors">
-                            {icon}
-                          </span>
-                        ))}
+                      <div className="flex items-center justify-between mt-auto">
+                        <div className="flex items-center gap-2.5 text-lg text-slate-500 dark:text-slate-400">
+                          {project.tech.map((icon, i) => (
+                            <span key={i} className="hover:text-slate-900 dark:hover:text-white transition-colors">
+                              {icon}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        {/* Live Repo Stats */}
+                        {getProjectStats(project.github) && (
+                          <div className="flex items-center gap-2.5 text-xs text-slate-500 dark:text-slate-400">
+                            <span className="flex items-center gap-1">
+                              <Star size={13} className="text-amber-500" />
+                              {getProjectStats(project.github)?.stars}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <GitFork size={13} className="text-blue-500" />
+                              {getProjectStats(project.github)?.forks}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -210,3 +270,4 @@ export const ProjectSection = () => {
     </>
   );
 };
+

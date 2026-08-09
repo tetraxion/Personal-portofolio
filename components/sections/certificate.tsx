@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import { X, ExternalLink, Award, Search } from 'lucide-react';
+import { X, ExternalLink, Award, Search, Pin, ArrowUpRight } from 'lucide-react';
 import { certificates, Certificate } from '@/lib/certificate';
 
 type SelectedCertificate = Pick<Certificate, 'image' | 'link' | 'title'>;
@@ -13,6 +13,14 @@ export const CertificateSection = () => {
   const [activePublisher, setActivePublisher] = useState('All');
 
   const publishers = ['All', 'Dicoding', 'Great Learning', 'SAP', 'Others'];
+
+  const getPubCount = (pub: string) => {
+    if (pub === 'All') return certificates.length;
+    if (pub === 'Dicoding') return certificates.filter(c => c.publisher.includes('Dicoding')).length;
+    if (pub === 'Great Learning') return certificates.filter(c => c.publisher === 'Great Learning').length;
+    if (pub === 'SAP') return certificates.filter(c => c.publisher === 'SAP').length;
+    return certificates.filter(c => !c.publisher.includes('Dicoding') && c.publisher !== 'Great Learning' && c.publisher !== 'SAP').length;
+  };
 
   const filteredCerts = certificates.filter(cert => {
     const matchesSearch = cert.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -36,129 +44,155 @@ export const CertificateSection = () => {
   });
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="mb-12 md:mt-5"
-    >
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-3">
-        <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
-          <Award size={20} className="text-amber-500" />
+    <>
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="mb-8 md:mt-5"
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+              <Award size={20} className="text-amber-500" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Licenses & Certifications</h1>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-500 dark:text-slate-400">
+            <Award size={14} className="text-amber-500" />
+            {certificates.length} Certificates
+          </div>
         </div>
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Licenses & Certifications</h1>
-        </div>
-      </div>
-      <p className="text-slate-500 dark:text-slate-400 max-w-2xl mb-8">
-        A curated list of my professional credentials and achievements, showcasing continuous learning and expertise.
-      </p>
-      <hr className="border-dashed border-slate-300 dark:border-slate-700 mb-8" />
+        <p className="text-slate-500 dark:text-slate-400 max-w-xl mb-8">
+          A curated list of my professional credentials and achievements, showcasing continuous learning and expertise. Currently showing <span className="font-semibold text-slate-800 dark:text-slate-200">{filteredCerts.length}</span> of {certificates.length}.
+        </p>
 
-      {/* Search and Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        {/* Search Bar */}
-        <div className="relative flex-grow">
-          <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search certificates by title or publisher..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-sm"
-          />
-        </div>
+        <hr className="border-t border-dashed border-slate-300 dark:border-slate-700 mb-8" />
 
-        {/* Publisher Filter pills */}
-        <div className="flex flex-wrap gap-2 items-center">
-          {publishers.map((pub) => (
-            <button
-              key={pub}
-              onClick={() => setActivePublisher(pub)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all duration-300 cursor-target ${
-                activePublisher === pub
-                  ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md"
-                  : "bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white"
-              }`}
-            >
-              {pub}
-            </button>
-          ))}
-        </div>
-      </div>
+        {/* Search and Filters */}
+        <div className="flex flex-col md:flex-row gap-4 mb-8">
+          {/* Search Bar */}
+          <div className="relative flex-grow">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search certificates by title or publisher..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 bg-white/60 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 rounded-xl text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-sm"
+            />
+          </div>
 
-      {/* Certificate Grid */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <AnimatePresence mode="popLayout">
-          {filteredCerts.map((cert, index) => (
-            <motion.div
-              layout
-              key={cert.id}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              className="relative flex flex-col justify-between p-5 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group overflow-hidden"
-            >
-              <div>
-                {/* Header info (Badge and Date) */}
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-800/80 px-2.5 py-1 rounded-lg">
-                    #{index + 1}
-                  </span>
-                  {cert.date && (
-                    <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50/60 dark:bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-100 dark:border-blue-500/20">
-                      {cert.date}
-                    </span>
-                  )}
-                </div>
-
-                {/* Thumbnail and Title */}
-                <div className="flex items-start gap-4">
-                  <div className="relative flex-shrink-0 w-16 h-16 flex items-center justify-center bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-300">
-                    <Image
-                      src={cert.image}
-                      alt={cert.title}
-                      fill
-                      sizes="64px"
-                      className="object-contain p-1"
-                    />
-                  </div>
-                  <div className="flex-grow min-w-0">
-                    <h3 className="font-bold text-base text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2" title={cert.title}>
-                      {cert.title}
-                    </h3>
-                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-1 truncate">
-                      {cert.publisher}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
+          {/* Publisher Filter pills */}
+          <div className="flex flex-wrap gap-2 items-center">
+            {publishers.map((pub) => {
+              const count = getPubCount(pub);
+              return (
                 <button
-                  onClick={() => setSelectedCert(cert)}
-                  className="text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors cursor-target flex items-center gap-1.5"
+                  key={pub}
+                  onClick={() => setActivePublisher(pub)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-target border ${
+                    activePublisher === pub
+                      ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-lg"
+                      : "bg-transparent text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white"
+                  }`}
                 >
-                  View Credentials
+                  {pub} <span className="ml-1 opacity-60">{count}</span>
                 </button>
-                {cert.link !== '#' && (
-                  <a
-                    href={cert.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-target"
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Certificate Grid */}
+        <motion.div layout className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+          <AnimatePresence mode="popLayout">
+            {filteredCerts.map((cert, index) => {
+              const isLatest = index === 0;
+              return (
+                <motion.div
+                  key={cert.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <button
+                    onClick={() => setSelectedCert(cert)}
+                    className="block text-left w-full h-full cursor-target group focus:outline-none"
                   >
-                    Verify <ExternalLink size={14} />
-                  </a>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </motion.div>
+                    <div className={`relative flex flex-row items-center h-full gap-4 p-3 rounded-2xl border bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm transition-all duration-300 ${
+                      isLatest 
+                        ? "border-blue-500/50 dark:border-blue-400/50 shadow-md shadow-blue-500/5 dark:shadow-blue-400/5 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg"
+                        : "border-slate-200 dark:border-slate-700/60 hover:border-slate-300 dark:hover:border-slate-500 shadow-sm hover:shadow-md"
+                    }`}>
+                      {/* Image Thumbnail */}
+                      <div className="relative w-28 h-20 md:w-36 md:h-24 rounded-xl overflow-hidden flex-shrink-0 border border-slate-100 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 z-0">
+                        <Image
+                          src={cert.image}
+                          alt={cert.title}
+                          fill
+                          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1.5 group-hover:translate-y-0">
+                          <span className="inline-flex items-center gap-1 text-white text-[10px] font-medium bg-black/40 backdrop-blur-sm px-2 py-1 rounded-md border border-white/10">
+                            Preview <ArrowUpRight size={10} />
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="relative flex flex-col justify-between flex-grow min-w-0 h-full py-0.5 pr-1 z-0">
+                        <div>
+                          {/* Publisher & Date Info */}
+                          <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+                            <span className="text-[10px] md:text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 w-fit truncate max-w-[120px] md:max-w-[150px]">
+                              {cert.publisher}
+                            </span>
+                            {cert.date && (
+                              <span className="text-[10px] md:text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50/60 dark:bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-500/20">
+                                {cert.date}
+                              </span>
+                            )}
+                            {isLatest && (
+                              <span className="inline-flex items-center gap-0.5 text-[9px] md:text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-600 text-white shadow-sm">
+                                <Pin size={8} /> Latest
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="text-sm md:text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 leading-snug">
+                            {cert.title}
+                          </h3>
+                        </div>
+                        
+                        {/* Verify Link */}
+                        {cert.link !== '#' && (
+                          <div className="mt-2 flex justify-end">
+                            <span
+                              onClick={(e) => {
+                                e.stopPropagation(); // prevent modal trigger
+                                window.open(cert.link, '_blank', 'noopener,noreferrer');
+                              }}
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-target"
+                            >
+                              Verify <ExternalLink size={12} />
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </button>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
+      </motion.section>
 
       {/* Empty State */}
       {filteredCerts.length === 0 && (
@@ -220,6 +254,6 @@ export const CertificateSection = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </>
   );
 };

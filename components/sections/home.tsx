@@ -4,15 +4,20 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaMobileAlt, FaLaptopCode, FaServer
+    FaNodeJs, FaGithub, FaLinkedin, FaCode, FaLaravel, FaPython, FaMobileAlt, FaLaptopCode, FaServer,
+    FaFileExcel, FaChartBar, FaAndroid, FaFileWord
 } from 'react-icons/fa';
 import { BiBlock } from 'react-icons/bi';
 import {
     SiHtml5, SiTypescript, SiReact, SiTailwindcss,
     SiMysql, SiPostgresql, SiFirebase, SiFigma, SiExpo, SiGit, SiNextdotjs, SiVite,
-    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiScrumalliance, SiJira, SiGo, SiVuedotjs
+    SiFlutter, SiGetx, SiDart, SiSupabase, SiDocker, SiScrumalliance, SiJira, SiGo, SiVuedotjs,
+    SiAndroidstudio, SiLooker, SiKotlin, SiJupyter, SiGooglecolab,
+    SiRedux, SiNuxtdotjs, SiBootstrap, SiExpress, SiMongodb, SiRedis, SiGraphql, SiDotnet,
+    SiBlazor, SiPhp, SiNotion, SiPostman, SiTrello, SiSlack
 } from "react-icons/si";
-import { User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal } from 'lucide-react';
+import { VscCode } from "react-icons/vsc";
+import { User, Briefcase, Award, Mail, LayoutPanelLeft, Download, ArrowRight, Terminal, Users } from 'lucide-react';
 
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
@@ -25,6 +30,12 @@ const roles = ["Mobile Developer.", "Frontend Engineer.", "AI Engineer.", "Fulls
 export const HomeSection = () => {
     const router = useRouter();
     const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+    const [activeCategory, setActiveCategory] = useState(0);
+    const [latestCommit, setLatestCommit] = useState<{
+        repo: string;
+        message: string;
+        time: string;
+    } | null>(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -32,6 +43,52 @@ export const HomeSection = () => {
         }, 3000);
         return () => clearInterval(interval);
     }, [roles.length]);
+
+    useEffect(() => {
+        async function fetchLatestCommit() {
+            try {
+                const res = await fetch('https://api.github.com/users/tetraxion/events');
+                if (!res.ok) return;
+                const events = await res.json();
+                
+                // Find the first PushEvent
+                const pushEvent = events.find((event: any) => event.type === 'PushEvent');
+                if (pushEvent && pushEvent.payload.commits?.length > 0) {
+                    const repoName = pushEvent.repo.name.replace('tetraxion/', '');
+                    const message = pushEvent.payload.commits[0].message;
+                    
+                    // Format time difference
+                    const date = new Date(pushEvent.created_at);
+                    const now = new Date();
+                    const diffMs = now.getTime() - date.getTime();
+                    const diffMins = Math.floor(diffMs / 60000);
+                    const diffHours = Math.floor(diffMins / 60);
+                    const diffDays = Math.floor(diffHours / 24);
+
+                    let timeStr = '';
+                    if (diffMins < 60) {
+                        timeStr = `${diffMins}m ago`;
+                    } else if (diffHours < 24) {
+                        timeStr = `${diffHours}h ago`;
+                    } else if (diffDays === 1) {
+                        timeStr = 'Yesterday';
+                    } else {
+                        timeStr = `${diffDays}d ago`;
+                    }
+
+                    setLatestCommit({
+                        repo: repoName,
+                        message: message.split('\n')[0],
+                        time: timeStr
+                    });
+                }
+            } catch (err) {
+                console.warn('Error fetching latest commit:', err);
+            }
+        }
+
+        fetchLatestCommit();
+    }, []);
 
     const skillCategories = [
         {
@@ -42,6 +99,11 @@ export const HomeSection = () => {
             skills: [
                 { name: "Flutter", icon: SiFlutter },
                 { name: "Dart", icon: SiDart },
+                { name: "React Native", icon: SiReact },
+                { name: "Android Native", icon: FaAndroid },
+                { name: "Kotlin", icon: SiKotlin },
+                { name: ".NET MAUI / Xamarin", icon: SiDotnet },
+                // { name: "iOS Native (Swift)", icon: SiSwift },
                 { name: "GetX", icon: SiGetx },
                 { name: "Bloc", icon: BiBlock },
                 { name: "Expo", icon: SiExpo },
@@ -56,8 +118,12 @@ export const HomeSection = () => {
                 { name: "React", icon: SiReact },
                 { name: "Vue", icon: SiVuedotjs },
                 { name: "Next.js", icon: SiNextdotjs },
+                { name: "Nuxt.js", icon: SiNuxtdotjs },
                 { name: "TypeScript", icon: SiTypescript },
+                { name: "Blazor", icon: SiBlazor },
+                { name: "Redux", icon: SiRedux },
                 { name: "Tailwind CSS", icon: SiTailwindcss },
+                { name: "Bootstrap", icon: SiBootstrap },
                 { name: "Vite", icon: SiVite },
                 { name: "HTML/CSS", icon: SiHtml5 },
             ]
@@ -69,26 +135,60 @@ export const HomeSection = () => {
             bg: "bg-emerald-500/10",
             skills: [
                 { name: "Node.js", icon: FaNodeJs },
+                { name: "Express.js", icon: SiExpress },
                 { name: "Golang", icon: SiGo },
                 { name: "Python", icon: FaPython },
+                { name: "PHP", icon: SiPhp },
                 { name: "Laravel", icon: FaLaravel },
+                { name: ".NET", icon: SiDotnet },
                 { name: "Firebase", icon: SiFirebase },
                 { name: "Supabase", icon: SiSupabase },
+                { name: "MongoDB", icon: SiMongodb },
                 { name: "PostgreSQL", icon: SiPostgresql },
                 { name: "MySQL", icon: SiMysql },
+                { name: "Redis", icon: SiRedis },
+                { name: "GraphQL", icon: SiGraphql },
             ]
         },
         {
-            title: "Tools & Methodology",
+            title: "Data Analytics & BI",
+            icon: <FaChartBar size={18} />,
+            color: "text-purple-500",
+            bg: "bg-purple-500/10",
+            skills: [
+                { name: "Power BI", icon: FaChartBar },
+                { name: "Looker Studio", icon: SiLooker },
+                { name: "Jupyter Notebook", icon: SiJupyter },
+                { name: "Google Colab", icon: SiGooglecolab },
+                { name: "MS Excel", icon: FaFileExcel },
+            ]
+        },
+        {
+            title: "Development Tools",
             icon: <Terminal size={18} />,
             color: "text-slate-500",
             bg: "bg-slate-500/10",
             skills: [
                 { name: "Git", icon: SiGit },
                 { name: "Docker", icon: SiDocker },
-                { name: "Figma", icon: SiFigma },
+                { name: "Android Studio", icon: SiAndroidstudio },
+                { name: "VS Code", icon: VscCode },
+                { name: "Postman", icon: SiPostman },
+            ]
+        },
+        {
+            title: "Project & Collaboration",
+            icon: <Users size={18} />,
+            color: "text-indigo-500",
+            bg: "bg-indigo-500/10",
+            skills: [
                 { name: "Scrum", icon: SiJira },
                 { name: "Agile", icon: SiScrumalliance },
+                { name: "Notion", icon: SiNotion },
+                { name: "Trello", icon: SiTrello },
+                { name: "Slack", icon: SiSlack },
+                { name: "Figma", icon: SiFigma },
+                { name: "MS Word", icon: FaFileWord },
             ]
         }
     ];
@@ -137,13 +237,33 @@ export const HomeSection = () => {
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 className="mb-14 mt-4 md:mt-8 max-w-4xl"
             >
-                {/* Status Badge */}
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium mb-8 text-slate-700 dark:text-slate-300 shadow-sm">
-                    <span className="relative flex h-2.5 w-2.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                    </span>
-                    Available for new opportunities
+                {/* Status Badges Group */}
+                <div className="flex flex-wrap items-center gap-3 mb-8">
+                    {/* Opportunities Badge */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 shadow-sm">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                        </span>
+                        Available for new opportunities
+                    </div>
+
+                    {/* GitHub Activity Badge */}
+                    {latestCommit && (
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-700 dark:text-slate-300 shadow-sm"
+                        >
+                            <FaGithub className="text-slate-500 dark:text-slate-400 shrink-0" />
+                            <span className="truncate max-w-[200px] sm:max-w-[300px]">
+                                Last active: <span className="font-semibold text-blue-600 dark:text-blue-400">{latestCommit.repo}</span> ({latestCommit.message})
+                            </span>
+                            <span className="text-[10px] text-slate-400 font-normal shrink-0">
+                                {latestCommit.time}
+                            </span>
+                        </motion.div>
+                    )}
                 </div>
                 
                 {/* Typography */}
@@ -249,42 +369,63 @@ export const HomeSection = () => {
                     <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Technical Skills</h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                {/* Horizontal tabs */}
+                <div className="flex flex-wrap md:flex-row gap-2 mb-8 border-b border-slate-200 dark:border-slate-800/80 pb-6">
                     {skillCategories.map((category, idx) => (
-                        <motion.div
+                        <button
                             key={category.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
-                            viewport={{ once: true }}
-                            className="h-full"
+                            onClick={() => setActiveCategory(idx)}
+                            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all cursor-target ${
+                                activeCategory === idx
+                                    ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md scale-[1.02]"
+                                    : "bg-transparent text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-white"
+                            }`}
                         >
-                            <div className="relative h-full p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md hover:border-slate-300 dark:hover:border-slate-500 transition-all overflow-hidden group/skill">
-                                <div className="relative flex items-center gap-3 mb-6">
-                                    <span className={`p-2 rounded-lg ${category.bg} ${category.color}`}>
-                                        {category.icon}
-                                    </span>
-                                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{category.title}</h3>
-                                </div>
-                                
-                                <div className="flex flex-wrap gap-2.5">
-                                    {category.skills.map((skill) => {
-                                        const Icon = skill.icon;
-                                        return (
-                                            <div 
-                                                key={skill.name} 
-                                                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-slate-100 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-500 transition-colors"
-                                            >
-                                                <Icon size={16} className={`${category.color} opacity-80`} />
-                                                {skill.name}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        </motion.div>
+                            <span className={activeCategory === idx ? "" : category.color}>
+                                {category.icon}
+                            </span>
+                            {category.title}
+                        </button>
                     ))}
                 </div>
+
+                {/* Tab Content */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeCategory}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.3 }}
+                        className="p-8 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm"
+                    >
+                        <div className="flex items-center gap-3 mb-8">
+                            <span className={`p-2.5 rounded-xl ${skillCategories[activeCategory].bg} ${skillCategories[activeCategory].color}`}>
+                                {skillCategories[activeCategory].icon}
+                            </span>
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                                {skillCategories[activeCategory].title}
+                            </h3>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
+                            {skillCategories[activeCategory].skills.map((skill) => {
+                                const Icon = skill.icon;
+                                return (
+                                    <motion.div 
+                                        key={skill.name}
+                                        whileHover={{ scale: 1.04, y: -2 }}
+                                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                                        className="flex items-center gap-2.5 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-800/40 text-sm font-semibold text-slate-800 dark:text-slate-200 shadow-sm hover:shadow-md hover:border-slate-200 dark:hover:border-slate-700 transition-colors"
+                                    >
+                                        <Icon size={18} className={`${skillCategories[activeCategory].color} opacity-90`} />
+                                        {skill.name}
+                                    </motion.div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
             </motion.section>
 
             {/* === Featured Sections === */}

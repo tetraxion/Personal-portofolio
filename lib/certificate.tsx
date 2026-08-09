@@ -9,7 +9,7 @@ export interface Certificate {
 
 export const certificates: Certificate[] = [
   {
-    id: 19,
+    id: 20,
     title: 'Belajar Dasar Cloud dan Gen AI di AWS',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -17,7 +17,7 @@ export const certificates: Certificate[] = [
     date: 'Apr 2026'
   },
   {
-    id: 18,
+    id: 19,
     title: 'Belajar Fundamental Pemrosesan Data',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -25,7 +25,7 @@ export const certificates: Certificate[] = [
     date: 'Apr 2026'
   },
   {
-    id: 17,
+    id: 18,
     title: 'Spec-Driven Development dengan Kiro',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -33,7 +33,7 @@ export const certificates: Certificate[] = [
     date: 'Apr 2026'
   },
   {
-    id: 16,
+    id: 17,
     title: 'Memulai Pemrograman dengan Python',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -41,7 +41,7 @@ export const certificates: Certificate[] = [
     date: 'Apr 2026'
   },
   {
-    id: 15,
+    id: 16,
     title: 'Belajar Machine Learning untuk Pemula',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -49,7 +49,7 @@ export const certificates: Certificate[] = [
     date: 'Apr 2026'
   },
   {
-    id: 14,
+    id: 15,
     title: 'Membangun Aplikasi Gen AI dengan Microsoft Azure',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -57,7 +57,7 @@ export const certificates: Certificate[] = [
     date: 'Feb 2026'
   },
   {
-    id: 13,
+    id: 14,
     title: 'Belajar Penerapan Data Science dengan Microsoft Fabric',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -65,7 +65,7 @@ export const certificates: Certificate[] = [
     date: 'Feb 2026'
   },
   {
-    id: 12,
+    id: 13,
     title: 'Memulai Pemrograman dengan Python',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -73,7 +73,7 @@ export const certificates: Certificate[] = [
     date: 'Feb 2026'
   },
   {
-    id: 11,
+    id: 12,
     title: 'Introduction to Financial Literacy',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -81,7 +81,7 @@ export const certificates: Certificate[] = [
     date: 'Jan 2026'
   },
   {
-    id: 10,
+    id: 11,
     title: 'Memulai Pemrograman dengan Kotlin',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -89,7 +89,7 @@ export const certificates: Certificate[] = [
     date: 'Oct 2025'
   },
   {
-    id: 9,
+    id: 10,
     title: 'Belajar Dasar AI',
     publisher: 'Dicoding Indonesia',
     image: '/certificate/sertif_placeholder.png',
@@ -97,7 +97,7 @@ export const certificates: Certificate[] = [
     date: 'Sep 2025'
   },
   {
-    id: 8,
+    id: 9,
     title: 'Copyright for SPEEDYCHECK Mobile Application',
     publisher: 'Ministry of Law and Human Rights of the Republic of Indonesia',
     image: '/certificate/sertif9.webp',
@@ -105,7 +105,7 @@ export const certificates: Certificate[] = [
     date: 'Jun 2024'
   },
   {
-    id: 7,
+    id: 8,
     title: 'English Proficiency Test (EPrT) - Score 450',
     publisher: 'Telkom University Language Center',
     image: '/certificate/sertif8.webp',
@@ -113,7 +113,7 @@ export const certificates: Certificate[] = [
     date: '2024'
   },
   {
-    id: 6,
+    id: 7,
     title: 'MSIB Internship Certificate Batch 6 - Mobile Developer',
     publisher: 'Kampus Merdeka & INDI Technology',
     image: '/certificate/sertif7.webp',
@@ -121,7 +121,7 @@ export const certificates: Certificate[] = [
     date: 'Jul 2024'
   },
   {
-    id: 5,
+    id: 6,
     title: 'Belajar Membuat Aplikasi Flutter untuk Pemula',
     publisher: 'Dicoding Academy',
     image: '/certificate/sertif6.webp',
@@ -129,7 +129,7 @@ export const certificates: Certificate[] = [
     date: 'Nov 2023'
   },
   {
-    id: 4,
+    id: 5,
     title: 'Belajar Prinsip Pemrograman SOLID',
     publisher: 'Dicoding Academy',
     image: '/certificate/sertif5.webp',
@@ -137,7 +137,7 @@ export const certificates: Certificate[] = [
     date: 'Nov 2023'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Memulai Pemrograman dengan Dart',
     publisher: 'Dicoding Academy',
     image: '/certificate/sertif4.webp',
@@ -145,7 +145,7 @@ export const certificates: Certificate[] = [
     date: 'Nov 2023'
   },
   {
-    id: 2,
+    id: 3,
     title: 'Data Visualization with Power BI',
     publisher: 'Great Learning',
     image: '/certificate/sertif3.webp',
@@ -153,7 +153,7 @@ export const certificates: Certificate[] = [
     date: 'May 2023'
   },
   {
-    id: 1,
+    id: 2,
     title: 'Python Fundamentals for Beginners',
     publisher: 'Great Learning',
     image: '/certificate/sertif2.webp',
@@ -161,10 +161,18 @@ export const certificates: Certificate[] = [
     date: 'May 2023'
   },
   {
-    id: 0,
+    id: 1,
     title: 'HR050 Business Processes in Human Capital Management',
     publisher: 'SAP',
     image: '/certificate/sertif1.webp',
+    link: '#',
+    date: 'Jan 2023'
+  },
+  {
+    id: 0,
+    title: 'SCM100 Business Processes in Planning',
+    publisher: 'SAP',
+    image: '/certificate/sertif0.webp',
     link: '#',
     date: 'Jan 2023'
   }

@@ -201,7 +201,6 @@ export function AboutSection() {
                             </div>
                             <p className={`text-2xl font-extrabold ${stat.color} mb-0.5`}>{stat.value}</p>
                             <p className="text-sm font-medium text-slate-900 dark:text-white">{stat.label}</p>
-                            <p className="text-xs text-slate-400 dark:text-slate-500">{stat.sub}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -215,12 +214,15 @@ export function AboutSection() {
                 transition={{ duration: 0.5 }} 
                 className="mb-16"
             >
-                <div className="flex items-center gap-3 mb-8">
-                    <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
-                        <Github size={20} className="text-slate-700 dark:text-slate-300" />
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 shadow-sm">
+                            <Github size={20} className="text-slate-700 dark:text-slate-300" />
+                        </div>
+                        <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">GitHub Contributions</h2>
                     </div>
-                    <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">GitHub Contributions</h2>
                 </div>
+
                 <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
                     <div className="overflow-x-auto w-full flex justify-center py-2">
                         <div className="min-w-[700px] md:min-w-0 md:w-full flex justify-center select-none text-slate-800 dark:text-slate-200">

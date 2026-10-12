@@ -33,6 +33,11 @@ import {
   SiVitest,
   SiEslint,
   SiPrettier,
+  SiKotlin,
+  SiAndroid,
+  SiBluetooth,
+  SiSqlite,
+  SiGradle,
 } from "react-icons/si";
 
 export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'Backend' | 'IoT' | 'AI';
@@ -71,6 +76,106 @@ export interface ProjectType {
 }
 
 export const projects: ProjectType[] = [
+  {
+    slug: 'blueradar',
+    title: 'BlueRadar — BLE Proximity Tracker',
+    description: 'A production-grade Android application engineered with Kotlin, Jetpack Compose, and Clean Architecture for Goodeva Technology study case. Features real-time Bluetooth Low Energy (BLE) scanning, an interactive 360° circular radar proximity visualizer, log-distance path loss distance estimation, and local persistence with Room database.',
+    image: '/projects/blueradar.webp',
+    category: 'Mobile',
+    tech: [
+      <SiKotlin key="kotlin" />,
+      <SiAndroid key="android" />,
+      <SiBluetooth key="bluetooth" />,
+      <SiSqlite key="room" />,
+      <SiGradle key="gradle" />,
+    ],
+    link: '/projects/blueradar',
+    github: 'https://github.com/tetraxion/blueradar_kotlin',
+    details: {
+      techStack: [
+        { layer: 'Language', tool: 'Kotlin 2.1.0' },
+        { layer: 'UI Framework', tool: 'Jetpack Compose 1.8.0 + Material3' },
+        { layer: 'Architecture', tool: 'Clean Architecture + MVVM' },
+        { layer: 'Dependency Injection', tool: 'Dagger Hilt 2.54' },
+        { layer: 'Local Database', tool: 'Room Database 2.7.0 (SQLite) + Coroutine Flow' },
+        { layer: 'Async & Concurrency', tool: 'Kotlin Coroutines + StateFlow / callbackFlow' },
+        { layer: 'BLE Engine', tool: 'Android Bluetooth Low Energy API' },
+        { layer: 'Navigation', tool: 'Jetpack Navigation Compose 2.9.0' },
+        { layer: 'Permissions', tool: 'Accompanist Permissions 0.36.0' },
+        { layer: 'Build System', tool: 'Gradle 8.11.1 + AGP 8.8.2 (Target SDK 36)' },
+      ],
+      structure: `com.example.blueradar/
+├── data/
+│   ├── ble/                          # BLE implementation (BleManager, BleScanner, BluetoothStateReceiver)
+│   ├── local/                        # Room persistence (AppDatabase, DeviceDao, DeviceEntity)
+│   └── repository/                   # BleRepositoryImpl, DeviceRepositoryImpl
+├── domain/
+│   ├── model/                        # BleDevice data class, SignalCategory enum
+│   └── repository/                   # BleRepository, DeviceRepository interfaces
+├── di/                               # Hilt dependency injection modules (AppModule, BleModule)
+├── util/                             # Log-Distance RSSI model, SystemSettingsHelper
+└── ui/
+    ├── navigation/                   # AppNavHost (5 routes), Screen sealed class
+    ├── screen/
+    │   ├── dashboard/                # Real-time scanner, device cards, filters & search
+    │   ├── radar/                    # 360° Canvas-based radar proximity visualizer
+    │   ├── history/                  # Persistent database logs, CSV & JSON data export
+    │   ├── detail/                   # Single device telemetry & signal history graph
+    │   └── splash/                   # App initialization & permission readiness
+    ├── components/                   # BlueRadarAppBar, BottomNavBar, SystemStatusActions
+    └── theme/                        # Material3 Color, Typography, and Theme system`,
+      routes: [
+        {
+          category: 'Jetpack Compose Screens',
+          headers: ['Screen', 'Route', 'Key Capabilities'],
+          rows: [
+            ['DashboardScreen', 'Screen.Dashboard', 'Real-time BLE scanner (auto-refresh 300ms), search by Name/MAC, RSSI range slider (-100 to -30 dBm), signal badges'],
+            ['RadarScreen', 'Screen.Radar', '360° Canvas radar visualizer with continuous rotating sweep cone, concentric distance rings (5m, 10m, 15m, 20m), range filters'],
+            ['HistoryScreen', 'Screen.History', 'Room DB persistent device logs, first/last seen timestamps, scan frequency counter, CSV & JSON export with preview'],
+            ['DeviceDetailScreen', 'Screen.Detail', 'Target device real-time RSSI monitoring graph, connection stability indicator, re-track shortcut'],
+            ['SplashScreen', 'Screen.Splash', 'App startup flow with Bluetooth adapter check & runtime permissions rationale'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Field Operator / Scanner', code: 'mobile_user', capabilities: 'Scan nearby BLE peripherals, monitor real-time RSSI signal strengths, track targets on 360° radar, export session history to CSV/JSON.' },
+        { role: 'BLE Peripheral / Beacon', code: 'advertiser', capabilities: 'Broadcasts advertising packets (UUID, MAC address, TxPower) detected by scanner engine.' }
+      ],
+      colors: [
+        { token: 'radar-cyan', hex: '#00E5FF', usage: 'Radar sweep line, live tracking blips, and active scanner state' },
+        { token: 'signal-green', hex: '#22C55E', usage: 'Strong signal indicator (>= -60 dBm, distance < 1m)' },
+        { token: 'signal-amber', hex: '#F59E0B', usage: 'Moderate signal indicator (-60 to -75 dBm, distance 1-5m)' },
+        { token: 'signal-red', hex: '#EF4444', usage: 'Weak signal indicator (< -75 dBm, distance > 5m)' },
+        { token: 'dark-surface', hex: '#0F172A', usage: 'Radar dark viewport background and elevation cards' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Android Studio (Ladybug / Meerkat recommended), JDK 11+, and an Android 8.0+ (API 26+) physical device with Bluetooth enabled.'
+        },
+        {
+          title: 'Clone & Build',
+          code: `# Clone repository
+git clone https://github.com/tetraxion/blueradar_kotlin.git
+cd blueradar_kotlin
+
+# Build debug APK
+./gradlew assembleDebug
+
+# Output APK location:
+# app/build/outputs/apk/debug/app-debug.apk`
+        },
+        {
+          title: 'Install to Physical Device',
+          code: `# Ensure device connected via adb
+adb devices
+
+# Install debug build directly
+./gradlew installDebug`
+        }
+      ]
+    }
+  },
   {
     slug: 'velostock',
     title: 'VeloStock — Frontend',

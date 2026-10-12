@@ -226,17 +226,19 @@ export function AboutSection() {
                 <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700/60 bg-white/60 dark:bg-slate-900/40 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
                     <div className="overflow-x-auto w-full flex justify-center py-2">
                         <div className="min-w-[700px] md:min-w-0 md:w-full flex justify-center select-none text-slate-800 dark:text-slate-200">
-                            <GitHubCalendar 
-                                username="tetraxion"
-                                blockSize={11}
-                                blockMargin={4}
-                                fontSize={12}
-                                colorScheme={colorScheme}
-                                theme={{
-                                    light: ['#f1f5f9', '#bbf7d0', '#4ade80', '#22c55e', '#15803d'],
-                                    dark: ['#1e293b', '#064e3b', '#047857', '#10b981', '#34d399']
-                                }}
-                            />
+                            {mounted && (
+                                <GitHubCalendar 
+                                    username="tetraxion"
+                                    blockSize={11}
+                                    blockMargin={4}
+                                    fontSize={12}
+                                    colorScheme={colorScheme}
+                                    theme={{
+                                        light: ['#f1f5f9', '#bbf7d0', '#4ade80', '#22c55e', '#15803d'],
+                                        dark: ['#1e293b', '#064e3b', '#047857', '#10b981', '#34d399']
+                                    }}
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

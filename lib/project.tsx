@@ -38,6 +38,10 @@ import {
   SiBluetooth,
   SiSqlite,
   SiGradle,
+  SiShadcnui,
+  SiZod,
+  SiGin,
+  SiMinio,
 } from "react-icons/si";
 
 export type ProjectCategory = 'All' | 'Mobile' | 'Web' | 'Backend' | 'IoT' | 'AI';
@@ -76,6 +80,435 @@ export interface ProjectType {
 }
 
 export const projects: ProjectType[] = [
+  {
+    slug: 'simrs-spkd-dashboard',
+    title: 'SIMRS SPKD — Hospital Dashboard (Frontend)',
+    description: 'The staff-facing web client of an integrated Hospital Information Management System, built with Next.js 16 (App Router), React 19, and strict TypeScript. It covers the whole care chain — self-service kiosk, queueing, registration, encounters, clinical records, laboratory, radiology, operating theatre, pharmacy, beds, and billing — behind a permission-aware shell that renders a different landing dashboard for each of the nine staff roles. Because it handles patient medical data, every screen is assembled from shadcn primitives on theme tokens only, validated with Zod against the OpenAPI contract, and readable in light mode, dark mode, and on printed documents.',
+    image: '/projects/simrs_spkd.webp',
+    category: 'Web',
+    tech: [
+      <SiNextdotjs key="nextjs" />,
+      <SiReact key="react" />,
+      <SiTypescript key="typescript" />,
+      <SiTailwindcss key="tailwind" />,
+      <SiShadcnui key="shadcn" />,
+      <SiZod key="zod" />,
+      <SiAxios key="axios" />,
+      <SiDocker key="docker" />,
+    ],
+    link: '/projects/simrs-spkd-dashboard',
+    details: {
+      techStack: [
+        { layer: 'Framework', tool: 'Next.js 16.4 (App Router + Server Components)' },
+        { layer: 'UI Library', tool: 'React 19.3 with strict TypeScript 5' },
+        { layer: 'Styling', tool: 'Tailwind CSS v4 + tw-animate-css' },
+        { layer: 'Component System', tool: 'shadcn/ui style base-vega on @base-ui/react' },
+        { layer: 'Icons', tool: 'Remix Icon (@remixicon/react) only' },
+        { layer: 'Charts', tool: 'Recharts 3.8 wrapped in the shadcn ChartContainer' },
+        { layer: 'Validation', tool: 'Zod v4, mirrored from swagger.yaml limits' },
+        { layer: 'HTTP Client', tool: 'Axios — a single instance with an envelope interceptor' },
+        { layer: 'Real-time', tool: 'Centrifuge 5 (WebSocket) for queue and order events' },
+        { layer: 'Date & Time', tool: 'Day.js pinned to the hospital time zone' },
+        { layer: 'Scheduling UI', tool: 'React Big Calendar (practitioner practice sessions)' },
+        { layer: 'Theming', tool: 'next-themes — light, dark, and a forced-light print theme' },
+        { layer: 'Quality Gates', tool: 'ESLint 9, Prettier + prettier-plugin-tailwindcss, Husky, Commitlint' },
+        { layer: 'Package Manager', tool: 'pnpm 12 (the only accepted lockfile)' },
+        { layer: 'Containerization', tool: 'Docker multi-stage — non-root, read-only rootfs' },
+      ],
+      structure: `simrs-dashboard-client/
+├── app/
+│   ├── (auth)/login/                  # Staff sign-in, the only public page
+│   ├── (apm)/apm/                     # Anjungan Pendaftaran Mandiri — patient self-service kiosk
+│   ├── (vwr)/display/                 # Waiting-room screens: desk calls and clinic board
+│   └── (dashboard)/                   # Authenticated area — 48 route segments
+│       ├── _layouts/<role>/           # Nine role landing dashboards (doctor, nurse, cashier, …)
+│       ├── patients/ · encounters/    # Patient registry and the encounter workspace (triage → discharge)
+│       ├── queues/ · schedules/       # Ticketing desks, kiosk services, practice sessions
+│       ├── lab/ · radiology/          # Orders, sample collection, results, verified reports
+│       ├── surgery/                   # Operating-theatre board, WHO checklist, intra-op records
+│       ├── pharmacy/                  # Prescriptions, clinical review, dispensing, stock batches
+│       ├── billing/ · cashier/        # Bills, payments, receipts, tariff versions, cashier shifts
+│       └── users/ · roles/ · settings/# Accounts, permission matrix, settings, audit trail
+├── components/
+│   ├── ui/                            # shadcn primitives — the only source of UI elements
+│   └── *.tsx                          # Cross-page shells (sidebar, patient picker, print portal)
+├── lib/
+│   ├── api/<feature>.ts               # One typed module per backend feature (22 modules)
+│   ├── axios.ts · auth.ts             # Shared instance, envelope errors, token cookies
+│   └── body-map/ · wilayah.ts         # Anatomy map data and the Indonesian region dataset
+├── hooks/                             # Shared state hooks (useApi, useRealtime, useDoctorScope, …)
+├── config/env.ts                      # Zod-validated env vars — the only reader of process.env
+└── proxy.ts                           # Next.js 16 request layer: session gate + /api/* forwarding`,
+      routes: [
+        {
+          category: 'Public & Device Routes',
+          headers: ['Route', 'Screen', 'Key Capabilities'],
+          rows: [
+            ['/login', 'Staff sign-in', 'Username + password, forced password change on first login, shortcuts to the public device screens'],
+            ['/apm', 'Self-service kiosk', 'Device login, on-screen keyboard, booking check-in, walk-in registration for returning patients, printed ticket'],
+            ['/display', 'Queue display (desk)', 'Called-ticket hero, recent calls, next-up strip, screen setup and wake-lock for an always-on TV'],
+            ['/display/poli', 'Queue display (clinic)', 'Per-clinic board driven by the same real-time channel'],
+          ]
+        },
+        {
+          category: 'Clinical Service Routes',
+          headers: ['Route', 'Screen', 'Key Capabilities'],
+          rows: [
+            ['/', 'Role dashboard', 'Nine layouts picked from the signed-in role: queue, stat cards, charts, licence reminders, rejected-prescription alerts'],
+            ['/patients · /patients/[id]', 'Patient registry', 'Search, masked NIK in lists, region-aware address form, allergy panel, encounter history'],
+            ['/encounters · /encounters/[id]', 'Encounter workspace', 'Registration dialog, ED triage, vitals, 28-section physical exam with body map, SOAP notes, ICD-10 diagnoses, consent and refusal letters, discharge checklist, medical resume'],
+            ['/queues/operate', 'Desk console', 'Call next, recall, skip, complete, attach a patient to a ticket, change priority'],
+            ['/queues/tickets · /desks · /services', 'Queue administration', 'Ticket log with event history, desk-to-service mapping, service master'],
+            ['/schedules/availability · /sessions', 'Practice schedules', 'Availability board per clinic and date, calendar of sessions, per-date cancellations'],
+          ]
+        },
+        {
+          category: 'Ancillary, Surgery & Pharmacy Routes',
+          headers: ['Route', 'Screen', 'Key Capabilities'],
+          rows: [
+            ['/lab/orders · /lab/tests', 'Laboratory', 'Order from an encounter, sample collection, result entry, critical-value read-back, analyst verification, test master'],
+            ['/radiology/orders · /exams', 'Radiology', 'Order and schedule, record the examination, radiologist reading, verification, exam master'],
+            ['/surgery · /surgery/[id]', 'Operating theatre', 'Case board, request and scheduling, consent and site marking, WHO safety checklist per phase, intra-op steps, operative and anaesthesia records, material usage'],
+            ['/pharmacy/prescriptions', 'Prescriptions', 'Prescribe against stock availability, printable prescription document, cancellation'],
+            ['/pharmacy/reviews · /reviews/[id]', 'Clinical review', 'Pharmacist worklist, allergy alert panel, review pipeline, dispensing dialog, batch traceability, medication labels'],
+            ['/pharmacy/stock · /medications', 'Stock & medication master', 'Batch balances, stock receipts, opname adjustments, unit pricing'],
+          ]
+        },
+        {
+          category: 'Finance, Facility & Administration Routes',
+          headers: ['Route', 'Screen', 'Key Capabilities'],
+          rows: [
+            ['/billing · /billing/[id]', 'Billing', 'Unbilled encounters, bill lines and reversals, finalize and reopen, payments, printable invoice and receipt'],
+            ['/cashier', 'Cashier shift', 'Open and close a shift, reconcile the drawer against recorded payments'],
+            ['/tariffs', 'Tariff master', 'Billing services, tariff versions with price preview, per-unit default services'],
+            ['/beds · /beds/census · /rooms', 'Facility', 'Bed list and detail, maintenance and housekeeping states, occupancy census per unit, rooms'],
+            ['/units · /practitioners', 'Organisation', 'Service units, practitioner profiles, STR/SIP licences, linked login accounts'],
+            ['/users · /roles', 'Access control', 'Accounts with activation and password reset, role builder, permission matrix'],
+            ['/clinical/icd10 · /settings · /audit-logs', 'Administration', 'ICD-10 master with CSV import, admin-editable settings with change history, audit trail with hash-chain verification'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Administrator', code: 'admin', capabilities: 'Analytics dashboard, user and role management, settings, ICD-10 master, audit trail with hash-chain verification.' },
+        { role: 'Admisi / Registration', code: 'registrar', capabilities: 'Patient registry, encounter registration and check-in, coverage, queue desks and tickets.' },
+        { role: 'Dokter', code: 'doctor', capabilities: 'Own patient queue, clinical workspace: vitals, physical exam, SOAP notes, diagnoses, orders, prescriptions, signed medical resume.' },
+        { role: 'Perawat', code: 'nurse', capabilities: 'Triage, vitals, nursing notes, bed transfers, discharge checklist, intra-operative nursing records.' },
+        { role: 'Apoteker', code: 'pharmacist', capabilities: 'Prescription worklist, clinical review with allergy alerts, dispensing, stock batches and opname.' },
+        { role: 'Kasir', code: 'cashier', capabilities: 'Cashier shift panel, bill payments and refunds, receipts, payment voiding.' },
+        { role: 'Analis Laboratorium', code: 'lab_analyst', capabilities: 'Lab order queue, sample collection, result entry, critical-value read-back.' },
+        { role: 'Radiografer', code: 'radiographer', capabilities: 'Radiology order queue, examination execution, image handover for reading.' },
+        { role: 'Koordinator Kamar Operasi', code: 'surgery_coordinator', capabilities: 'Operating-theatre board, scheduling, room and procedure master, clinical privileges.' },
+        { role: 'Anjungan Mandiri (device)', code: 'kiosk', capabilities: 'Kiosk account with narrow permissions: issue tickets, look up today\'s booking, self check-in. Cannot read other patients.' },
+        { role: 'Monitor Antrean (device)', code: 'queue_display', capabilities: 'Display account that may only read the queue board channel for the waiting-room TV.' }
+      ],
+      colors: [
+        { token: 'brand-navy', hex: '#012E5E', usage: 'Sidebar surface in both themes and the logo lettering behind it' },
+        { token: 'brand-teal', hex: '#019A96', usage: 'Brand accent taken from the logo artwork; login gradient and marks' },
+        { token: 'primary', hex: '#00837F', usage: 'Primary buttons and links in light mode — darkened to reach 4.6:1 on white' },
+        { token: 'primary-dark', hex: '#1BBDB7', usage: 'Primary in dark mode, paired with near-black text instead of white' },
+        { token: 'destructive', hex: '#D92D33', usage: 'Irreversible actions: cancel encounter, deactivate user, void payment' },
+        { token: 'background', hex: '#F4F6FA', usage: 'Page background behind white cards; #0B1522 in dark mode' },
+        { token: 'chart-1', hex: '#1257D6', usage: 'First chart series; all series come from --chart-1 … --chart-5, never raw Tailwind colors' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Node.js 24 LTS and **pnpm 12** (enabled through corepack — npm and yarn lockfiles are rejected). The dashboard is API-driven, so a reachable SIMRS API is required.'
+        },
+        {
+          title: 'Setup & Installation',
+          code: `# Install dependencies (pnpm only)
+corepack enable
+pnpm install
+
+# Point the client at the API
+cp .env.example .env
+# API_URL is read at runtime by proxy.ts; NEXT_PUBLIC_* values are inlined at build time.`
+        },
+        {
+          title: 'Development & Quality Commands',
+          steps: [
+            { name: 'Run Dev Server', cmd: 'pnpm dev' },
+            { name: 'Build Production', cmd: 'pnpm build' },
+            { name: 'Type Check', cmd: 'pnpm exec tsc --noEmit' },
+            { name: 'Lint', cmd: 'pnpm lint' },
+            { name: 'Format Changed Files', cmd: 'pnpm exec prettier --write .' },
+            { name: 'Add a shadcn Component', cmd: 'pnpm dlx shadcn@latest add <name>' }
+          ]
+        },
+        {
+          title: 'Docker Deployment',
+          description: 'The backend address is a runtime variable, so one image serves every environment.',
+          code: `# Build the image
+docker build -t simrs-dashboard .
+
+# Run it, pointing at the API
+docker run -d --name simrs-dashboard -p 3000:3000 \\
+  -e API_URL=https://api.example.id simrs-dashboard
+
+# Or with the hardened production stack (non-root, read-only rootfs, loopback bind)
+docker compose -f docker-compose.prod.yml up -d --build`
+        }
+      ]
+    }
+  },
+  {
+    slug: 'simrs-spkd-server',
+    title: 'SIMRS SPKD — Backend (Golang)',
+    description: 'A hospital information system API written in Go with Gin and pgx/v5, shaped around Indonesian Ministry of Health regulations (Permenkes 24/2022 on medical records, 72/2016 on pharmacy, 290/2008 on informed consent). Twenty-four self-contained features — encounters, clinical records, laboratory, radiology, the operating theatre, the pharmacy stock ledger, and billing — expose 191 documented endpoints guarded by 71 permissions and 14 seeded roles. Clinical and financial data is append-only and enforced by database triggers rather than by the application alone, so a correction is a new superseding row and never an UPDATE, and every route is recorded in a hash-chained audit trail.',
+    image: '/projects/simrs_server.webp',
+    category: 'Backend',
+    tech: [
+      <SiGo key="go" />,
+      <SiGin key="gin" />,
+      <SiPostgresql key="postgres" />,
+      <SiRedis key="redis" />,
+      <SiMinio key="minio" />,
+      <SiSwagger key="swagger" />,
+      <SiDocker key="docker" />,
+    ],
+    link: '/projects/simrs-spkd-server',
+    details: {
+      techStack: [
+        { layer: 'Language', tool: 'Go 1.27' },
+        { layer: 'Router / HTTP', tool: 'Gin 1.12' },
+        { layer: 'Database Client', tool: 'pgx/v5 connection pool with WithTx helpers' },
+        { layer: 'Database', tool: 'PostgreSQL 16 — one schema per feature, singular table names' },
+        { layer: 'Migrations', tool: 'golang-migrate v4, embedded — 35 tested up/down pairs' },
+        { layer: 'Authentication', tool: 'JWT (golang-jwt/v5) with refresh rotation + bcrypt' },
+        { layer: 'Authorization', tool: 'RequirePermission middleware — 71 permissions across 14 roles' },
+        { layer: 'Cache & Rate Limit', tool: 'Redis 9 (go-redis), login attempt lockouts' },
+        { layer: 'Object Storage', tool: 'MinIO — signed, short-lived document download URLs' },
+        { layer: 'Real-time', tool: 'Centrifugo v6 — events emitted from triggers, ID-only payloads' },
+        { layer: 'API Documentation', tool: 'swaggo annotations rendered through Scalar API Reference' },
+        { layer: 'Audit Trail', tool: 'Hash-chained audit log with an integrity verification endpoint' },
+        { layer: 'Monitoring', tool: 'Sentry + structured logging (IDs only, never PII)' },
+        { layer: 'Testing', tool: 'testify + Testcontainers — 151 test files, unit and `integration` tags' },
+        { layer: 'Containerization', tool: 'Docker Compose — API, PostgreSQL, Redis, MinIO, Centrifugo' }
+      ],
+      structure: `simrs-server/
+├── cmd/server/
+│   ├── main.go · router.go            # Wiring: the only place allowed to import many features
+│   ├── audit_rules.go                 # 217 audit rules — each route names its action and patient scope
+│   ├── surgery_wiring.go              # Cross-feature adapter: surgery issues stock through pharmacy
+│   └── realtime_wiring.go             # Centrifugo channel catalog and publication switch
+├── internal/features/<feature>/       # 24 packages; a feature never imports another feature
+│   ├── <f>.domain.go                  # Types, pure business rules, repo interfaces, error codes
+│   ├── <f>.dto.go                     # Request/response types, binding tags, response mappers
+│   ├── <f>.service.go                 # Orchestration and rule validation — no SQL, no gin.Context
+│   ├── <f>.repository.go              # SQL, transactions, row locks (FOR UPDATE / SKIP LOCKED)
+│   ├── <f>.handler.go                 # Bind, read principal, write envelope, swagger annotations
+│   └── <f>.route.go                   # Route table — every route carries RequirePermission
+├── internal/pkg/                      # Cross-feature infrastructure, no domain logic
+│   ├── middleware/ · access/ · token/ # Authenticate, permission guard, JWT issue and rotation
+│   ├── auditlog/                      # Hash-chained trail written by the global middleware
+│   ├── database/ · settings/ · cache/ # pgx pool and WithTx, admin-editable settings, Redis
+│   ├── realtime/ · storage/           # Centrifugo emitter, MinIO object storage
+│   └── apperror/ · response/          # FEATURE_REASON codes, { data, meta, error } envelope
+├── migrations/                        # 35 ordered up/down pairs, embedded via golang-migrate
+├── docs/                              # swaggo output (docs.go, swagger.json, swagger.yaml)
+└── deploy/centrifugo/config.json      # Real-time namespaces, one per channel rule`,
+      routes: [
+        {
+          category: 'Authentication & Access Control',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['POST', '/api/v1/auth/login', 'Authenticate and issue an access + refresh token pair', 'Public'],
+            ['POST', '/api/v1/auth/refresh', 'Rotate the refresh token', 'Public'],
+            ['GET', '/api/v1/auth/me', 'Profile, roles, and effective permissions of the session', 'Bearer Token'],
+            ['POST', '/api/v1/auth/change-password', 'Change own password (forced on a seeded account)', 'Bearer Token'],
+            ['GET/POST', '/api/v1/users', 'List and create staff accounts', 'user:manage'],
+            ['POST', '/api/v1/users/{id}/reset-password', 'Reset a password and flag a forced change', 'user:manage'],
+            ['GET/POST', '/api/v1/roles', 'List roles with their permissions, create a role', 'role:manage'],
+            ['PUT', '/api/v1/roles/{id}/permissions', 'Replace the whole permission set of a role', 'role:manage'],
+            ['GET', '/api/v1/audit-logs', 'Read the audit trail', 'audit:read'],
+            ['GET', '/api/v1/audit-logs/verify', 'Verify the integrity of the audit hash-chain', 'audit:read'],
+          ]
+        },
+        {
+          category: 'Patient & Encounter',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET/POST', '/api/v1/patients', 'Patient registry — list with masked NIK, register a new patient', 'patient:read / patient:write'],
+            ['GET/POST', '/api/v1/encounters', 'Daily queue of encounters; register outpatient, ED, or inpatient', 'encounter:read / encounter:write'],
+            ['POST', '/api/v1/encounters/{id}/check-in', 'Check in a booked outpatient', 'encounter:write'],
+            ['POST', '/api/v1/encounters/{id}/triage', 'ED triage level and arrival assessment', 'encounter:care'],
+            ['POST', '/api/v1/encounters/{id}/start', 'Start the service (emergency-first rule applies)', 'encounter:care'],
+            ['POST', '/api/v1/encounters/{id}/transfer', 'Move an inpatient between rooms or beds', 'encounter:care'],
+            ['PUT', '/api/v1/encounters/{id}/coverage', 'Change the payer (self-pay, BPJS, insurance)', 'encounter:write'],
+            ['POST', '/api/v1/encounters/kiosk/check-in', 'Kiosk: check in against today\'s booking', 'encounter:kiosk'],
+            ['POST', '/api/v1/encounters/kiosk/register', 'Kiosk: self-registration for a returning patient', 'encounter:kiosk'],
+            ['GET/POST', '/api/v1/patients/{id}/allergies', 'Patient allergies, including an explicit "no known allergy"', 'allergy:read / allergy:write'],
+          ]
+        },
+        {
+          category: 'Clinical Records (append-only)',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['POST', '/api/v1/clinical/encounters/{id}/vitals', 'Record vital signs', 'clinical:write'],
+            ['POST', '/api/v1/clinical/encounters/{id}/physical-exams', 'Physical assessment across 28 sections with a body map', 'clinical:examine'],
+            ['POST', '/api/v1/clinical/encounters/{id}/notes', 'Write a SOAP progress note (CPPT)', 'clinical:write'],
+            ['POST', '/api/v1/clinical/notes/{id}/amend', 'Correct a note — a new superseding row, never an edit', 'clinical:write'],
+            ['POST', '/api/v1/clinical/notes/{id}/verify', 'Verification by the attending physician (DPJP)', 'clinical:sign'],
+            ['POST', '/api/v1/clinical/encounters/{id}/diagnoses', 'Record an ICD-10 diagnosis', 'clinical:diagnose'],
+            ['POST', '/api/v1/clinical/encounters/{id}/resume/sign', 'Sign the medical resume (identity copied at signing time)', 'clinical:sign'],
+            ['POST', '/api/v1/clinical/icd10/import', 'Import the ICD-10 master from a CSV file', 'clinical:manage'],
+            ['POST', '/api/v1/documents', 'Upload a document to object storage', 'document:write'],
+            ['GET', '/api/v1/documents/{id}/download-url', 'Short-lived signed download URL', 'document:read'],
+          ]
+        },
+        {
+          category: 'Queue & Scheduling',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET/POST', '/api/v1/queues/services', 'Queue service master (prefix, quota, clinic)', 'queue:read / queue:manage'],
+            ['POST', '/api/v1/queues/desks/{id}/call-next', 'Call the next ticket to a desk', 'queue:operate'],
+            ['POST', '/api/v1/queues/tickets/{id}/recall', 'Announce a ticket again', 'queue:operate'],
+            ['POST', '/api/v1/queues/tickets/{id}/skip', 'Skip a ticket when the patient is absent', 'queue:operate'],
+            ['PUT', '/api/v1/queues/tickets/{id}/priority', 'Raise priority (elderly, disability, emergency)', 'queue:operate'],
+            ['POST', '/api/v1/queues/kiosk/tickets', 'Issue a ticket from the self-service kiosk', 'queue:kiosk'],
+            ['GET', '/api/v1/queues/display', 'Board content for the waiting-room screen', 'queue:display'],
+            ['GET', '/api/v1/schedules/availability', 'Doctors practising in a clinic on a given date', 'schedule:read'],
+            ['POST', '/api/v1/schedules/sessions/{id}/cancellations', 'Cancel a practice session on one date', 'schedule:manage'],
+          ]
+        },
+        {
+          category: 'Laboratory & Radiology',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET/POST', '/api/v1/lab/orders', 'Lab order queue; create an order from an encounter', 'lab:read / lab:order'],
+            ['POST', '/api/v1/lab/orders/{id}/collect', 'Record sample collection', 'lab:process'],
+            ['PUT', '/api/v1/lab/orders/{id}/results', 'Enter results against the test reference range', 'lab:process'],
+            ['POST', '/api/v1/lab/orders/{id}/acknowledge-critical', 'Critical-value read-back confirmation', 'lab:process'],
+            ['POST', '/api/v1/lab/orders/{id}/verify', 'Verify and release the result', 'lab:verify'],
+            ['GET/POST', '/api/v1/radiology/orders', 'Radiology order queue; create an order', 'radiology:read / radiology:order'],
+            ['POST', '/api/v1/radiology/orders/{id}/perform', 'Record that the examination was performed', 'radiology:process'],
+            ['PUT', '/api/v1/radiology/orders/{id}/reports', 'Submit the radiologist reading', 'radiology:report'],
+            ['POST', '/api/v1/radiology/orders/{id}/verify', 'Verify and release the reading', 'radiology:verify'],
+          ]
+        },
+        {
+          category: 'Pharmacy (stock ledger)',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET/POST', '/api/v1/pharmacy/medications', 'Medication master with unit pricing', 'pharmacy:read / pharmacy:manage'],
+            ['GET', '/api/v1/pharmacy/stock', 'Stock summary per medication', 'pharmacy:read'],
+            ['GET', '/api/v1/pharmacy/stock/batches', 'Batches and balances of one medication', 'pharmacy:read'],
+            ['POST', '/api/v1/pharmacy/stock/receipts', 'Receive stock into a batch', 'pharmacy:manage'],
+            ['POST', '/api/v1/pharmacy/stock/adjustments', 'Stock-take correction as a ledger entry', 'pharmacy:manage'],
+            ['POST', '/api/v1/pharmacy/prescriptions', 'Prescribe — prescriber identity is copied into the document', 'pharmacy:prescribe'],
+            ['POST', '/api/v1/pharmacy/prescriptions/{id}/review', 'Pharmacist clinical review (accept, adjust, reject)', 'pharmacy:review'],
+            ['POST', '/api/v1/pharmacy/prescriptions/{id}/dispense', 'Dispense and consume batches from the ledger', 'pharmacy:dispense'],
+          ]
+        },
+        {
+          category: 'Operating Theatre',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET', '/api/v1/surgery/board', 'Operating-theatre schedule board', 'surgery:read'],
+            ['POST', '/api/v1/surgery/cases', 'Request an operation', 'surgery:request'],
+            ['POST', '/api/v1/surgery/cases/{id}/schedule', 'Schedule into a room and time slot (clash-excluded in the DB)', 'surgery:schedule'],
+            ['POST', '/api/v1/surgery/cases/{id}/consents', 'Record informed consent for the procedure', 'surgery:preop'],
+            ['POST', '/api/v1/surgery/cases/{id}/site-marking', 'Record surgical site marking', 'surgery:preop'],
+            ['POST', '/api/v1/surgery/cases/{id}/enter', 'Receive the patient into the operating room', 'surgery:receive'],
+            ['POST', '/api/v1/surgery/cases/{id}/checklists/{phase}', 'WHO surgical safety checklist per phase', 'surgery:checklist'],
+            ['POST', '/api/v1/surgery/cases/{id}/operative-report', 'Operative report — only that case\'s operator may write it', 'surgery:report'],
+            ['POST', '/api/v1/surgery/cases/{id}/materials', 'Consume material from central pharmacy stock', 'surgery:nursing'],
+            ['GET/POST', '/api/v1/surgery/privileges', 'Clinical privileges: which procedures a surgeon may perform', 'surgery:read / surgery:manage'],
+          ]
+        },
+        {
+          category: 'Billing, Cashier & Platform',
+          headers: ['Method', 'Endpoint', 'Description', 'Permission'],
+          rows: [
+            ['GET', '/api/v1/billing/tariffs/resolve', 'Price preview for a service on a given date', 'billing:read'],
+            ['POST', '/api/v1/billing/tariffs', 'Publish a tariff version with a validity window', 'billing:tariff'],
+            ['POST', '/api/v1/billing/encounters/{id}/bill/sync', 'Pull charges from pharmacy, lab, radiology, and surgery', 'billing:charge'],
+            ['POST', '/api/v1/billing/bill-lines/{id}/reverse', 'Reverse a charge with a reversal line, never a delete', 'billing:charge'],
+            ['POST', '/api/v1/billing/bills/{id}/finalize', 'Finalize the bill (totals recomputed from lines)', 'billing:finalize'],
+            ['POST', '/api/v1/billing/cashier-shifts', 'Open a cashier shift', 'billing:pay'],
+            ['POST', '/api/v1/billing/bills/{id}/payments', 'Take a payment and issue a receipt', 'billing:pay'],
+            ['POST', '/api/v1/billing/payments/{id}/void', 'Void a payment within the open shift', 'billing:void'],
+            ['GET', '/api/v1/analytics/admin/dashboard', 'Aggregated figures for the administrator dashboard', 'analytics:read'],
+            ['POST', '/api/v1/realtime/subscription-token', 'Per-channel subscription token for Centrifugo', 'Bearer Token'],
+            ['GET', '/healthz · /readyz', 'Liveness and readiness probes for the load balancer', 'Public'],
+          ]
+        }
+      ],
+      roles: [
+        { role: 'Administrator', code: 'admin', capabilities: 'Platform owner: accounts, roles and the permission matrix, settings, ICD-10 master, analytics, audit trail verification.' },
+        { role: 'Admisi', code: 'registrar', capabilities: 'Patient registry and encounter registration, check-in, coverage, queue desks and tickets.' },
+        { role: 'Dokter', code: 'doctor', capabilities: 'Clinical writing: vitals, physical exam, SOAP notes, ICD-10 diagnoses, orders, prescriptions. Signing and verification only for the encounter where they are DPJP.' },
+        { role: 'Perawat', code: 'nurse', capabilities: 'Triage, vitals, nursing documentation, bed transfers and housekeeping states, intra-operative nursing records.' },
+        { role: 'Apoteker', code: 'pharmacist', capabilities: 'Prescription review, dispensing against batches, stock receipts and stock-take corrections, medication master.' },
+        { role: 'Kasir', code: 'cashier', capabilities: 'Cashier shifts, payments and refunds, receipts; voiding stays inside the open shift.' },
+        { role: 'Koder / Casemix', code: 'coder', capabilities: 'Reads clinical records for coding and claim preparation without clinical write access.' },
+        { role: 'Analis Laboratorium', code: 'lab_analyst', capabilities: 'Sample collection, result entry, critical-value read-back.' },
+        { role: 'Dokter Patologi Klinik', code: 'pathologist', capabilities: 'Verifies and releases laboratory results.' },
+        { role: 'Radiografer', code: 'radiographer', capabilities: 'Performs radiology examinations and hands images over for reading.' },
+        { role: 'Dokter Spesialis Radiologi', code: 'radiologist', capabilities: 'Writes and verifies radiology readings.' },
+        { role: 'Koordinator Kamar Operasi', code: 'surgery_coordinator', capabilities: 'Operating-theatre scheduling, room and procedure master, granting and revoking clinical privileges.' },
+        { role: 'Anjungan Mandiri (device)', code: 'kiosk', capabilities: 'Device account with deliberately narrow permissions: issue tickets, look up a booking, self check-in. Cannot read other patients or encounters.' },
+        { role: 'Monitor Antrean (device)', code: 'queue_display', capabilities: 'Device account limited to reading the queue board for the waiting-room screen.' }
+      ],
+      colors: [
+        { token: 'go-cyan', hex: '#00ADD8', usage: 'Go 1.27 runtime badge' },
+        { token: 'postgres-blue', hex: '#336791', usage: 'PostgreSQL 16 — one schema per feature, integrity in the database' },
+        { token: 'redis-crimson', hex: '#DC382D', usage: 'Redis cache, rate limiting, and login attempt lockouts' },
+        { token: 'minio-red', hex: '#C72E49', usage: 'MinIO object storage for signed clinical documents' },
+        { token: 'openapi-green', hex: '#85EA2D', usage: 'swaggo / OpenAPI contract rendered through Scalar' },
+        { token: 'docker-blue', hex: '#2496ED', usage: 'Docker Compose stack: API, PostgreSQL, Redis, MinIO, Centrifugo' },
+        { token: 'sentry-purple', hex: '#362D59', usage: 'Sentry error monitoring (IDs only, never patient data)' }
+      ],
+      instructions: [
+        {
+          title: 'Prerequisites',
+          description: 'Go `1.27+` and Docker for the infrastructure (PostgreSQL 16, Redis, MinIO, and Centrifugo for real-time).'
+        },
+        {
+          title: 'Infrastructure & Migrations',
+          description: 'Dependencies run in containers while the API runs on the host, so a rebuild is just a restart.',
+          code: `# Configuration
+cp .env.example .env
+
+# PostgreSQL, MinIO, and Redis
+make deps
+
+# Apply the 35 embedded migrations
+make migrate-up
+
+# Run the API on the host (go run)
+make run
+
+# Optional: Centrifugo for real-time channels
+make realtime-up`
+        },
+        {
+          title: 'API Documentation',
+          description: 'Swagger annotations are generated, never hand-edited. With the server running, the reference is at `/scalar` and the raw spec at `/swagger/doc.json`.',
+          code: `# Regenerate docs/docs.go, swagger.json, swagger.yaml
+make swag`
+        },
+        {
+          title: 'Definition of Done',
+          steps: [
+            { name: 'Format', cmd: 'gofmt -l cmd internal' },
+            { name: 'Static Analysis', cmd: 'go vet ./... && go vet -tags=integration ./...' },
+            { name: 'Unit Tests', cmd: 'go test -race -count=1 ./...' },
+            { name: 'Coverage', cmd: 'make cover' },
+            { name: 'Regenerate Swagger', cmd: 'make swag' }
+          ]
+        },
+        {
+          title: 'Integration Tests',
+          description: 'Repository tests run against a real PostgreSQL. Run the packages you changed and the packages that depend on them — changing pharmacy also means running billing, surgery, encounter, rbac, and cmd/server.',
+          code: `set -a; . ./.env; set +a
+TEST_DATABASE_URL="$DATABASE_URL" \\
+  go test -p 2 -race -count=1 -tags integration ./internal/features/<feature>`
+        }
+      ]
+    }
+  },
   {
     slug: 'blueradar',
     title: 'BlueRadar — BLE Proximity Tracker',

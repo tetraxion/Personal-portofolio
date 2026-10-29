@@ -333,7 +333,7 @@ export const HomeSection = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
                         { value: `${projects.length}+`, label: "Projects Built", color: "text-blue-500" },
-                        { value: "5+", label: "Work Experience", color: "text-emerald-500" },
+                        { value: "6+", label: "Work Experience", color: "text-emerald-500" },
                         { value: `${totalSkillsCount}+`, label: "Technologies", color: "text-orange-500" },
                         { value: `${certificates.length}+`, label: "Certificates", color: "text-amber-500" },
                     ].map((stat, idx) => (

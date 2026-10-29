@@ -58,6 +58,19 @@ export function AboutSection() {
     // Work Experience Data
     const experiences = [
         {
+            title: "Full-stack Web Developer",
+            company: "PT Sistem Pelayanan Kesehatan dan Data",
+            logo: "/image/spkd.webp",
+            date: "Sep 2025 - Present",
+            type: "Full-time",
+            bullets: [
+                "Building SIMRS SPKD, an integrated Hospital Information Management System, with Next.js 16, React 19 and TypeScript on the frontend and Go (Gin) with PostgreSQL on the backend.",
+                "Delivered modules across the whole care chain: self-service kiosk, queueing, medical records, laboratory, radiology, operating theatre, pharmacy and billing.",
+                "Implemented role-based access control with 71 permissions across 14 roles, backed by a hash-chained audit trail on every transaction.",
+                "Shaped the system around Indonesian Ministry of Health regulations (Permenkes 24/2022, 72/2016), keeping clinical data append-only at the database level."
+            ],
+        },
+        {
             title: "Fullstack Web Developer",
             company: "Kementerian Pariwisata dan Ekonomi Kreatif RI",
             logo: "/projects/logo_kemenpar.png",
@@ -153,6 +166,7 @@ export function AboutSection() {
 
     const badgeColor = (type: string) => {
         switch (type) {
+            case 'Full-time': return 'bg-violet-50 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-200 dark:border-violet-500/30';
             case 'Internship': return 'bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-500/30';
             case 'Freelance': return 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30';
             case 'Organization': return 'bg-slate-50 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-500/30';
